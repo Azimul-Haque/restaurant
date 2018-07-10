@@ -243,10 +243,10 @@
                 <ul class="sidebar-menu" data-widget="tree">
                     {{-- @each('adminlte::partials.menu-item', $adminlte->menu(), 'item') --}}
 
-                    <li class="header">Administration</li>
+                    <li class="header">User Management</li>
                     @permission('user-crud')
                     <li class="{{ Request::is('users') ? 'active' : '' }}">
-                        <a href="/users">
+                        <a href="{{ route('users.index') }}">
                             <i class="fa fa-fw fa-user"></i>
                             <span>Users</span>
                         </a>
@@ -268,26 +268,39 @@
                         </a>
                     </li>
                     @endpermission
-                    @permission('school-settings')
-                    <li class="header">Academic</li>
-                    <li class="{{ Request::is('settings') ? 'active' : '' }}">
-                        <a href="{{ route('settings.edit') }}">
-                            <i class="fa fa-fw fa-cogs"></i>
-                            <span>School Settings</span>
+                    @permission('receipt-crud')
+                    <li class="header">Restaurant</li>
+                    <li class="{{ Request::is('accounts') ? 'active' : '' }}">
+                        <a href="{{ route('receipts.accounts') }}">
+                            <i class="fa fa-fw fa-bar-chart "></i>
+                            <span>Accounts</span>
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('receipts') ? 'active' : '' }}">
+                        <a href="{{ route('receipts.index') }}">
+                            <i class="fa fa-fw fa-th-list"></i>
+                            <span>Receipts</span>
                         </a>
                     </li>
                     @endpermission
-                    @permission('student-crud')
-                    <li class="{{ Request::is('students') ? 'active' : '' }}">
-                        <a href="/students">
-                            <i class="fa fa-fw fa-users"></i>
-                            <span>Students</span>
-                        </a>
+                    @permission('commodity-crud')
+                    <li class="{{ Request::is('commodities') ? 'active menu-open' : '' }} {{ Request::is('categories') ? 'active menu-open' : '' }} treeview">
+                      <a href="#">
+                          <i class="fa fa-fw fa-shopping-basket"></i>
+                          <span>Commodity</span>
+                          <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                          </span>
+                      </a>
+                      <ul class="treeview-menu">
+                        <li class="{{ Request::is('commodities') ? 'active' : '' }}"><a href="{{ route('commodities.index') }}"><i class="fa fa-file-text-o"></i> Commodities</a></li>
+                        <li class="{{ Request::is('categories') ? 'active' : '' }}"><a href="{{ route('categories.index') }}"><i class="fa fa-tags"></i> Categories</a></li>
+                      </ul>
                     </li>
-                    <li class="{{ Request::is('students/class/*') ? 'active menu-open' : '' }} treeview">
+                    <li class="{{ Request::is('other/class/*') ? 'active menu-open' : '' }} treeview">
                       <a href="#">
                         <i class="fa fa-fw fa-users"></i>
-                        <span>Students</span>
+                        <span>other</span>
                         <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -296,11 +309,11 @@
                         {{-- classes will be dynamic after SCHOOL SETUP functionality --}}
                         {{-- classes will be dynamic after SCHOOL SETUP functionality --}}
                         {{-- classes will be dynamic after SCHOOL SETUP functionality --}}
-                        <li><a href="{{ route('students.class', 1) }}"><i class="fa fa-id-badge"></i> Class One</a></li>
-                        <li><a href="{{ route('students.class', 2) }}"><i class="fa fa-id-badge"></i> Class Two</a></li>
-                        <li><a href="{{ route('students.class', 3) }}"><i class="fa fa-id-badge"></i> Class Three</a></li>
-                        <li><a href="{{ route('students.class', 4) }}"><i class="fa fa-id-badge"></i> Class Four</a></li>
-                        <li><a href="{{ route('students.class', 5) }}"><i class="fa fa-id-badge"></i> Class Five</a></li>
+                        <li><a href=""><i class="fa fa-id-badge"></i> Class One</a></li>
+                        <li><a href=""><i class="fa fa-id-badge"></i> Class Two</a></li>
+                        <li><a href=""><i class="fa fa-id-badge"></i> Class Three</a></li>
+                        <li><a href=""><i class="fa fa-id-badge"></i> Class Four</a></li>
+                        <li><a href=""><i class="fa fa-id-badge"></i> Class Five</a></li>
                       </ul>
                     </li>                    
                     @endpermission

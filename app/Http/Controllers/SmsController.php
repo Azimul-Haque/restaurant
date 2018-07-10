@@ -8,7 +8,7 @@ use App\Student;
 use SoapClient;
 
 
-class StudentController extends Controller
+class SmsController extends Controller
 {
     public function index(Request $request)
     {
@@ -113,9 +113,9 @@ class StudentController extends Controller
         try{
             $soapClient = new SoapClient("https://api2.onnorokomSMS.com/sendSMS.asmx?wsdl");
             $paramArray = array(
-            'userName' => "01751398392",
-            'userPassword' => "OnnoRokomRocks.1992",
-        );
+                'userName' => "01751398392",
+                'userPassword' => "OnnoRokomRocks.1992",
+            );
             $value = $soapClient->__call("GetBalance", array($paramArray));
             $netBalance = floor($value->GetBalanceResult/0.60);
             echo 'Balance: '.$netBalance.'<br/>';

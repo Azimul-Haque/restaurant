@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Permission;
+use App\Role;
 
 class PermissionTableSeeder extends Seeder
 {
@@ -14,49 +15,46 @@ class PermissionTableSeeder extends Seeder
     {
         $permission = [
         	[
-        		'name' => 'role-list',
-        		'display_name' => 'Display Role Listing',
+        		'name' => 'user-crud',
+        		'display_name' => 'User CRUD',
         		'description' => 'See only Listing Of Role'
         	],
         	[
-        		'name' => 'role-create',
-        		'display_name' => 'Create Role',
+        		'name' => 'role-crud',
+        		'display_name' => 'Role CRUD',
         		'description' => 'Create New Role'
         	],
         	[
-        		'name' => 'role-edit',
-        		'display_name' => 'Edit Role',
-        		'description' => 'Edit Role'
+        		'name' => 'receipt-crud',
+        		'display_name' => 'Receipt CRUD',
+        		'description' => 'Receipt and Accounts Permission'
         	],
         	[
-        		'name' => 'role-delete',
-        		'display_name' => 'Delete Role',
-        		'description' => 'Delete Role'
-        	],
-        	[
-        		'name' => 'student-list',
-        		'display_name' => 'Display Student Listing',
-        		'description' => 'See only Listing Of Student'
-        	],
-        	[
-        		'name' => 'student-create',
-        		'display_name' => 'Create Student',
-        		'description' => 'Create New Student'
-        	],
-        	[
-        		'name' => 'student-edit',
-        		'display_name' => 'Edit Student',
-        		'description' => 'Edit Student'
-        	],
-        	[
-        		'name' => 'student-delete',
-        		'display_name' => 'Delete Student',
-        		'description' => 'Delete Student'
+        		'name' => 'commodity-crud',
+        		'display_name' => 'Commodity CRUD',
+        		'description' => 'Commodity Crud Permission'
         	]
         ];
 
         foreach ($permission as $key => $value) {
         	Permission::create($value);
+        }
+
+        $role = [
+          [
+            'name' => 'superadmin',
+            'display_name' => 'Super Admin',
+            'description' => 'Super Admin'
+          ],
+          [
+            'name' => 'manager',
+            'display_name' => 'Manager',
+            'description' => 'Manager'
+          ]
+        ];
+
+        foreach ($role as $key => $value) {
+          Role::create($value);
         }
     }
 }

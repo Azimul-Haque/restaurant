@@ -290,9 +290,10 @@ class ComposerStaticInit8e02009284f2782593670f742b824b20
     );
 
     public static $classMap = array (
+        'CreateCategoriesTable' => __DIR__ . '/../..' . '/database/migrations/2018_07_04_022445_create_categories_table.php',
+        'CreateCommoditiesTable' => __DIR__ . '/../..' . '/database/migrations/2018_07_04_021148_create_commodities_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
-        'CreateSettingsTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_30_233231_create_settings_table.php',
-        'CreateStudentsTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_23_235407_create_students_table.php',
+        'CreateReceiptsTable' => __DIR__ . '/../..' . '/database/migrations/2018_06_29_222649_create_receipts_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'EntrustSetupTables' => __DIR__ . '/../..' . '/database/migrations/2017_10_24_000257_entrust_setup_tables.php',

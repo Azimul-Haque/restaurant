@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'Easy School',
+    'title' => 'Restaurant',
 
     'title_prefix' => '',
 
@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Easy</b>School',
+    'logo' => '<b>Restaurant</b>ABC',
 
-    'logo_mini' => '<b>E</b>S',
+    'logo_mini' => '<b>R</b>A',
 
     /*
     |--------------------------------------------------------------------------

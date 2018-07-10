@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Easy School | Users')
+@section('title', 'Restaurant ABC | Users')
 
 @section('content_header')
     <h1>Users Management</h1>

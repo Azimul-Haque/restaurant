@@ -8,14 +8,10 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 class User extends Authenticatable
 {
     use EntrustUserTrait;
-    // public function roles() {
-    //     return $this->belongsToMany('App\Role');
-    // }
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    
+    public function commodities() {
+      return $this->hasMany('App\Commodity');
+    }
 
     protected $fillable = [
         'name', 'email', 'password',

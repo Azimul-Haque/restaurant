@@ -1,8 +1,7 @@
 <?php
 
-
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
 Route::auth();
@@ -21,17 +20,11 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::patch('roles/{id}',['as'=>'roles.update','uses'=>'RoleController@update']);
 	Route::delete('roles/{id}',['as'=>'roles.destroy','uses'=>'RoleController@destroy']);
 
-	Route::get('settings',['as'=>'settings.edit','uses'=>'SettingController@edit']);
-	Route::patch('settings/{id}',['as'=>'settings.update','uses'=>'SettingController@update']);
+	Route::get('sms',['as'=>'sms.index','uses'=>'SmsController@sendsms']);
 
-	Route::get('students',['as'=>'students.index','uses'=>'StudentController@index']);
-	Route::get('students/class/{class}',['as'=>'students.class','uses'=>'StudentController@classwise']);
-	Route::get('students/create',['as'=>'students.create','uses'=>'StudentController@create']);
-	Route::post('students/create',['as'=>'students.store','uses'=>'StudentController@store']);
-	Route::get('students/{id}',['as'=>'students.show','uses'=>'StudentController@show']);
-	Route::get('students/{id}/edit',['as'=>'students.edit','uses'=>'StudentController@edit']);
-	Route::patch('students/{id}',['as'=>'students.update','uses'=>'StudentController@update']);
-	Route::delete('students/{id}',['as'=>'students.destroy','uses'=>'StudentController@destroy']);
-
-	Route::get('sms',['as'=>'sms.index','uses'=>'StudentController@sendsms']);	
+	Route::resource('receipts','ReceiptController');
+	Route::get('accounts',['as'=>'receipts.accounts','uses'=>'ReceiptController@getaccounts']);
+	Route::resource('commodities','CommodityController');
+	Route::resource('categories','CategoryController');
 });
+

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSettingsTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,9 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('currentsession');
-            $table->string('classes');
-            $table->text('news');
-            $table->integer('isadmissionon');
-            $table->integer('isresultpublished');
-            $table->string('currentexam');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('settings');
+        Schema::drop('categories');
     }
 }

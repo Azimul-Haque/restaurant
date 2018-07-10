@@ -206,6 +206,20 @@ ul.errorlist > li {
         overflow-x: visible; 
 }
 
+.modal-header-success {
+    color:#fff;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #00a65a;
+}
+
+.tableModalBody {
+    background-color: #EBEFF4;
+}
+.tableModalFooter {
+    background-color: #EBEFF4;
+}
+
 .modal-header-primary {
     color:#fff;
     padding:9px 15px;
