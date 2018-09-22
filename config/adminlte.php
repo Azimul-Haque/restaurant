@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'Restaurant',
+    'title' => 'Queen Island Kitchen',
 
     'title_prefix' => '',
 
@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Restaurant</b>ABC',
+    'logo' => '<b>QueenIsland</b>Kitchen',
 
-    'logo_mini' => '<b>R</b>A',
+    'logo_mini' => '<b>QI</b>K',
 
     /*
     |--------------------------------------------------------------------------

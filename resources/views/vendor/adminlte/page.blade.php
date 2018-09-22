@@ -41,9 +41,9 @@
             <!-- Logo -->
             <a href="{{ url(config('adminlte.dashboard_url', 'dashboard')) }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini">{!! config('adminlte.logo_mini', '<b>A</b>LT') !!}</span>
+                <span class="logo-mini">{!! config('adminlte.logo_mini', '<b>QI</b>K') !!}</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</span>
+                <span class="logo-lg">{!! config('adminlte.logo', '<b>QI</b>Kitchen') !!}</span>
             </a>
 
             <!-- Header Navbar -->
@@ -56,6 +56,11 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
+                        <li class="tasks-menu">
+                            <a href="{{ url('/') }}" target="_blank">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                        </li>
                         <li class="dropdown tasks-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-envelope-o" aria-hidden="true"></i>
@@ -87,30 +92,6 @@
                                       <h4>
                                         AdminLTE Design Team
                                         <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                                      </h4>
-                                      <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <div class="pull-left">
-                                        <img src="{{ asset('images/img.jpg')}}" class="img-circle messenger-favicon" alt="User Image">
-                                      </div>
-                                      <span>
-                                        Developers
-                                        <small><i class="fa fa-clock-o"></i> Today</small>
-                                      </span>
-                                      <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <div class="pull-left">
-                                        <img src="{{ asset('images/img.jpg')}}" class="img-circle messenger-favicon" alt="User Image">
-                                      </div>
-                                      <h4>
-                                        Sales Department
-                                        <small><i class="fa fa-clock-o"></i> Yesterday</small>
                                       </h4>
                                       <p>Why not buy a new awesome theme?</p>
                                     </a>
