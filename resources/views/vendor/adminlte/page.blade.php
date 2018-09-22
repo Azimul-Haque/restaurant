@@ -251,30 +251,37 @@
                     @endpermission
                     @permission('receipt-crud')
                     <li class="header">Restaurant</li>
-                    <li class="{{ Request::is('accounts') ? 'active' : '' }}">
-                        <a href="{{ route('receipts.accounts') }}">
-                            <i class="fa fa-fw fa-bar-chart "></i>
-                            <span>Accounts</span>
+                    <li class="{{ Request::is('income') ? 'active' : '' }}">
+                        <a href="{{ route('receipts.income') }}">
+                            <i class="fa fa-fw fa-line-chart"></i>
+                            <span>Income</span>
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('income') ? 'active' : '' }}">
+                        <a href="{{ route('receipts.income') }}">
+                            <i class="fa fa-fw fa-bar-chart"></i>
+                            <span>Expenditure</span>
                         </a>
                     </li>
                     <li class="{{ Request::is('receipts') ? 'active' : '' }}">
                         <a href="{{ route('receipts.index') }}">
-                            <i class="fa fa-fw fa-th-list"></i>
+                            <i class="fa fa-fw fa-cutlery"></i>
                             <span>Receipts</span>
                         </a>
                     </li>
                     @endpermission
                     @permission('commodity-crud')
-                    <li class="{{ Request::is('commodities') ? 'active menu-open' : '' }} {{ Request::is('categories') ? 'active menu-open' : '' }} treeview">
+                    <li class="{{ Request::is('commodities') ? 'active menu-open' : '' }} {{ Request::is('categories') ? 'active menu-open' : '' }} {{ Request::is('stocks') ? 'active menu-open' : '' }} treeview">
                       <a href="#">
                           <i class="fa fa-fw fa-shopping-basket"></i>
-                          <span>Commodity</span>
+                          <span>Commodity &amp; Stock</span>
                           <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                           </span>
                       </a>
                       <ul class="treeview-menu">
                         <li class="{{ Request::is('commodities') ? 'active' : '' }}"><a href="{{ route('commodities.index') }}"><i class="fa fa-file-text-o"></i> Commodities</a></li>
+                        <li class="{{ Request::is('stocks') ? 'active' : '' }}"><a href="{{ route('stocks.index') }}"><i class="fa fa-exchange"></i> Stocks</a></li>
                         <li class="{{ Request::is('categories') ? 'active' : '' }}"><a href="{{ route('categories.index') }}"><i class="fa fa-tags"></i> Categories</a></li>
                       </ul>
                     </li>

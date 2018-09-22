@@ -21,8 +21,11 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('sms',['as'=>'sms.index','uses'=>'SmsController@sendsms']);
 
 	Route::resource('receipts','ReceiptController');
-	Route::get('accounts',['as'=>'receipts.accounts','uses'=>'ReceiptController@getaccounts']);
 	Route::resource('commodities','CommodityController');
 	Route::resource('categories','CategoryController');
+	Route::resource('stocks','StockController');
+
+	Route::get('income',['as'=>'receipts.income','uses'=>'ReceiptController@getIncome']);
+	Route::get('categories/getcategoryunit/{id}','CategoryController@getCategoryUnitAPI');
 });
 

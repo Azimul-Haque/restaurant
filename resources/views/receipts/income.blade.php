@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Restaurant ABC | Receipts')
+@section('title', 'Restaurant ABC | Income')
 
 @section('content_header')
     <h1>
-      Accounts
+      Income
       <div class="pull-right">
         
       </div>

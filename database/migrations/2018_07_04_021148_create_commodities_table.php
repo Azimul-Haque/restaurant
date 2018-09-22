@@ -16,7 +16,7 @@ class CreateCommoditiesTable extends Migration
             $table->increments('id');
             $table->integer('category_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->string('comment');
+            $table->float('quantity');
             $table->string('total');
             $table->timestamps();
         });

@@ -6,11 +6,15 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
 use Validator, Input, Redirect, Session;
-
 use App\Category;
+use App\Commodity;
+use App\Stock;
+use Auth;
 
-class CategoryController extends Controller
+
+class StockController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +23,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $stocks = Stock::all();
+
         $categories = Category::all();
 
-        return view('categories.index')->withCategories($categories);
+        return view('stocks.index')
+                    ->withStocks($stocks)
+                    ->withCategories($categories);
     }
 
     /**
@@ -34,35 +42,15 @@ class CategoryController extends Controller
         //
     }
 
-    public function getCategoryUnitAPI($id)
-    {
-        try {
-          $categoryunit = Category::find($id);
-          return $categoryunit->unit;
-        }
-        catch (\Exception $e) {
-          return 'N/A';
-        }
-    }
-
-    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        //validation
-        $this->validate($request, array(
-            'name'=>'required|max:255|unique:categories,name',
-            'unit'=>'required|max:255'
-        ));
-
-        //store to DB
-        $category = new Category;
-        $category->name = $request->name;
-        $category->unit = $request->unit;
-        $category->save();
-
-        Session::flash('success', 'A new Category has been created successfully!');
-        //redirect
-        return redirect()->route('categories.index');
+        //
     }
 
     /**
@@ -96,7 +84,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $stock = Stock::find($id);
+        
+        $this->validate($request, array(
+          'quantity'=>'required|numeric'
+        ));
+        //update to DB
+        $stock->user_id = Auth::user()->id;
+        $stock->quantity = $request->quantity;
+        $stock->save();
+
+        Session::flash('success', 'Updated successfully!');
+        //redirect
+        return redirect()->route('stocks.index');
     }
 
     /**

@@ -294,6 +294,7 @@ class ComposerStaticInit8e02009284f2782593670f742b824b20
         'CreateCommoditiesTable' => __DIR__ . '/../..' . '/database/migrations/2018_07_04_021148_create_commodities_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateReceiptsTable' => __DIR__ . '/../..' . '/database/migrations/2018_06_29_222649_create_receipts_table.php',
+        'CreateStocksTable' => __DIR__ . '/../..' . '/database/migrations/2018_09_23_034123_create_stocks_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'EntrustSetupTables' => __DIR__ . '/../..' . '/database/migrations/2017_10_24_000257_entrust_setup_tables.php',

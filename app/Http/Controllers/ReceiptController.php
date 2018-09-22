@@ -93,7 +93,7 @@ class ReceiptController extends Controller
     }
 
     // accounts
-    public function getaccounts() {
+    public function getIncome() {
         $receipts = Receipt::orderBy('receiptno','DESC')->get();
 
         $todayscollection = DB::table('receipts')
@@ -134,7 +134,7 @@ class ReceiptController extends Controller
         $totalsforchart = json_encode($totalsforchart);
         // dd($totalsforchart);
 
-        return view('receipts.accounts')
+        return view('receipts.income')
                     ->withReceipts($receipts)
                     ->withTodayscollection($todayscollection)
                     ->withThisyearscollection($thisyearscollection)

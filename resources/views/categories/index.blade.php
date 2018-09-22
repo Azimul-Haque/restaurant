@@ -25,12 +25,14 @@
               <tr>
                 <th style="width: 10px">#</th>
                 <th>Name</th>
+                <th>Unit</th>
                 <th style="width: 40px">Used</th>
               </tr>
             @foreach ($categories as $category)
               <tr>
                 <td>{{ $category->id }}</td>
                 <td>{{ $category->name }}</td>
+                <td>{{ $category->unit }}</td>
                 <td>
                   <span class="badge bg-light-blue">30%</span>
                 </td>
@@ -56,6 +58,16 @@
             <div class="form-group">
               {!! Form::label('name', 'Category Name:') !!}
               {!! Form::text('name', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Enter New Category')) !!}
+            </div>
+            <div class="form-group">
+              {!! Form::label('unit', 'Category Unit:') !!}
+              <select id="unit" name="unit" class="form-control" required="">
+                <option value="" selected="" disabled="">Select the unit</option>
+                <option value="KG">KG</option>
+                <option value="Litre">Litre</option>
+                <option value="Number">Number</option>
+                <option value="Packet">Packet</option>
+              </select>
             </div>
           </div>
           <!-- /.box-body -->

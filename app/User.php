@@ -13,6 +13,10 @@ class User extends Authenticatable
       return $this->hasMany('App\Commodity');
     }
 
+    public function stocks() {
+      return $this->hasMany('App\Commodity');
+    }
+
     protected $fillable = [
         'name', 'email', 'password',
     ];
