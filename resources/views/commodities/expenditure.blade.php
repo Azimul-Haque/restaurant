@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Restaurant ABC | Income')
+@section('title', 'Restaurant ABC | Expenditure')
 
 @section('content_header')
     <h1>
-      Income
+      Expenditure
       <div class="pull-right">
         
       </div>
@@ -15,17 +15,17 @@
   @permission('receipt-crud')
     <div class="row">
       <div class="col-md-6">
-        <div class="small-box bg-yellow">
+        <div class="small-box bg-red">
           <div class="inner">
             <h3>৳ 
-            @if(empty($todayscollection->totalprice))
+            @if(empty($todaysexpense->totalprice))
             0.00
             @else
-            {{ $todayscollection->totalprice }}
+            {{ $todaysexpense->totalprice }}
             @endif
             /-</h3>
 
-            <p>Today's Collection</p>
+            <p>Today's Expenditure</p>
           </div>
           <div class="icon">
             <i class="ion ion-calendar"></i>
@@ -55,7 +55,7 @@
           <div class="box-header ui-sortable-handle" style="">
             <i class="fa fa-calculator"></i>
 
-            <h3 class="box-title">This Month's Collection</h3>
+            <h3 class="box-title">This Month's Expenditure</h3>
             <div class="box-tools pull-right">
               {{ date('F Y') }}
             </div>
@@ -63,17 +63,17 @@
           <!-- /.box-header -->
           <div class="box-body">
             <div class="table-responsive">
-              <table class="table" id="datatable-dailycollection">
+              <table class="table" id="datatable-dailyexpense">
                 <thead>
                   <tr>
                     <th>Date</th>
                     <th>Total (৳)</th>
                   </tr>
                 </thead>
-                @foreach($thismonthscollection as $dailycollection)
+                @foreach($thismonthsexpense as $dailyexpense)
                 <tr>
-                  <td>{{ date('F d, Y', strtotime($dailycollection->created_at)) }}</td>
-                  <td>৳ {{ $dailycollection->totalprice }}/-</td>
+                  <td>{{ date('F d, Y', strtotime($dailyexpense->created_at)) }}</td>
+                  <td>৳ {{ $dailyexpense->totalprice }}/-</td>
                 </tr>
                 @endforeach
               </table>
@@ -85,7 +85,7 @@
           <div class="box-header ui-sortable-handle" style="">
             <i class="fa fa-calculator"></i>
 
-            <h3 class="box-title">This Year's Collection</h3>
+            <h3 class="box-title">This Year's Expenditure</h3>
             <div class="box-tools pull-right">
               Year: {{ date('Y') }}
             </div>
@@ -93,17 +93,17 @@
           <!-- /.box-header -->
           <div class="box-body">
             <div class="table-responsive">
-              <table class="table" id="datatable-monthlycollection">
+              <table class="table" id="datatable-monthlyexpense">
                 <thead>
                   <tr>
                     <th>Month</th>
                     <th>Total (৳)</th>
                   </tr>
                 </thead>
-                @foreach($thisyearscollection as $monthlycollection)
+                @foreach($thisyearsexpense as $monthlyexpense)
                 <tr>
-                  <td>{{ date('F, Y', strtotime($monthlycollection->created_at)) }}</td>
-                  <td>৳ {{ $monthlycollection->totalprice }}/-</td>
+                  <td>{{ date('F, Y', strtotime($monthlyexpense->created_at)) }}</td>
+                  <td>৳ {{ $monthlyexpense->totalprice }}/-</td>
                 </tr>
                 @endforeach
               </table>
@@ -163,11 +163,8 @@
       });
   </script>
   <script type="text/javascript">
-    $(document).ready(function() { 
-
-    }); 
     $(function () {
-      $('#datatable-dailycollection').DataTable({
+      $('#datatable-dailyexpense').DataTable({
         'paging'      : true,
         'pageLength'  : 5,
         'lengthChange': true,
@@ -176,11 +173,11 @@
         'info'        : true,
         'autoWidth'   : true,
         'order': [[ 0, "desc" ]],
-         columnDefs: [
+        columnDefs: [
               { targets: [0], type: 'date'}
-         ]
+        ]
       });
-      $('#datatable-monthlycollection').DataTable({
+      $('#datatable-monthlyexpense').DataTable({
         'paging'      : true,
         'pageLength'  : 5,
         'lengthChange': true,

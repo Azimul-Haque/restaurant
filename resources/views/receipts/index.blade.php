@@ -2,6 +2,10 @@
 
 @section('title', 'Restaurant ABC | Receipts')
 
+@section('css')
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+@stop
+
 @section('content_header')
   <h1>
     Receipts Management
@@ -16,7 +20,7 @@
     </div>
   @endif --}}
   <div class="table-responsive">
-    <table class="table">
+    <table class="table table-condensed" id="datatable-recepts">
       <thead>
         <tr>
           <th>No</th>
@@ -39,21 +43,20 @@
             {{-- show modal--}}
             <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#showModal{{ $receipt->id }}" data-backdrop="static"><i class="fa fa-eye" aria-hidden="true"></i></button>
                 <!-- Trigger the modal with a button -->
-                <!-- Modal -->
-                <div class="modal fade" id="showModal{{ $receipt->id }}" role="dialog">
+                <div class="modal fade showModal{{ $receipt->id }}" id="showModal{{ $receipt->id }}" role="dialog">
                   <div class="modal-dialog modal-md">
                     <div class="modal-content">
                       <div class="modal-header modal-header-success">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Receipt no: <b>{{ $receipt->receiptno }}</b></h4>
+                        <button type="button" class="close noPrint" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><b>Queen Island</b> Kitchen | Receipt no: <b>{{ $receipt->receiptno }}</b></h4>
                       </div>
                       <div class="modal-body tableModalBody">
-                        <div style="float: right; font-size: 15px;"><i class="fa fa-calendar"></i> {{ date('F d, Y', strtotime($receipt->created_at)) }}    <i class="fa fa-clock-o"></i> {{ date('h:i:s A', strtotime($receipt->created_at)) }}</div><br/>
+                        <div style="float: right; font-size: 15px;" id="modalDateTimeDiv{{ $receipt->id }}"><i class="fa fa-calendar"></i> {{ date('F d, Y', strtotime($receipt->created_at)) }}    <i class="fa fa-clock-o"></i> {{ date('h:i:s A', strtotime($receipt->created_at)) }}</div><br/>
                         <div class="table-responsive">
                           <table class="table">
                             <thead>
                               <tr>
-                                <th>Name</th>
+                                <th>Item Name</th>
                                 <th>Qty</th>
                                 <th>Price</th>
                               </tr>
@@ -80,13 +83,32 @@
                           document.getElementById('receiptItemsTr{{ $receipt->receiptno }}').innerHTML = receipttable;
                         </script>
                       </div>
-                      <div class="modal-footer tableModalFooter">
+                      <div class="modal-footer noPrint tableModalFooter">
+                        <button type="button" class="btn btn-sm btn-primary" id="printModal{{ $receipt->id }}"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                       </div>
                     </div>
                   </div>
                 </div>
             {{-- show modal--}}
+            {{-- print code --}}
+            <script type="text/javascript">
+              $('#printModal{{ $receipt->id }}').click(function () {
+                  $('#modalDateTimeDiv{{ $receipt->id }}').css('float', '');
+                  if ($('.showModal{{ $receipt->id }}').is(':visible')) {
+                      var modalId = $(event.target).closest('.showModal{{ $receipt->id }}').attr('id');
+                      $('body').css('visibility', 'hidden');
+                      $("#" + modalId).css('visibility', 'visible');
+                      $('#' + modalId).removeClass('showModal{{ $receipt->id }}');
+                      window.print();
+                      $('body').css('visibility', 'visible');
+                      $('#' + modalId).addClass('showModal{{ $receipt->id }}');
+                  } else {
+                      window.print();
+                  }
+              });
+            </script>
+            {{-- print code --}}
             <a class="btn btn-primary btn-sm" href="{{ route('receipts.edit',$receipt->id) }}">
               <i class="fa fa-pencil"></i>
             </a>
@@ -122,4 +144,20 @@
   </div>
   {!! $data->render() !!}
     @endpermission
+@stop
+
+@section('js')
+  <script type="text/javascript">
+    $(function () {
+      $('#datatable-receptssss').DataTable({
+        'paging'      : true,
+        'pageLength'  : 7,
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : true,
+      });
+    })
+  </script>
 @stop

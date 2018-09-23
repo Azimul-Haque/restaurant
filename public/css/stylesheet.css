@@ -266,6 +266,27 @@ ul.errorlist > li {
     width: 40px;
 }
 
+/* print css */
+@media print {
+    header, .footer, footer {
+        display: none;
+    }
+
+    /* hide main content when dialog open */
+    body.modal-open div.container.body-content div#mainContent {
+        display: none;
+    }
+
+    .noPrint {
+        display: none;
+    }
+
+    .onlyPrint {
+        display: block;
+    }
+}
+/* print css */
+
 
 
 

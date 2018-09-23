@@ -9,8 +9,8 @@ use App\Http\Controllers\Controller;
 
 use Validator, Input, Redirect, Session;
 use App\Category;
-use App\Commodity;
 use App\Stock;
+use App\Usage;
 use Auth;
 
 
@@ -23,8 +23,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::all();
-
+        $stocks = Stock::orderBy('created_at', 'desc')->get();;
         $categories = Category::all();
 
         return view('stocks.index')
@@ -50,7 +49,40 @@ class StockController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+          $stock = Stock::where('category_id', $request->category_id)->first();
+
+          $this->validate($request, array(
+            'quantity'=>'required|numeric|min:0'
+          ));
+          //update to DB
+          $stock->quantity = $stock->quantity - $request->quantity;
+          $stock->save();
+
+          // USAGE PART
+          //validation
+          $this->validate($request, array(
+            'category_id' => 'required|integer',
+            'quantity'=>'required|numeric'
+          ));
+          //store to DB
+          $usage = new Usage;
+          $usage->category_id = $request->category_id;
+          $usage->user_id = Auth::user()->id;
+          $usage->quantity = $request->quantity;
+          $usage->save();
+          // USAGE PART
+
+          Session::flash('success', 'Updated successfully!');
+          //redirect
+          return redirect()->route('stocks.index');
+        }
+        catch (\Exception $e) {
+          Session::flash('warning', 'এই আইটেমটি এখনও দাখিল করা হয়নি');
+          //redirect
+          return redirect()->route('stocks.index');
+        }
+
     }
 
     /**

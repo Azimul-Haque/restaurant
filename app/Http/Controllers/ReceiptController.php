@@ -21,9 +21,9 @@ class ReceiptController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Receipt::orderBy('created_at','DESC')->paginate(20);
+        $data = Receipt::orderBy('created_at','DESC')->paginate(8);
         return view('receipts.index',compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 20);
+            ->with('i', ($request->input('page', 1) - 1) * 8);
     }
 
     /**
@@ -94,12 +94,11 @@ class ReceiptController extends Controller
 
     // accounts
     public function getIncome() {
-        $receipts = Receipt::orderBy('receiptno','DESC')->get();
-
         $todayscollection = DB::table('receipts')
                         ->select(DB::raw('SUM(total) as totalprice'))
                         ->whereDate('created_at', '>=', Carbon::today())
-                        ->get();
+                        ->first();
+
         $thisyearscollection = DB::table('receipts')
                         ->select('created_at', DB::raw('SUM(total) as totalprice'))
                         ->where(DB::raw("DATE_FORMAT(created_at, '%Y')"), "=", Carbon::now()->format('Y'))
@@ -107,6 +106,7 @@ class ReceiptController extends Controller
                         ->orderBy('created_at', 'DESC')
                         ->get();
                         // dd($thisyearscollection);
+
         $thismonthscollection = DB::table('receipts')
                         ->select('created_at', DB::raw('SUM(total) as totalprice'))
                         ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), "=", Carbon::now()->format('Y-m'))
@@ -115,12 +115,14 @@ class ReceiptController extends Controller
                         ->get();
                         // dd($thismonthscollection);
                         // to get month omit %d, to take last 7 use ->take(7)
+
         $lastsevendayscollection = DB::table('receipts')
                         ->select('created_at', DB::raw('SUM(total) as totalprice'))
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                         ->orderBy('created_at', 'DESC')
                         ->take(7)
                         ->get();
+        
         $datesforchart = [];
         foreach ($lastsevendayscollection as $key => $days) {
             $datesforchart[] = date_format(date_create($days->created_at), "F d");
@@ -131,15 +133,13 @@ class ReceiptController extends Controller
         foreach ($lastsevendayscollection as $key => $days) {
             $totalsforchart[] = $days->totalprice;
         }
-        $totalsforchart = json_encode($totalsforchart);
+        $totalsforchart = json_encode(array_reverse($totalsforchart));
         // dd($totalsforchart);
 
         return view('receipts.income')
-                    ->withReceipts($receipts)
                     ->withTodayscollection($todayscollection)
                     ->withThisyearscollection($thisyearscollection)
                     ->withThismonthscollection($thismonthscollection)
-                    ->withLastsevendayscollection($lastsevendayscollection)
                     ->withDatesforchart($datesforchart)
                     ->withTotalsforchart($totalsforchart);
     }

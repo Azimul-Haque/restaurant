@@ -13,4 +13,8 @@ class Category extends Model
     public function stocks() {
       return $this->hasMany('App\Stock');
     }
+
+    public function usages() {
+      return $this->hasMany('App\Usage');
+    }
 }

@@ -3,7 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@yield('title_prefix', config('adminlte.title_prefix', ''))
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="{{ asset('images/icon.png') }}">
+    <meta name="theme-color" content="#3C8CBB">
+    <meta name="msapplication-navbutton-color" content="#3C8CBB">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#3C8CBB">
+<title>@yield('title_prefix', config('adminlte.title_prefix', ''))
 @yield('title', config('adminlte.title', 'Queen Island Kitchen'))
 @yield('title_postfix', config('adminlte.title_postfix', ''))</title>
     <!-- Tell the browser to be responsive to screen width -->

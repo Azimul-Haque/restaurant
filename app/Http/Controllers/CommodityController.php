@@ -13,6 +13,9 @@ use App\Commodity;
 use App\Stock;
 use Auth;
 
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 class CommodityController extends Controller
 {
     /**
@@ -22,7 +25,7 @@ class CommodityController extends Controller
      */
     public function index()
     {
-        $commodities = Commodity::all();
+        $commodities = Commodity::orderBy('created_at', 'desc')->get();
 
         $categories = Category::all();
 
@@ -165,6 +168,65 @@ class CommodityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $commodity = Commodity::find($id);
+        $commodity->delete();
+        
+        // STOCK PART
+        $stock = Stock::where('category_id', $commodity->category_id)->first();
+        $stock->user_id = Auth::user()->id;
+        $stock->quantity = $stock->quantity - $commodity->quantity;
+        $stock->save();
+        // STOCK PART
+
+        Session::flash('success', 'Deleted successfully!');
+        //redirect
+        return redirect()->route('commodities.index');
+    }
+
+    public function getExpenditure() {
+        $todaysexpense = DB::table('commodities')
+                        ->select(DB::raw('SUM(total) as totalprice'))
+                        ->whereDate('created_at', '>=', Carbon::today())
+                        ->first();
+
+        $thisyearsexpense = DB::table('commodities')
+                        ->select('created_at', DB::raw('SUM(total) as totalprice'))
+                        ->where(DB::raw("DATE_FORMAT(created_at, '%Y')"), "=", Carbon::now()->format('Y'))
+                        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"))
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+
+        $thismonthsexpense = DB::table('commodities')
+                        ->select('created_at', DB::raw('SUM(total) as totalprice'))
+                        ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), "=", Carbon::now()->format('Y-m'))
+                        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+
+        $lastsevendaysexpense = DB::table('commodities')
+                        ->select('created_at', DB::raw('SUM(total) as totalprice'))
+                        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+                        ->orderBy('created_at', 'DESC')
+                        ->take(7)
+                        ->get();
+        
+        $datesforchart = [];
+        foreach ($lastsevendaysexpense as $key => $days) {
+            $datesforchart[] = date_format(date_create($days->created_at), "F d");
+        }
+        $datesforchart = json_encode(array_reverse($datesforchart));
+
+        $totalsforchart = [];
+        foreach ($lastsevendaysexpense as $key => $days) {
+            $totalsforchart[] = $days->totalprice;
+        }
+        $totalsforchart = json_encode(array_reverse($totalsforchart));
+
+        return view('commodities.expenditure')
+                    ->withTodaysexpense($todaysexpense)
+                    ->withThisyearsexpense($thisyearsexpense)
+                    ->withThismonthsexpense($thismonthsexpense)
+                    ->withDatesforchart($datesforchart)
+                    ->withTotalsforchart($totalsforchart);
     }
 }
