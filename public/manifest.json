@@ -1,0 +1,30 @@
+{
+  "short_name": "QIK",
+  "name": "Queen Island Kitchen",
+  "theme_color": "#3C8CBB",
+  "background_color": "#EBEFF4",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "images/icon.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "images/icon.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "images/icon.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "images/icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/dashboard"
+}
