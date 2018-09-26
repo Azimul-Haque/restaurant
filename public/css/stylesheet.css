@@ -227,6 +227,13 @@ ul.errorlist > li {
     background-color: #428bca;
 }
 
+.modal-header-info {
+    color: #fff;
+    padding: 9px 15px;
+    border-bottom: 1px solid #eee;
+    background-color: #00bcd4;
+}
+
 .modal-header-danger {
     color:#fff;
     padding:9px 15px;

@@ -6,6 +6,7 @@
     <h1>
       Commodities
       <div class="pull-right">
+        <button class="btn btn-warning" id=""><i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Commodity</button>
         <button class="btn btn-primary" id="printPage"><i class="fa fa-fw fa-print" aria-hidden="true"></i> Print</button>
       </div>
   </h1>
@@ -15,7 +16,7 @@
   <div class="row">
     <div class="col-md-8">
       <div class="table-responsive">
-        <table class="table" id="datatable-commodities">
+        <table class="table commodity-table" id="datatable-commodities">
           <thead>
             <tr>
               <th>Category</th>

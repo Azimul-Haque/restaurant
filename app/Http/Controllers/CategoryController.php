@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Validator, Input, Redirect, Session;
 
 use App\Category;
+use App\Source;
 
 class CategoryController extends Controller
 {
@@ -20,8 +21,11 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
+        $sources = Source::all();
 
-        return view('categories.index')->withCategories($categories);
+        return view('categories.index')
+                  ->withCategories($categories)
+                  ->withSources($sources);
     }
 
     /**

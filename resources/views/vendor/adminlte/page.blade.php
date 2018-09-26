@@ -279,7 +279,7 @@
                       </a>
                       <ul class="treeview-menu">
                         <li class="{{ Request::is('commodities') ? 'active' : '' }}"><a href="{{ route('commodities.index') }}"><i class="fa fa-file-text-o"></i> Commodities</a></li>
-                        <li class="{{ Request::is('categories') ? 'active' : '' }}"><a href="{{ route('categories.index') }}"><i class="fa fa-tags"></i> Categories</a></li>
+                        <li class="{{ Request::is('categories') ? 'active' : '' }}"><a href="{{ route('categories.index') }}"><i class="fa fa-tags"></i> Category &amp; Source</a></li>
                       </ul>
                     </li>
                     <li class="{{ Request::is('stocks') ? 'active menu-open' : '' }} {{ Request::is('usages') ? 'active menu-open' : '' }} treeview">
