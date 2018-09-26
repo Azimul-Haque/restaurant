@@ -134,7 +134,8 @@ class CommodityController extends Controller
         $commodity = Commodity::find($id);
         
         $this->validate($request, array(
-          'quantity'=>'required|numeric'
+          'quantity'=>'required|numeric',
+          'total'=>'required|numeric'
         ));
         //update to DB
         $commodity->user_id = Auth::user()->id;
@@ -212,7 +213,7 @@ class CommodityController extends Controller
         
         $datesforchart = [];
         foreach ($lastsevendaysexpense as $key => $days) {
-            $datesforchart[] = date_format(date_create($days->created_at), "F d");
+            $datesforchart[] = date_format(date_create($days->created_at), "M d");
         }
         $datesforchart = json_encode(array_reverse($datesforchart));
 

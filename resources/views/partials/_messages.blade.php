@@ -10,7 +10,7 @@
 	  "positionClass": "toast-bottom-right",
 	  "preventDuplicates": false,
 	  "onclick": null,
-	  "showDuration": "400",
+	  "showDuration": "500",
 	  "hideDuration": "1000",
 	  "timeOut": "5000",
 	  "extendedTimeOut": "1000",
@@ -27,7 +27,11 @@
 	    <strong>Success!</strong> {{Session::get('success')}}
 	</div> --}}
 	<script type="text/javascript">
-		toastr.success('{{Session::get('success')}}', 'SUCCESS').css('width','400px');
+		if($(window).width() > 768) {
+			toastr.success('{{Session::get('success')}}', 'SUCCESS').css('width', '400px');
+		} else {
+			toastr.success('{{Session::get('success')}}', 'SUCCESS').css('width', ($(window).width()-25)+'px');
+		}
 	</script>
 @endif
 
@@ -43,8 +47,12 @@
 	    </ul>
 	</div> --}}
 	@foreach ($errors->all() as $error)
-	    <script type="text/javascript">
-			toastr.error('{{ $error }}', 'ERROR').css('width','400px');
+	  <script type="text/javascript">
+			if($(window).width() > 768) {
+				toastr.error('{{ $error }}', 'ERROR').css('width', '400px');
+			} else {
+				toastr.error('{{ $error }}', 'ERROR').css('width', ($(window).width()-25)+'px');
+			}
 		</script>
 	@endforeach	
 @endif
@@ -54,14 +62,22 @@
 		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         {{ session('info') }}
     </div> --}}
-    <script type="text/javascript">
-		toastr.info('{{ session('info') }}', 'INFO').css('width','400px');
+  <script type="text/javascript">
+		if($(window).width() > 768) {
+			toastr.info('{{ session('info') }}', 'INFO').css('width', '400px');
+		} else {
+			toastr.info('{{ session('info') }}', 'INFO').css('width', ($(window).width()-25)+'px');
+		}
 	</script>
 @endif
 
 @if(session('warning'))
     <script type="text/javascript">
-		toastr.warning('{{ session('warning') }}', 'WARNING').css('width','400px');
+		if($(window).width() > 768) {
+			toastr.warning('{{ session('warning') }}', 'WARNING').css('width', '400px');
+		} else {
+			toastr.warning('{{ session('warning') }}', 'WARNING').css('width', ($(window).width()-25)+'px');
+		}
 	</script>
 @endif
 

@@ -114,7 +114,7 @@ class ReceiptController extends Controller
                         ->orderBy('created_at', 'DESC')
                         ->get();
                         // dd($thismonthscollection);
-                        // to get month omit %d, to take last 7 use ->take(7)
+                        // to get month omit %d & get to first, to take last 7 use ->take(7)
 
         $lastsevendayscollection = DB::table('receipts')
                         ->select('created_at', DB::raw('SUM(total) as totalprice'))
@@ -125,7 +125,7 @@ class ReceiptController extends Controller
         
         $datesforchart = [];
         foreach ($lastsevendayscollection as $key => $days) {
-            $datesforchart[] = date_format(date_create($days->created_at), "F d");
+            $datesforchart[] = date_format(date_create($days->created_at), "M d");
         }
         $datesforchart = json_encode(array_reverse($datesforchart));
 

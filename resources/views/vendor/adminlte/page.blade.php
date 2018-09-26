@@ -58,7 +58,7 @@
                     <ul class="nav navbar-nav">
                         <li class="tasks-menu">
                             <a href="{{ url('/') }}" target="_blank">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                <i class="fa fa-fw fa-eye" aria-hidden="true"></i> View Website
                             </a>
                         </li>
                         <li class="dropdown tasks-menu">
@@ -243,6 +243,12 @@
                     @endpermission
                     @permission('receipt-crud')
                     <li class="header">Restaurant</li>
+                    <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard') }}">
+                            <i class="fa fa-fw fa-tachometer"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
                     <li class="{{ Request::is('income') ? 'active' : '' }}">
                         <a href="{{ route('receipts.income') }}">
                             <i class="fa fa-fw fa-line-chart"></i>
@@ -295,28 +301,7 @@
                             <span>Reports</span>
                         </a>
                     </li>
-                    <li class="{{ Request::is('other/class/*') ? 'active menu-open' : '' }} treeview">
-                      <a href="#">
-                        <i class="fa fa-fw fa-users"></i>
-                        <span>other</span>
-                        <span class="pull-right-container">
-                          <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                      </a>
-                      <ul class="treeview-menu">
-                        {{-- classes will be dynamic after SCHOOL SETUP functionality --}}
-                        {{-- classes will be dynamic after SCHOOL SETUP functionality --}}
-                        {{-- classes will be dynamic after SCHOOL SETUP functionality --}}
-                        <li><a href=""><i class="fa fa-id-badge"></i> Class One</a></li>
-                        <li><a href=""><i class="fa fa-id-badge"></i> Class Two</a></li>
-                        <li><a href=""><i class="fa fa-id-badge"></i> Class Three</a></li>
-                        <li><a href=""><i class="fa fa-id-badge"></i> Class Four</a></li>
-                        <li><a href=""><i class="fa fa-id-badge"></i> Class Five</a></li>
-                      </ul>
-                    </li>                    
                     @endpermission
-
-                    
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>

@@ -37,7 +37,7 @@
           <div class="box-header ui-sortable-handle" style="">
             <i class="fa fa-calculator"></i>
 
-            <h3 class="box-title">Last 7 Day's Sales</h3>
+            <h3 class="box-title">Last 7 Day's Expenses</h3>
             <div class="box-tools pull-right">
               {{ date('F Y') }}
             </div>
