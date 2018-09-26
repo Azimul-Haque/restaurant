@@ -6,15 +6,16 @@
     <h1>
       Commodities
       <div class="pull-right">
-        <button class="btn btn-warning" id=""><i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Commodity</button>
+        <button class="btn btn-warning" data-toggle="modal" data-target="#addCommodityModal" data-backdrop="static"id=""><i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Commodity</button>
         <button class="btn btn-primary" id="printPage"><i class="fa fa-fw fa-print" aria-hidden="true"></i> Print</button>
       </div>
   </h1>
+  <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
 @stop
 
 @section('content')
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="table-responsive">
         <table class="table commodity-table" id="datatable-commodities">
           <thead>
@@ -22,7 +23,10 @@
               <th>Category</th>
               <th>Quantity</th>
               <th>Submitted By</th>
+              <th>Source</th>
               <th>Total</th>
+              <th>Paid</th>
+              <th>Due</th>
               <th>Created At</th>
               <th class="noPrint">Action</th>
             </tr>
@@ -33,8 +37,19 @@
               <td>{{ $commodity->category->name }}</td>
               <td>{{ $commodity->quantity }} {{ $commodity->category->unit }}</td>
               <td>{{ $commodity->user->name }}</td>
+              <td>{{ $commodity->source->name }}</td>
               <td>
-                <span class="badge @if($commodity->total <= 100) bg-light-blue @elseif(($commodity->total > 100) && ($commodity->total <= 500)) bg-green @elseif(($commodity->total > 500) && ($commodity->total <= 1000)) bg-yellow @elseif(($commodity->total > 1000) && ($commodity->total <= 10000)) bg-red @else bg-grey @endif" style="font-size: 14.5px;">৳ {{ $commodity->total }}</span>
+                <span class="badge bg-light-blue" style="font-size: 14.5px;">৳ {{ $commodity->total }}</span>
+              </td>
+              <td>
+                <span class="badge bg-green" style="font-size: 14.5px;">৳ {{ $commodity->paid }}</span>
+              </td>
+              <td>
+                @if($commodity->due == 0)
+                <center>-</center>
+                @else
+                <span class="badge bg-red" style="font-size: 14.5px;">৳ {{ $commodity->due }}</span>
+                @endif
               </td>
               <td>{{ date('F d, Y h:i A', strtotime($commodity->created_at)) }}</td>
               <td class="noPrint">
@@ -46,12 +61,12 @@
                       <div class="modal fade" id="editModal{{ $commodity->id }}" role="dialog">
                         <div class="modal-dialog modal-md">
                           <div class="modal-content">
-                          {!! Form::model($commodity, ['route' => ['commodities.update', $commodity->id], 'method' => 'PUT']) !!}
                             <div class="modal-header modal-header-success">
                               <button type="button" class="close" data-dismiss="modal">&times;</button>
                               <h4 class="modal-title">Edit {{ $commodity->category->name }}</h4>
                             </div>
                             <div class="modal-body">
+                              {!! Form::model($commodity, ['route' => ['commodities.update', $commodity->id], 'method' => 'PUT', 'class' => 'form-default']) !!}
                               <div class="form-group">
                                 {!! Form::label('category_id', 'Category') !!}
                                 <select class="form-control" name="category_id" required="" disabled="">
@@ -71,8 +86,33 @@
                                 </div>
                               </div>
                               <div class="form-group">
-                                {!! Form::label('total', 'Total Cost:') !!}
-                                {!! Form::number('total', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Write Total Cost', 'min' => 0, 'step' => 'any')) !!}
+                                {!! Form::label('source_id', 'Source') !!}
+                                <select class="form-control" name="source_id" id="source_id_store" required="">
+                                    <option value="" selected="" disabled="">Select Source</option>
+                                  @foreach($sources as $source)
+                                    <option value="{{ $source->id }}" @if($commodity->source_id == $source->id) selected @endif>{{ $source->name }}</option>
+                                  @endforeach
+                                </select>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <div class="form-group">
+                                    {!! Form::label('total', 'Total Cost:') !!}
+                                    {!! Form::number('total', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Write Total Cost', 'min' => 0, 'step' => 'any', 'id' => 'total_edit'.$commodity->id)) !!}
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="form-group">
+                                    {!! Form::label('paid', 'Paid:') !!}
+                                    {!! Form::number('paid', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Write Paid Amount', 'min' => 0, 'step' => 'any', 'id' => 'paid_edit'.$commodity->id)) !!}
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="form-group">
+                                    {!! Form::label('due', 'Due:') !!}
+                                    {!! Form::number('due', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Write Due Amount', 'min' => 0, 'step' => 'any', 'id' => 'due_edit'.$commodity->id)) !!}
+                                  </div>
+                                </div>
                               </div>
                             </div>
                             <div class="modal-footer">
@@ -83,6 +123,20 @@
                           </div>
                         </div>
                       </div>
+                      <script type="text/javascript">
+                        $(document).ready(function() {
+                          $('#total_edit{{ $commodity->id }}').keyup(function(){
+                            var total_edit = $('#total_edit{{ $commodity->id }}').val();
+                            var paid_edit = $('#paid_edit{{ $commodity->id }}').val();
+                            $('#due_edit{{ $commodity->id }}').val(total_edit-paid_edit);
+                          });
+                          $('#paid_edit{{ $commodity->id }}').keyup(function(){
+                            var total_edit = $('#total_edit{{ $commodity->id }}').val();
+                            var paid_edit = $('#paid_edit{{ $commodity->id }}').val();
+                            $('#due_edit{{ $commodity->id }}').val(total_edit-paid_edit);
+                          });
+                        })
+                      </script>
                   {{-- edit modal--}}
                   {{-- delete modal--}}
                   <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $commodity->id }}" data-backdrop="static"><i class="fa fa-trash" aria-hidden="true"></i></button>
@@ -115,43 +169,74 @@
           </tbody>
         </table>
       </div>
-    </div>
-    <div class="col-md-4">
-      <div class="box box-success noPrint">
-        <div class="box-header with-border">
-          <h3 class="box-title">Add New Commodity</h3>
+
+      <!-- Add Commodity Modal -->
+      <!-- Add Commodity Modal -->
+      <div class="modal fade" id="addCommodityModal" role="dialog">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Add New Commodity</h4>
+            </div>
+            <div class="modal-body">
+              {!! Form::open(['route' => 'commodities.store', 'method' => 'POST']) !!}
+                  <div class="form-group">
+                    {!! Form::label('category_id', 'Category') !!}
+                    <select class="form-control" name="category_id" id="category_id_store" required="">
+                        <option value="" selected="" disabled="">Select Category</option>
+                      @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    {!! Form::label('quantity', 'Quantity:') !!}
+                    <div class="input-group">
+                      {!! Form::number('quantity', null, array('class' => 'form-control', 'placeholder' => 'Write Quantity', 'step' => 'any', 'required' => '', 'min' => 0)) !!}
+                      <span class="input-group-addon" id="unittostore">Unit</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    {!! Form::label('source_id', 'Source') !!}
+                    <select class="form-control" name="source_id" id="source_id_store" required="">
+                        <option value="" selected="" disabled="">Select Source</option>
+                      @foreach($sources as $source)
+                        <option value="{{ $source->id }}">{{ $source->name }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        {!! Form::label('total', 'Total Cost:') !!}
+                        {!! Form::number('total', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Write Total Cost', 'min' => 0, 'step' => 'any')) !!}
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        {!! Form::label('paid', 'Paid:') !!}
+                        {!! Form::number('paid', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Write Paid Amount', 'min' => 0, 'step' => 'any')) !!}
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        {!! Form::label('due', 'Due:') !!}
+                        {!! Form::number('due', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Write Due Amount', 'min' => 0, 'step' => 'any')) !!}
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="modal-footer">
+                  {!! Form::submit('Add Commodity', array('class' => 'btn btn-success')) !!}
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+            {!! Form::close() !!}
+          </div>
         </div>
-        <!-- /.box-header -->
-        <!-- form start -->
-        {!! Form::open(['route' => 'commodities.store', 'method' => 'POST']) !!}
-          <div class="box-body">
-            <div class="form-group">
-              {!! Form::label('category_id', 'Category') !!}
-              <select class="form-control" name="category_id" id="category_id_store" required="">
-                  <option value="" selected="" disabled="">Select Category</option>
-                @foreach($categories as $category)
-                  <option value="{{ $category->id }}">{{ $category->name }}</option>
-                @endforeach
-              </select>
-            </div>
-            <div class="form-group">
-              {!! Form::label('quantity', 'Quantity:') !!}
-              <div class="input-group">
-                {!! Form::number('quantity', null, array('class' => 'form-control', 'placeholder' => 'Write Quantity', 'step' => 'any', 'required' => '', 'min' => 0)) !!}
-                <span class="input-group-addon" id="unittostore">Unit</span>
-              </div>
-            </div>
-            <div class="form-group">
-              {!! Form::label('total', 'Total Cost:') !!}
-              {!! Form::number('total', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Write Total Cost', 'min' => 0, 'step' => 'any')) !!}
-            </div>
-          </div>
-          <!-- /.box-body -->
-          <div class="box-footer">
-            {!! Form::submit('Add Commodity', array('class' => 'btn btn-success btn-block')) !!}
-          </div>
-        {!! Form::close() !!}
       </div>
+      <!-- Add Commodity Modal -->
+      <!-- Add Commodity Modal -->
     </div>
   </div>
 @stop
@@ -170,6 +255,21 @@
 
     $("#printPage").click(function(){
       window.print();
+    });
+
+    $('#total').keyup(function(){
+      var total = $('#total').val();
+      var paid = $('#paid').val();
+      $('#due').val(total-paid);
+      var due = total-paid;
+      //console.log(due);
+    });
+    $('#paid').keyup(function(){
+      var total = $('#total').val();
+      var paid = $('#paid').val();
+      $('#due').val(total-paid);
+      var due = total-paid;
+      //console.log(due);
     });
   }); 
 </script>
@@ -193,6 +293,7 @@
               { targets: [4], type: 'date'}
        ]
     });
+    $('#datatable-commodities_wrapper').removeClass( 'form-inline' );
   })
 </script>
 @stop

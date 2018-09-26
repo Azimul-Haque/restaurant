@@ -213,6 +213,13 @@ ul.errorlist > li {
     background-color: #00a65a;
 }
 
+.modal-header-warning {
+    color: #003300;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #ffc107;
+}
+
 .tableModalBody {
     background-color: #EBEFF4;
 }

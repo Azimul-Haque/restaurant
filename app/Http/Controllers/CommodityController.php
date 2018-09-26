@@ -11,6 +11,7 @@ use Validator, Input, Redirect, Session;
 use App\Category;
 use App\Commodity;
 use App\Stock;
+use App\Source;
 use Auth;
 
 use Illuminate\Support\Facades\DB;
@@ -28,10 +29,12 @@ class CommodityController extends Controller
         $commodities = Commodity::orderBy('created_at', 'desc')->get();
 
         $categories = Category::all();
+        $sources = Source::all();
 
         return view('commodities.index')
                     ->withCommodities($commodities)
-                    ->withCategories($categories);
+                    ->withCategories($categories)
+                    ->withSources($sources);
     }
 
     /**
@@ -56,16 +59,22 @@ class CommodityController extends Controller
         //validation
         $this->validate($request, array(
           'category_id' => 'required|integer',
+          'source_id' => 'required|integer',
           'quantity'=>'required|numeric',
-          'total'=>'required|numeric'
+          'total'=>'required|numeric',
+          'paid'=>'required|numeric',
+          'due'=>'required|numeric'
         ));
        
         //store to DB
         $commodity = new Commodity;
         $commodity->category_id = $request->category_id;
+        $commodity->source_id = $request->source_id;
         $commodity->user_id = Auth::user()->id;
         $commodity->quantity = $request->quantity;
         $commodity->total = $request->total;
+        $commodity->paid = $request->paid;
+        $commodity->due = $request->due;
         $commodity->save();
 
         // STOCK PART
@@ -134,14 +143,20 @@ class CommodityController extends Controller
         $commodity = Commodity::find($id);
         
         $this->validate($request, array(
+          'source_id' => 'required|integer',
           'quantity'=>'required|numeric',
-          'total'=>'required|numeric'
+          'total'=>'required|numeric',
+          'paid'=>'required|numeric',
+          'due'=>'required|numeric'
         ));
         //update to DB
         $commodity->user_id = Auth::user()->id;
+        $commodity->source_id = $request->source_id;
         $oldquantity = $commodity->quantity;
         $commodity->quantity = $request->quantity;
         $commodity->total = $request->total;
+        $commodity->paid = $request->paid;
+        $commodity->due = $request->due;
         $commodity->save();
 
         // STOCK PART
