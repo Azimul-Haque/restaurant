@@ -30,5 +30,9 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('income',['as'=>'receipts.income','uses'=>'ReceiptController@getIncome']);
 	Route::get('expenditure',['as'=>'commodities.expenditure','uses'=>'CommodityController@getExpenditure']);
 	Route::get('categories/getcategoryunit/{id}','CategoryController@getCategoryUnitAPI');
+	Route::get('sales', ['as'=>'receipts.sales','uses'=>'ReceiptController@getSales']);
+
+	// Report Generation Controller
+	Route::get('/reports', 'ReportController@getIndex');
 });
 

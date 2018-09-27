@@ -261,11 +261,18 @@
                             <span>Expenditure</span>
                         </a>
                     </li>
-                    <li class="{{ Request::is('receipts') ? 'active' : '' }}">
-                        <a href="{{ route('receipts.index') }}">
-                            <i class="fa fa-fw fa-cutlery"></i>
-                            <span>Receipts</span>
-                        </a>
+                    <li class="{{ Request::is('receipts') ? 'active menu-open' : '' }} {{ Request::is('sales') ? 'active menu-open' : '' }} treeview">
+                      <a href="#">
+                          <i class="fa fa-fw fa-cutlery"></i>
+                          <span>Receipts &amp; Sales</span>
+                          <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                          </span>
+                      </a>
+                      <ul class="treeview-menu">
+                        <li class="{{ Request::is('receipts') ? 'active' : '' }}"><a href="{{ route('receipts.index') }}"><i class="fa fa-file-text"></i> Receipts</a></li>
+                        <li class="{{ Request::is('sales') ? 'active' : '' }}"><a href="{{ route('receipts.sales') }}"><i class="fa fa-balance-scale"></i> Sales</a></li>
+                      </ul>
                     </li>
                     @endpermission
                     @permission('commodity-crud')
@@ -295,8 +302,8 @@
                         <li class="{{ Request::is('usages') ? 'active' : '' }}"><a href="{{ route('usages.index') }}"><i class="fa fa-battery-half"></i> Usage</a></li>
                       </ul>
                     </li>
-                    <li class="{{ Request::is('report') ? 'active' : '' }}">
-                        <a href="/report">
+                    <li class="{{ Request::is('reports') ? 'active' : '' }}">
+                        <a href="/reports">
                             <i class="fa fa-fw fa-pie-chart"></i>
                             <span>Reports</span>
                         </a>

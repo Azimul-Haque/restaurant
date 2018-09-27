@@ -6,7 +6,7 @@
     <h1>
       Stocks
       <div class="pull-right">
-        <button class="btn btn-primary" id="printPage"><i class="fa fa-fw fa-print" aria-hidden="true"></i> Print</button>
+        <button class="btn btn-primary" id="printBtn"><i class="fa fa-fw fa-print" aria-hidden="true"></i> Print</button>
       </div>
   </h1>
 @stop
@@ -14,7 +14,7 @@
 @section('content')
   <div class="row">
     <div class="col-md-8">
-      <div class="table-responsive">
+      <div class="table-responsive" id="printTable">
         <table class="table table-condensed">
           <thead>
             <tr>
@@ -154,11 +154,29 @@
           $("#unittostore").text(data);
       });     
     });
-
-    $("#printPage").click(function(){
-      window.print();
-    }); 
   }); 
 </script>
+
+{{-- print code --}}
+<script type="text/javascript">
+  document.getElementById("printBtn").onclick = function () {
+      printElement(document.getElementById("printTable"));
+  }
+  function printElement(elem) {
+      var domClone = elem.cloneNode(true);
+      
+      $('#datatable-commodities_wrapper').removeClass( 'form-inline' );
+      var $printSection = document.getElementById("printSection");
+      if (!$printSection) {
+          var $printSection = document.createElement("div");
+          $printSection.id = "printSection";
+          document.body.appendChild($printSection);
+      }
+      $printSection.innerHTML = "";
+      $printSection.appendChild(domClone);
+      window.print();
+  }
+</script>
+{{-- print code --}}
 
 @stop

@@ -77,31 +77,35 @@ class CommodityController extends Controller
         $commodity->save();
 
         // STOCK PART
-        //validation
-        $stock = Stock::where('category_id', $request->category_id)->first();
-        // dd($stock);
-        if($stock !== null) {
-          $this->validate($request, array(
-              'category_id' => 'required|integer',
-              'quantity'=>'required|numeric'
-          ));
-          //update to DB
-          $stock->user_id = Auth::user()->id;
-          $stock->quantity = $stock->quantity + $request->quantity;
-        } elseif($stock == null) {
-          $this->validate($request, array(
-              'category_id' => 'required|integer|unique:stocks,category_id',
-              'quantity'=>'required|numeric'
-          ));
-          //store to DB
-          $stock = new Stock;
-          $stock->category_id = $request->category_id;
-          $stock->user_id = Auth::user()->id;
-          $stock->quantity = $request->quantity;
+        $category = Category::find($request->category_id);
+        if($category->unit != 'N/A') {
+          //validation
+          $stock = Stock::where('category_id', $request->category_id)->first();
+          // dd($stock);
+          if($stock !== null) {
+            $this->validate($request, array(
+                'category_id' => 'required|integer',
+                'quantity'=>'required|numeric'
+            ));
+            //update to DB
+            $stock->user_id = Auth::user()->id;
+            $stock->quantity = $stock->quantity + $request->quantity;
+          } elseif($stock == null) {
+            $this->validate($request, array(
+                'category_id' => 'required|integer|unique:stocks,category_id',
+                'quantity'=>'required|numeric'
+            ));
+            //store to DB
+            $stock = new Stock;
+            $stock->category_id = $request->category_id;
+            $stock->user_id = Auth::user()->id;
+            $stock->quantity = $request->quantity;
+          }
+          
+          $stock->save();
         }
-        
-        $stock->save();
         // STOCK PART
+        
 
         Session::flash('success', 'A new Commodity has been created successfully!');
         //redirect
@@ -142,6 +146,7 @@ class CommodityController extends Controller
         $commodity = Commodity::find($id);
         
         $this->validate($request, array(
+          'category_id' => 'required|integer',
           'source_id' => 'required|integer',
           'quantity'=>'required|numeric',
           'total'=>'required|numeric',
@@ -159,15 +164,19 @@ class CommodityController extends Controller
         $commodity->save();
 
         // STOCK PART
-        //validation
-        $stock = Stock::where('category_id', $commodity->category_id)->first();
-        $this->validate($request, array(
-            'quantity'=>'required|numeric'
-        ));
-        //update to DB
-        $stock->user_id = Auth::user()->id;
-        $stock->quantity = $stock->quantity - $oldquantity + $request->quantity;
-        $stock->save();
+        $category = Category::find($request->category_id);
+        if($category->unit != 'N/A') {
+          //validation
+          $stock = Stock::where('category_id', $commodity->category_id)->first();
+          $this->validate($request, array(
+              'quantity'=>'required|numeric'
+          ));
+          //update to DB
+          $stock->user_id = Auth::user()->id;
+          $stock->quantity = $stock->quantity - $oldquantity + $request->quantity;
+          $stock->save();
+        }
+        
         // STOCK PART
 
         Session::flash('success', 'Updated successfully!');

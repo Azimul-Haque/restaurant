@@ -299,6 +299,27 @@ ul.errorlist > li {
         display: block;
     }
 }
+
+@media screen {
+  #printSection {
+      display: none;
+  }
+}
+
+@media print {
+  body * {
+    visibility:hidden;
+  }
+  #printSection, #printSection * {
+    visibility:visible;
+  }
+  #printSection {
+    width: 100%;
+    position:absolute;
+    left:0;
+    top:0;
+  }
+}
 /* print css */
 
 

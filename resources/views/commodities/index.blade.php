@@ -7,7 +7,7 @@
       Commodities
       <div class="pull-right">
         <button class="btn btn-warning" data-toggle="modal" data-target="#addCommodityModal" data-backdrop="static"id=""><i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Commodity</button>
-        <button class="btn btn-primary" id="printPage"><i class="fa fa-fw fa-print" aria-hidden="true"></i> Print</button>
+        <button class="btn btn-primary" id="printBtn"><i class="fa fa-fw fa-print" aria-hidden="true"></i> Print</button>
       </div>
   </h1>
   <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
@@ -16,7 +16,7 @@
 @section('content')
   <div class="row">
     <div class="col-md-12">
-      <div class="table-responsive">
+      <div class="table-responsive" id="printTable">
         <table class="table commodity-table" id="datatable-commodities">
           <thead>
             <tr>
@@ -68,9 +68,9 @@
                             <div class="modal-body">
                               {!! Form::model($commodity, ['route' => ['commodities.update', $commodity->id], 'method' => 'PUT', 'class' => 'form-default']) !!}
                               <div class="form-group">
+                                {!! Form::hidden('category_id', $commodity->category_id) !!}
                                 {!! Form::label('category_id', 'Category') !!}
                                 <select class="form-control" name="category_id" required="" disabled="">
-                                    <option value="" selected="" disabled="">Select Category</option>
                                   @foreach($categories as $category)
                                     <option value="{{ $category->id }}" @if($commodity->category_id == $category->id) selected @endif>{{ $category->name }}</option>
                                   @endforeach
@@ -253,10 +253,6 @@
       });
     });
 
-    $("#printPage").click(function(){
-      window.print();
-    });
-
     $('#total').keyup(function(){
       var total = $('#total').val();
       var paid = $('#paid').val();
@@ -296,4 +292,27 @@
     $('#datatable-commodities_wrapper').removeClass( 'form-inline' );
   })
 </script>
+
+{{-- print code --}}
+<script type="text/javascript">
+  document.getElementById("printBtn").onclick = function () {
+      printElement(document.getElementById("printTable"));
+  }
+  function printElement(elem) {
+      var domClone = elem.cloneNode(true);
+
+      $('#datatable-commodities_wrapper').removeClass( 'form-inline' );
+      var $printSection = document.getElementById("printSection");
+      if (!$printSection) {
+          var $printSection = document.createElement("div");
+          $printSection.id = "printSection";
+          document.body.appendChild($printSection);
+      }
+      $printSection.innerHTML = "";
+      $printSection.appendChild(domClone);
+      window.print();
+  }
+</script>
+{{-- print code --}}
+
 @stop

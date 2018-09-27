@@ -26,11 +26,26 @@ class ReceiptController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 8);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function getSales()
+    {
+        $sales = DB::table('receipts')
+                        ->select('created_at', DB::raw('SUM(total) as totalsale'))
+                        ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), "=", Carbon::now()->format('Y-m'))
+                        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+        DB::statement('SET GLOBAL group_concat_max_len = 1000000');
+        $details = DB::table('receipts')
+                        ->select('created_at', DB::raw('group_concat(receiptdata) as receiptdata'))
+                        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+                        //dd($details);
+        return view('receipts.sales',compact('data'))
+            ->withSales($sales)
+            ->withDetails($details);
+    }
+
     public function create()
     {
         //

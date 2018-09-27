@@ -23,8 +23,14 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::orderBy('created_at', 'desc')->get();;
-        $categories = Category::all();
+        $categories = Category::where('unit', '!=', 'N/A')->get();
+        $category_id = array();
+        foreach ($categories as $category) {
+          $category_id[] = $category->id;
+        }
+        $stocks = Stock::whereIn('category_id', $category_id)
+                         ->orderBy('created_at', 'desc')->get();
+        
 
         return view('stocks.index')
                     ->withStocks($stocks)

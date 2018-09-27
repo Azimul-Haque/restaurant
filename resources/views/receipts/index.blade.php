@@ -43,6 +43,7 @@
             {{-- show modal--}}
             <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#showModal{{ $receipt->id }}" data-backdrop="static"><i class="fa fa-eye" aria-hidden="true"></i></button>
                 <!-- Trigger the modal with a button -->
+                <div id="printModal{{ $receipt->id }}" style="float: left">
                 <div class="modal fade showModal{{ $receipt->id }}" id="showModal{{ $receipt->id }}" role="dialog">
                   <div class="modal-dialog modal-md">
                     <div class="modal-content">
@@ -51,7 +52,7 @@
                         <h4 class="modal-title"><b>Queen Island</b> Kitchen | Receipt no: <b>{{ $receipt->receiptno }}</b></h4>
                       </div>
                       <div class="modal-body tableModalBody">
-                        <div style="float: right; font-size: 15px;" id="modalDateTimeDiv{{ $receipt->id }}"><i class="fa fa-calendar"></i> {{ date('F d, Y', strtotime($receipt->created_at)) }}    <i class="fa fa-clock-o"></i> {{ date('h:i:s A', strtotime($receipt->created_at)) }}</div><br/>
+                        <div style="float: right; font-size: 15px;" id="modalDateTimeDiv{{ $receipt->id }}"><i class="fa fa-calendar"></i> {{ date('F d, Y', strtotime($receipt->created_at)) }}    <i class="fa fa-clock-o"></i> {{ date('h:i:s A', strtotime($receipt->created_at)) }}</div><br><br/>
                         <div class="table-responsive">
                           <table class="table">
                             <thead>
@@ -66,7 +67,7 @@
                         </div>
                         <script type="text/javascript">
                           var receipt = JSON.parse({!! json_encode($receipt->receiptdata) !!});
-                          //console.log(receipt.items.length);
+                          //console.log(receipt.items);
                           var receipttable = '';
                           for(i = 0; i < receipt.items.length; i++) {
                             receipttable += '<tr>';
@@ -78,35 +79,39 @@
                           receipttable += '<tr>';
                             receipttable += '  <td></td>';
                             receipttable += '  <td><b>Total Price</b></td>';
-                            receipttable += '  <td><b>৳ ' + {!! json_encode($receipt->total) !!} + '</b></td>';
+                            receipttable += '  <td><b>৳ ' + {{ $receipt->total }} + '</b></td>';
                           receipttable += '</tr>';
                           document.getElementById('receiptItemsTr{{ $receipt->receiptno }}').innerHTML = receipttable;
                         </script>
                       </div>
                       <div class="modal-footer noPrint tableModalFooter">
-                        <button type="button" class="btn btn-sm btn-primary" id="printModal{{ $receipt->id }}"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+                        <button type="button" class="btn btn-sm btn-primary" id="printModalBtn{{ $receipt->id }}"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                       </div>
                     </div>
                   </div>
                 </div>
+                </div>
             {{-- show modal--}}
             {{-- print code --}}
             <script type="text/javascript">
-              $('#printModal{{ $receipt->id }}').click(function () {
-                  $('#modalDateTimeDiv{{ $receipt->id }}').css('float', '');
-                  if ($('.showModal{{ $receipt->id }}').is(':visible')) {
-                      var modalId = $(event.target).closest('.showModal{{ $receipt->id }}').attr('id');
-                      $('body').css('visibility', 'hidden');
-                      $("#" + modalId).css('visibility', 'visible');
-                      $('#' + modalId).removeClass('showModal{{ $receipt->id }}');
-                      window.print();
-                      $('body').css('visibility', 'visible');
-                      $('#' + modalId).addClass('showModal{{ $receipt->id }}');
-                  } else {
-                      window.print();
-                  }
-              });
+              document.getElementById("printModalBtn{{ $receipt->id }}").onclick = function () {
+                    printElement(document.getElementById("printModal{{ $receipt->id }}"));
+                }
+                function printElement(elem) {
+                    var domClone = elem.cloneNode(true);
+                    document.getElementById('modalDateTimeDiv{{ $receipt->id }}').style.float = 'left';
+                    
+                    var $printSection = document.getElementById("printSection");
+                    if (!$printSection) {
+                        var $printSection = document.createElement("div");
+                        $printSection.id = "printSection";
+                        document.body.appendChild($printSection);
+                    }
+                    $printSection.innerHTML = "";
+                    $printSection.appendChild(domClone);
+                    window.print();
+                }
             </script>
             {{-- print code --}}
             <a class="btn btn-primary btn-sm" href="{{ route('receipts.edit',$receipt->id) }}">

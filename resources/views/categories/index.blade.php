@@ -44,6 +44,7 @@
                             <option value="Number">Number</option>
                             <option value="Packet">Packet</option>
                             <option value="Dozen">Dozen</option>
+                            <option value="N/A">N/A</option>
                           </select>
                         </div>
                     </div>
