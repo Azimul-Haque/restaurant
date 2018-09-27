@@ -26,10 +26,18 @@ class CommodityController extends Controller
      */
     public function index()
     {
-        $commodities = Commodity::orderBy('created_at', 'desc')->get();
+        $commodities = null;
+        $categories = null;
+        $sources = null;
 
-        $categories = Category::all();
-        $sources = Source::all();
+        try {
+          $commodities = Commodity::orderBy('created_at', 'desc')->get();
+          $categories = Category::all();
+          $sources = Source::all();
+        }
+        catch (\Exception $e) {
+          
+        }
 
         return view('commodities.index')
                     ->withCommodities($commodities)
