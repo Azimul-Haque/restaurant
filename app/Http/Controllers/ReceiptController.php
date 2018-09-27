@@ -34,7 +34,7 @@ class ReceiptController extends Controller
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                         ->orderBy('created_at', 'DESC')
                         ->get();
-        DB::statement('SET GLOBAL group_concat_max_len = 1000000');
+        DB::statement('SET SESSION group_concat_max_len = 1000000');
         $details = DB::table('receipts')
                         ->select('created_at', DB::raw('group_concat(receiptdata) as receiptdata'))
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
