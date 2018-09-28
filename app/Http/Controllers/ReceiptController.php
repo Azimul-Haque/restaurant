@@ -30,10 +30,10 @@ class ReceiptController extends Controller
     {
         $sales = DB::table('receipts')
                         ->select('created_at', DB::raw('SUM(total) as totalsale'))
-                        ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), "=", Carbon::now()->format('Y-m'))
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                         ->orderBy('created_at', 'DESC')
                         ->get();
+                        //dd($sales);
         DB::statement('SET SESSION group_concat_max_len = 1000000');
         $details = DB::table('receipts')
                         ->select('created_at', DB::raw('group_concat(receiptdata) as receiptdata'))
