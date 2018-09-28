@@ -61,7 +61,7 @@
                                 <i class="fa fa-fw fa-eye" aria-hidden="true"></i> View Website
                             </a>
                         </li>
-                        <li class="dropdown tasks-menu">
+                        <!-- <li class="dropdown tasks-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-envelope-o" aria-hidden="true"></i>
                                 <span class="label label-success">7</span>
@@ -69,12 +69,12 @@
                             <ul class="dropdown-menu">
                               <li class="header">You have 4 messages</li>
                               <li>
-                                <!-- inner menu: contains the actual data -->
+                                inner menu: contains the actual data
                                 <ul class="menu">
-                                  <li><!-- start message -->
+                                  <li>start message
                                     <a href="#">
                                       <div class="pull-left">
-                                        <img src="{{ asset('images/img.jpg')}}" class="img-circle messenger-favicon" alt="User Image">
+                                        <img src="" class="img-circle messenger-favicon" alt="User Image">
                                       </div>
                                       <h4>
                                         Support Team
@@ -83,11 +83,11 @@
                                       <p>Why not buy a new awesome theme?</p>
                                     </a>
                                   </li>
-                                  <!-- end message -->
+                                  end message
                                   <li>
                                     <a href="#">
                                       <div class="pull-left">
-                                        <img src="{{ asset('images/img.jpg')}}" class="img-circle messenger-favicon" alt="User Image">
+                                        <img src="" class="img-circle messenger-favicon" alt="User Image">
                                       </div>
                                       <h4>
                                         AdminLTE Design Team
@@ -100,8 +100,8 @@
                               </li>
                               <li class="footer"><a href="#">See All Messages</a></li>
                             </ul>
-                        </li>
-                        <li class="dropdown tasks-menu">
+                        </li> -->
+                        <!-- <li class="dropdown tasks-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-th" aria-hidden="true"></i>
                                 <span class="label label-warning">12</span>
@@ -109,7 +109,7 @@
                                 <ul class="dropdown-menu">
                                   <li class="header">You have 12 Modules</li>
                                   <li>
-                                    <!-- inner menu: contains the actual data -->
+                                    inner menu: contains the actual data
                                     <ul class="menu">
                                       <li>
                                         <a href="#">
@@ -149,24 +149,24 @@
                                       </li>
                                     </ul>
                                   </li>
-                                  <li class="footer"><a href="{{ route('dashboard') }}">View all</a></li>
+                                  <li class="footer"><a href="">View all</a></li>
                                 </ul>
-                        </li>
+                        </li> -->
                         <li class="dropdown user user-menu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                            <img src="{{ asset('images/img.jpg')}}" class="user-image" alt="User Image">
+                            <img src="{{ asset('images/user.png')}}" class="user-image" alt="User Image">
                             {{ Auth::User()->name }}</a>
                             <ul class="dropdown-menu">
                               <!-- User image -->
                               <li class="user-header">
-                                <img src="{{ asset('images/img.jpg')}}" class="img-circle" alt="User Image">
+                                <img src="{{ asset('images/user.png') }}" class="img-circle" alt="User Image">
                                 <p>
                                   {{ Auth::User()->name }}
-                                  <small>Member since Nov. 2012</small>
+                                  <small>Member since {{ date('F, Y', strtotime(Auth::User()->created_at)) }}</small>
                                 </p>
                               </li>
                               <!-- Menu Body -->
                               <li class="user-body">
-                                <div class="row">
+                                {{-- <div class="row">
                                   <div class="col-xs-4 text-center">
                                     <a href="#">Followers</a>
                                   </div>
@@ -176,13 +176,13 @@
                                   <div class="col-xs-4 text-center">
                                     <a href="#">Friends</a>
                                   </div>
-                                </div>
+                                </div> --}}
                                 <!-- /.row -->
                               </li>
                               <!-- Menu Footer-->
                               <li class="user-footer">
                                 <div class="pull-left">
-                                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                  <a href="{{ route('users.edit', Auth::User()->id) }}" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
                                   @if(config('adminlte.logout_method') == 'GET' || !config('adminlte.logout_method') && version_compare(\Illuminate\Foundation\Application::VERSION, '5.3.0', '<'))
