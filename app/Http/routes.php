@@ -1,5 +1,9 @@
 <?php
 
+Route::get('/phpinfo', function () {
+    phpinfo(); 
+});
+
 Route::get('/',['as'=>'index.index','uses'=>'IndexController@index']);
 
 Route::auth();
