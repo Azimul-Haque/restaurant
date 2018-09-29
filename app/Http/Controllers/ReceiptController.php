@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Receipt;
+use Session;
 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -21,7 +22,8 @@ class ReceiptController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Receipt::orderBy('created_at','DESC')->paginate(8);
+        $data = Receipt::where('isdeleted', '=', 0)
+                       ->orderBy('created_at','DESC')->paginate(8);
         return view('receipts.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 8);
     }
@@ -30,6 +32,7 @@ class ReceiptController extends Controller
     {
         $sales = DB::table('receipts')
                         ->select('created_at', DB::raw('SUM(total) as totalsale'))
+                        ->where('isdeleted', '=', 0)
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                         ->orderBy('created_at', 'DESC')
                         ->get();
@@ -37,6 +40,7 @@ class ReceiptController extends Controller
         DB::statement('SET SESSION group_concat_max_len = 1000000');
         $details = DB::table('receipts')
                         ->select('created_at', DB::raw('group_concat(receiptdata) as receiptdata'))
+                        ->where('isdeleted', '=', 0)
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                         ->orderBy('created_at', 'DESC')
                         ->get();
@@ -44,6 +48,17 @@ class ReceiptController extends Controller
         return view('receipts.sales',compact('data'))
             ->withSales($sales)
             ->withDetails($details);
+    }
+
+    public function searchReceiptAPI($receiptno)
+    {
+        try {
+          $receipt = Receipt::where('receiptno', $receiptno)->first();
+          return $receipt;
+        }
+        catch (\Exception $e) {
+          return 'N/A';
+        }
     }
 
     public function create()
@@ -104,18 +119,26 @@ class ReceiptController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $receipt = Receipt::find($id);
+        $receipt->isdeleted = 1;
+        $receipt->save();
+
+        Session::flash('success', 'Deleted successfully!');
+        //redirect
+        return redirect()->route('receipts.index');
     }
 
     // accounts
     public function getIncome() {
         $todayscollection = DB::table('receipts')
                         ->select(DB::raw('SUM(total) as totalprice'))
+                        ->where('isdeleted', '=', 0)
                         ->whereDate('created_at', '>=', Carbon::today())
                         ->first();
 
         $thisyearscollection = DB::table('receipts')
                         ->select('created_at', DB::raw('SUM(total) as totalprice'))
+                        ->where('isdeleted', '=', 0)
                         ->where(DB::raw("DATE_FORMAT(created_at, '%Y')"), "=", Carbon::now()->format('Y'))
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"))
                         ->orderBy('created_at', 'DESC')
@@ -124,6 +147,7 @@ class ReceiptController extends Controller
 
         $thismonthscollection = DB::table('receipts')
                         ->select('created_at', DB::raw('SUM(total) as totalprice'))
+                        ->where('isdeleted', '=', 0)
                         ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), "=", Carbon::now()->format('Y-m'))
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                         ->orderBy('created_at', 'DESC')
@@ -133,6 +157,7 @@ class ReceiptController extends Controller
 
         $lastsevendayscollection = DB::table('receipts')
                         ->select('created_at', DB::raw('SUM(total) as totalprice'))
+                        ->where('isdeleted', '=', 0)
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                         ->orderBy('created_at', 'DESC')
                         ->take(7)

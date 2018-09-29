@@ -1,14 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Restaurant ABC | Receipts')
+@section('title', 'Queen Island Kitchen | Receipts')
 
 @section('css')
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 @stop
 
 @section('content_header')
   <h1>
-    Sales: Itemwise
+    Sales: Item Wise
   </h1>
 @stop
 
@@ -123,7 +122,6 @@
                 }
                 function printElement(elem) {
                     var domClone = elem.cloneNode(true);
-                    
                     var $printSection = document.getElementById("printSection");
                     if (!$printSection) {
                         var $printSection = document.createElement("div");

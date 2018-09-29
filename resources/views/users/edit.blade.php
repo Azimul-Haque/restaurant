@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Restaurant ABC | Users')
+@section('title', 'Queen Island Kitchen | Users')
 
 @section('content_header')
     <h1>Users Management</h1>

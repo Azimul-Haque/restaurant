@@ -1,19 +1,19 @@
 @extends('adminlte::page')
 
-@section('title', 'Restaurant ABC | Income')
+@section('title', 'Queen Island Kitchen | Income')
 
 @section('content_header')
     <h1>
       Income
       <div class="pull-right">
-        
+
       </div>
   </h1>
 @stop
 
 @section('content')
   @permission('receipt-crud')
-    <div class="row">
+    <div class="row" id="printPage">
       <div class="col-md-6">
         <div class="small-box bg-yellow">
           <div class="inner">
@@ -163,9 +163,6 @@
       });
   </script>
   <script type="text/javascript">
-    $(document).ready(function() { 
-
-    }); 
     $(function () {
       $('#datatable-dailycollection').DataTable({
         'paging'      : true,

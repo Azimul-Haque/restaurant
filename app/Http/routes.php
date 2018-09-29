@@ -18,8 +18,6 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::patch('roles/{id}',['as'=>'roles.update','uses'=>'RoleController@update']);
 	Route::delete('roles/{id}',['as'=>'roles.destroy','uses'=>'RoleController@destroy']);
 
-	Route::get('sms',['as'=>'sms.index','uses'=>'SmsController@sendsms']);
-
 	Route::resource('receipts','ReceiptController');
 	Route::resource('commodities','CommodityController');
 	Route::resource('categories','CategoryController');
@@ -29,13 +27,17 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::get('income',['as'=>'receipts.income','uses'=>'ReceiptController@getIncome']);
 	Route::get('expenditure',['as'=>'commodities.expenditure','uses'=>'CommodityController@getExpenditure']);
-	Route::get('categories/getcategoryunit/{id}','CategoryController@getCategoryUnitAPI');
 	Route::get('sales', ['as'=>'receipts.sales','uses'=>'ReceiptController@getSales']);
+
+	// APIs
+	Route::get('categories/getcategoryunit/{id}','CategoryController@getCategoryUnitAPI');
+	Route::get('receipt/search/{receiptno}', ['as'=>'receipts.search','uses'=>'ReceiptController@searchReceiptAPI']);
 
 	// Report Generation Controller
 	Route::get('/reports', ['as'=>'reports.index','uses'=>'ReportController@getIndex']);
 	Route::get('/reports/export/commodity/pdf', ['as'=>'reports.getcommoditypdf','uses'=>'ReportController@getPDFCommodity']);
+	Route::get('/reports/export/stock/pdf', ['as'=>'reports.getstockpdf','uses'=>'ReportController@getPDFStock']);
 	Route::get('/reports/export/source/pdf', ['as'=>'reports.getsourcepdf','uses'=>'ReportController@getPDFSource']);
 	Route::get('/reports/export/usage/pdf', ['as'=>'reports.getusagepdf','uses'=>'ReportController@getPDFUsage']);
+	Route::get('/reports/export/itemwise/pdf', ['as'=>'reports.getincomepdf','uses'=>'ReportController@getPDFIncome']);
 });
-

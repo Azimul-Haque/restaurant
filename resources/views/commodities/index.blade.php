@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Restaurant ABC | Commodities')
+@section('title', 'Queen Island Kitchen | Commodities')
 
 @section('content_header')
     <h1>
@@ -300,8 +300,6 @@
   }
   function printElement(elem) {
       var domClone = elem.cloneNode(true);
-
-      $('#datatable-commodities_wrapper').removeClass( 'form-inline' );
       var $printSection = document.getElementById("printSection");
       if (!$printSection) {
           var $printSection = document.createElement("div");

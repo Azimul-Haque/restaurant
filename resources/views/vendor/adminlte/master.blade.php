@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#3C8CBB">
     <meta name="msapplication-navbutton-color" content="#3C8CBB">
     <meta name="apple-mobile-web-app-status-bar-style" content="#3C8CBB">
-    <meta name="description" content="Official website of Queen Island Kitchen, Bhola @amp; {{ date('Y') }} Copyright Reserved"/>
+    <meta name="description" content="Official website of Queen Island Kitchen, Bhola-8300, Bangladesh. @amp; {{ date('Y') }} Copyright Reserved. Developed By A. H. M. Azimul Haque"/>
 <title>@yield('title_prefix', config('adminlte.title_prefix', ''))
 @yield('title', config('adminlte.title', 'Queen Island Kitchen'))
 @yield('title_postfix', config('adminlte.title_postfix', ''))</title>
@@ -68,9 +68,6 @@
 
 @yield('adminlte_js')
 @include('partials._messages')
-
-</body>
-
 <script>
  /*if ('serviceWorker' in navigator) {
     console.log("Will the service worker register?");
@@ -82,7 +79,8 @@
     });
  }*/
  $(document).ajaxStart(function () {
- Pace.restart()
-})
+    Pace.restart()
+ })
 </script>
+</body>
 </html>

@@ -1,7 +1,8 @@
 <html>
 <head>
-  <title>Commodity</title>
+  <title>Commodity | PDF</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="icon" sizes="192x192" href="{{ asset('images/pdf-icon.png') }}">
   <style>
   body {
     font-family: 'kalpurush', sans-serif;
@@ -41,17 +42,17 @@
           <td>{{ $commodity->category->name }}</td>
           <td>{{ $commodity->quantity }}</td>
           <td>{{ $commodity->source->name }}</td>
-          <td>৳ {{ $commodity->total }}</td>
-          <td>৳ {{ $commodity->paid }}</td>
-          <td>৳ {{ $commodity->due }}</td>
+          <td align="right">৳ {{ $commodity->total }}</td>
+          <td align="right">৳ {{ $commodity->paid }}</td>
+          <td align="right">৳ {{ $commodity->due }}</td>
           <td>{{ date('F d, Y', strtotime($commodity->created_at)) }}</td>
         </tr>
       @endforeach
       <tr style="background: #D3D3D3;">
         <th colspan="3">মোট</th>
-        <td>৳ {{ $data[2] }}</td>
-        <td>৳ {{ $data[3] }}</td>
-        <td>৳ {{ $data[4] }}</td>
+        <td align="right">৳ {{ $data[2] }}</td>
+        <td align="right">৳ {{ $data[3] }}</td>
+        <td align="right">৳ {{ $data[4] }}</td>
         <th></th>
       </tr>
     </table>

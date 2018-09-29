@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Restaurant ABC')
+@section('title', 'Queen Island Kitchenv | Roles')
 
 @section('content_header')
     <h1>

@@ -29,6 +29,7 @@ class StockController extends Controller
           $category_id[] = $category->id;
         }
         $stocks = Stock::whereIn('category_id', $category_id)
+                         ->where('quantity', '>', 0)
                          ->orderBy('created_at', 'desc')->get();
         
 

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Restaurant ABC | Stocks')
+@section('title', 'Queen Island Kitchen | Stocks')
 
 @section('content_header')
     <h1>
@@ -35,7 +35,7 @@
               <td class="noPrint">
                 <div class="tools">
                   {{-- edit modal--}}
-                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal{{ $usage->id }}" data-backdrop="static"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal{{ $usage->id }}" data-backdrop="static" disabled=""><i class="fa fa-pencil" aria-hidden="true"></i></button>
                       <!-- Trigger the modal with a button -->
                       <!-- Modal -->
                       <div class="modal fade" id="editModal{{ $usage->id }}" role="dialog">
@@ -142,6 +142,7 @@
               { targets: [3], type: 'date'}
         ]
       });
+      $('#datatable-dailyusage_wrapper').removeClass( 'form-inline' );
     })
   </script>
   {{-- print code --}}

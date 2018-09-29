@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Session;
 
 use App\Category;
 use App\Usage;
@@ -79,7 +80,18 @@ class UsageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //validation
+        $this->validate($request, array(
+          'quantity'=>'required|numeric'
+        ));
+        //store to DB
+        $usage = Usage::find($id);
+        $usage->quantity = $request->quantity;
+        $usage->save();
+
+        Session::flash('success', 'Updated successfully!');
+        //redirect
+        return redirect()->route('usages.index');
     }
 
     /**
