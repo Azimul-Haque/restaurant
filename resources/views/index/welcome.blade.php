@@ -62,7 +62,7 @@
                                 <span class="icon-bar"></span>
                               </button>
                                   <a class="navbar-brand" href="#">
-                                    <h1><b>Queen Island</b> Kitchen</h1>
+                                    <h1 class="QIKBanner"><b>Queen Island</b> Kitchen</h1>
                                   </a>
                             </div>
 

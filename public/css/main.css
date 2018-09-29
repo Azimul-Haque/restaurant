@@ -699,3 +699,28 @@ nav .block .navbar-default .navbar-nav > .active > a:hover:before {
 #footer-bottom p a {
   color: #FF4F02;
 }
+
+.QIKBanner {
+    font-size: 50px;
+}
+
+/* On screens that are 992px wide or less, the background color is blue */
+@media screen and (max-width: 992px) {
+    .QIKBanner {
+        font-size: 50px;
+    }
+}
+
+/* On screens that are 768px wide or less, the background color is olive */
+@media screen and (max-width: 800px) {
+    .QIKBanner {
+        font-size: 30px;
+    }
+}
+
+/* On screens that are 350px wide or less, the background color is olive */
+@media screen and (max-width: 350px) {
+    .QIKBanner {
+        font-size: 25px;
+    }
+}
