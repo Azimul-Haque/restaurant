@@ -33,6 +33,9 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('sales', ['as'=>'receipts.sales','uses'=>'ReceiptController@getSales']);
 
 	// Report Generation Controller
-	Route::get('/reports', 'ReportController@getIndex');
+	Route::get('/reports', ['as'=>'reports.index','uses'=>'ReportController@getIndex']);
+	Route::get('/reports/export/commodity/pdf', ['as'=>'reports.getcommoditypdf','uses'=>'ReportController@getPDFCommodity']);
+	Route::get('/reports/export/source/pdf', ['as'=>'reports.getsourcepdf','uses'=>'ReportController@getPDFSource']);
+	Route::get('/reports/export/usage/pdf', ['as'=>'reports.getusagepdf','uses'=>'ReportController@getPDFUsage']);
 });
 

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'ইমেইল/পাসওয়ার্ডটি মিলছে না!',
+    'throttle' => 'অনেক চেস্টা করেছেন. দয়া করে :seconds সেকেন্ড পরে চেস্টা করুন',
 
 ];

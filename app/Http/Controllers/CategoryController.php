@@ -9,7 +9,10 @@ use App\Http\Controllers\Controller;
 use Validator, Input, Redirect, Session;
 
 use App\Category;
+use App\Commodity;
 use App\Source;
+
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -22,10 +25,16 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
         $sources = Source::all();
+        $commodities = DB::table('commodities')
+                        ->select('source_id', DB::raw('SUM(total) as totalsource'), DB::raw('SUM(paid) as paidsource'), DB::raw('SUM(due) as duesource'))
+                        ->groupBy('source_id')
+                        ->get();
+                        //dd($commodities);
 
         return view('categories.index')
                   ->withCategories($categories)
-                  ->withSources($sources);
+                  ->withSources($sources)
+                  ->withCommodities($commodities);
     }
 
     /**
@@ -100,7 +109,28 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+        //validation
+        if($category->name == $request->name) {
+            $this->validate($request, array(
+                'name'=>'required|max:255',
+                'unit'=>'required|max:255'
+            ));
+        } else {
+            $this->validate($request, array(
+                'name'=>'required|max:255|unique:categories,name',
+                'unit'=>'required|max:255'
+            ));
+        }
+        
+        //update DB
+        $category->name = $request->name;
+        $category->unit = $request->unit;
+        $category->save();
+
+        Session::flash('success', 'Updated successfully!');
+        //redirect
+        return redirect()->route('categories.index');
     }
 
     /**

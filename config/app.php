@@ -160,9 +160,9 @@ return [
          * Package Service Providers...
          */
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
-        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         App\Providers\EntrustCustomServiceProvider::class,
+        niklasravnsborg\LaravelPdf\PdfServiceProvider::class
 
     ],
 
@@ -211,11 +211,11 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Carbon' => 'Carbon\Carbon',
 
-        'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
-
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
+        
     ],
 
 ];

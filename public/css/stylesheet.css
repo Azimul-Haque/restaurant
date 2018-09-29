@@ -112,7 +112,7 @@ ul.errorlist > li {
     border-color: #00bcd4;
 }
 .btn-warning, .panel-warning>.panel-heading {
-    color: #003300;
+    /*color: #003300;*/
     background-color: #ffc107;
     border-color: #ffc107;
 }

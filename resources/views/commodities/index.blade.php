@@ -87,7 +87,7 @@
                               </div>
                               <div class="form-group">
                                 {!! Form::label('source_id', 'Source') !!}
-                                <select class="form-control" name="source_id" id="source_id_store" required="">
+                                <select class="form-control" name="source_id" required="">
                                     <option value="" selected="" disabled="">Select Source</option>
                                   @foreach($sources as $source)
                                     <option value="{{ $source->id }}" @if($commodity->source_id == $source->id) selected @endif>{{ $source->name }}</option>
@@ -199,7 +199,7 @@
                   </div>
                   <div class="form-group">
                     {!! Form::label('source_id', 'Source') !!}
-                    <select class="form-control" name="source_id" id="source_id_store" required="">
+                    <select class="form-control" name="source_id" required="">
                         <option value="" selected="" disabled="">Select Source</option>
                       @foreach($sources as $source)
                         <option value="{{ $source->id }}">{{ $source->name }}</option>
@@ -282,11 +282,11 @@
       'ordering'    : true,
       'info'        : true,
       'autoWidth'   : true,
-      'order': [[ 4, "desc" ]],
+      'order': [[ 7, "desc" ]],
        columnDefs: [
-              { targets: [5], visible: true, searchable: false},
+              { targets: [8], visible: true, searchable: false},
               { targets: '_all', visible: true, searchable: true },
-              { targets: [4], type: 'date'}
+              { targets: [7], type: 'date'}
        ]
     });
     $('#datatable-commodities_wrapper').removeClass( 'form-inline' );

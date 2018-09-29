@@ -42,7 +42,7 @@
                   <div class="modal-content">
                     <div class="modal-header modal-header-success">
                       <button type="button" class="close noPrint" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title"><b>Queen Island</b> Kitchen | {{ date('F d, Y', strtotime($sale->created_at)) }} </h4>
+                      <h4 class="modal-title"><b>Queen Island</b> Kitchen | Sales | {{ date('F d, Y', strtotime($sale->created_at)) }} </h4>
                     </div>
                     <div class="modal-body tableModalBody">
                       @foreach($details as $detail)

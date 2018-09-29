@@ -46,7 +46,26 @@ class SourceController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        $source = Source::find($id);
+        //validation
+        if($source->name == $request->name) {
+            $this->validate($request, array(
+                'name'=>'required|max:255',
+            ));
+        } else {
+            $this->validate($request, array(
+                'name'=>'required|max:255|unique:sources,name',
+            ));
+        }
+
+        //update DB
+        
+        $source->name = $request->name;
+        $source->save();
+
+        Session::flash('success', 'Updated successfully!');
+        //redirect
+        return redirect()->route('categories.index');
     }
 
     public function destroy($id)

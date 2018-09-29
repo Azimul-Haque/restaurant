@@ -303,7 +303,7 @@
                       </ul>
                     </li>
                     <li class="{{ Request::is('reports') ? 'active' : '' }}">
-                        <a href="/reports">
+                        <a href="{{ route('reports.index') }}">
                             <i class="fa fa-fw fa-pie-chart"></i>
                             <span>Reports</span>
                         </a>
