@@ -45,3 +45,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/reports/export/usage/pdf', ['as'=>'reports.getusagepdf','uses'=>'ReportController@getPDFUsage']);
 	Route::get('/reports/export/itemwise/pdf', ['as'=>'reports.getincomepdf','uses'=>'ReportController@getPDFIncome']);
 });
+
+Route::any('{query}', 
+  function() { return redirect('/'); })
+  ->where('query', '.*');
