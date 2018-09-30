@@ -371,7 +371,7 @@
                                 </li>
                                 <li>
                                   <h4><i class="fa fa-envelope"></i>E mail</h4>
-                                  <p>queenislandkitchen&amp;gmail.com</p>
+                                  <p>queenislandkitchen@gmail.com</p>
                                 </li>
                             </ul>
                         </div>
