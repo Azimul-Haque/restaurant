@@ -99,7 +99,7 @@
                       <h4 class="modal-title">Award Confirmation</h4>
                     </div>
                     <div class="modal-body">
-                      Award This Member: {{ $membership->name }} ?
+                      Award This Member: <b>{{ $membership->name }}</b> ?
                     </div>
                     <div class="modal-footer">
                       {!! Form::model($membership, ['route' => ['membership.award', $membership->id], 'method' => 'PATCH']) !!}
@@ -124,7 +124,7 @@
                       <h4 class="modal-title">Delete Confirmation</h4>
                     </div>
                     <div class="modal-body">
-                      Delete this commodity?
+                      Delete this member?
                     </div>
                     <div class="modal-footer">
                       {!! Form::model($membership, ['route' => ['membership.destroy', $membership->id], 'method' => 'DELETE']) !!}
