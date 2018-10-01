@@ -234,7 +234,7 @@
              success:function(data){
                 if(data != '') {
                   var receipt = JSON.parse(data.receiptdata);
-                  // console.log(receipt.items);
+                  //console.log(data.total);
                   var receipttable = '';
                   for(i = 0; i < receipt.items.length; i++) {
                     receipttable += '<tr>';
@@ -246,7 +246,7 @@
                   receipttable += '<tr>';
                     receipttable += '  <td></td>';
                     receipttable += '  <td><b>Total Price</b></td>';
-                    receipttable += '  <td><b>৳ ' + {{ $receipt->total }} + '</b></td>';
+                    receipttable += '  <td><b>৳ ' + data.total + '</b></td>';
                   receipttable += '</tr>';
                   document.getElementById('searchModalItemsTr').innerHTML = receipttable;
                 } else {
@@ -263,8 +263,8 @@
   {{-- print code --}}
   <script type="text/javascript">
     document.getElementById("printSearchBtn").onclick = function () {
-          printElement(document.getElementById("printSearchModal"));
-      }
+        printElement(document.getElementById("printSearchModal"));
+    }
       function printElement(elem) {
           var domClone = elem.cloneNode(true);
           var $printSection = document.getElementById("printSection");

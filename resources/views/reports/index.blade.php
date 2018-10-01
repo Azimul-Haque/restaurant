@@ -46,10 +46,11 @@
         <div class="box-body">
           {!! Form::open(['route' => 'reports.getstockpdf', 'method' => 'GET', 'target' => '_blank']) !!}
             <div class="form-group">
-              {!! Form::text('from', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromstockDate', 'autocomplete' => 'off')) !!}
-            </div>
-            <div class="form-group">
-              {!! Form::text('to', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'tostockDate', 'autocomplete' => 'off')) !!}
+              <select class="form-control text-green" name="stock_report_type" required="">
+                <option value="" selected="" disabled="">রিপোর্টের ধরণ</option>
+                <option value="all">শেষ হয়ে যাওয়া সামগ্রীসহ</option>
+                <option value="onlyexisting">শুধুমাত্র বিদ্যমান সামগ্রীগুলো</option>
+              </select>
             </div>
           <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
           {!! Form::close() !!}
@@ -79,6 +80,27 @@
                 <option value="" selected="" disabled="">রিপোর্টের ধরণ</option>
                 <option value="all">সম্পূর্ণ পরিশোধের হিসাবসহ</option>
                 <option value="justdue">শুধু বাকির হিসাব</option>
+              </select>
+            </div>
+          <button class="btn btn-success" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
+          {!! Form::close() !!}
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <div class="box box-success">
+        <div class="box-header with-border text-green">
+          <i class="fa fa-fw fa-trophy"></i>
+          <h3 class="box-title">Membership</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          {!! Form::open(['route' => 'reports.getmembers', 'method' => 'GET', 'target' => '_blank']) !!}
+            <div class="form-group">
+              <select class="form-control text-green" name="members_report_type" required="">
+                <option value="" selected="" disabled="">রিপোর্টের ধরণ</option>
+                <option value="onlyawarded">ন্যূনতম একবার পুরষ্কারপ্রাপ্ত</option>
+                <option value="neverawarded">একবারও পুরষ্কারপ্রাপ্ত নন</option>
+                <option value="all">সবাই</option>
               </select>
             </div>
           <button class="btn btn-success" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
@@ -143,16 +165,6 @@
           autoclose: true,
         });
         $("#tocomexDate").datepicker({
-          format: 'MM dd, yyyy',
-          todayHighlight: true,
-          autoclose: true,
-        });
-        $("#fromstockDate").datepicker({
-          format: 'MM dd, yyyy',
-          todayHighlight: true,
-          autoclose: true,
-        });
-        $("#tostockDate").datepicker({
           format: 'MM dd, yyyy',
           todayHighlight: true,
           autoclose: true,

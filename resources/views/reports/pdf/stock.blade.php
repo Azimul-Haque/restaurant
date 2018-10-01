@@ -25,7 +25,7 @@
 <body>
   <h2 align="center">কুইন আইল্যান্ড কিচেন</h2>
   <p align="center">বর্তমানে স্টকের অবস্থা</p>
-  <p align="center"><b><u>{{ $date[0] }} - {{ $date[1] }}</u></b></p>
+  <p align="center"><b><u>{{ $message }}</u></b></p>
   <div class="">
     <table class="">
       <tr style="background: #D3D3D3;">

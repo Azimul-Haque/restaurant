@@ -73,7 +73,7 @@ class CommodityController extends Controller
         $commodity->quantity = $request->quantity;
         $commodity->total = $request->total;
         $commodity->paid = $request->paid;
-        $commodity->due = $request->due;
+        $commodity->due = $request->total - $request->paid;
         $commodity->save();
 
         // STOCK PART
@@ -160,7 +160,7 @@ class CommodityController extends Controller
         $commodity->quantity = $request->quantity;
         $commodity->total = $request->total;
         $commodity->paid = $request->paid;
-        $commodity->due = $request->due;
+        $commodity->due = $request->total - $request->paid;
         $commodity->save();
 
         // STOCK PART

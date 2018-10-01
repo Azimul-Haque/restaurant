@@ -12,6 +12,7 @@ use App\Stock;
 use App\Source;
 use App\Usage;
 use App\Receipt;
+use App\Membership;
 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -52,18 +53,23 @@ class ReportController extends Controller
     {
         //validation
         $this->validate($request, array(
-          'from' => 'required',
-          'to' => 'required',
+          'stock_report_type' => 'required'
         ));
-        $from = date("Y-m-d H:i:s", strtotime($request->from));
-        $to = date("Y-m-d H:i:s", strtotime($request->to.' 23:59:59'));
-        $stocks = Stock::whereBetween('created_at', [$from, $to])
-                        ->where('quantity', '>', 0)
-                        ->orderBy('created_at', 'desc')
-                        ->get();
 
-        $pdf = PDF::loadView('reports.pdf.stock', ['stocks' => $stocks], ['date' => [$request->from, $request->to]]);
-        $fileName = date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
+        $stocks = null;
+        $message = '';
+        if($request->stock_report_type == 'all') {
+            $stocks = Stock::orderBy('created_at', 'desc')->get();
+            $message = 'শেষ হয়ে যাওয়া সামগ্রীসহ';
+        } elseif ($request->stock_report_type == 'onlyexisting') {
+            $stocks = Stock::where('quantity', '>', 0)
+                           ->orderBy('created_at', 'desc')
+                           ->get();
+            $message = 'শুধুমাত্র বিদ্যমান সামগ্রীগুলো';
+        }
+
+        $pdf = PDF::loadView('reports.pdf.stock', ['stocks' => $stocks], ['message' => $message]);
+        $fileName = $message .'.pdf';
         return $pdf->stream($fileName);
     }
 
@@ -139,6 +145,31 @@ class ReportController extends Controller
                         ->first();
         $pdf = PDF::loadView('reports.pdf.income', ['incomes' => $incomes], ['data' => [$request->from, $request->to, $incomes_total->totalgross]]);
         $fileName = date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
+        return $pdf->stream($fileName);
+    }
+
+    public function getPDFMember(Request $request)
+    {
+        //validation
+        $this->validate($request, array(
+          'members_report_type' => 'required'
+        ));
+        $members = null;
+        $message = '';
+        if($request->members_report_type == 'onlyawarded') {
+            $members = Membership::where('awarded', '>', 0)->orderBy('awarded', 'desc')->get();
+            $message = 'ন্যূনতম একবার পুরষ্কারপ্রাপ্ত';
+        } elseif ($request->members_report_type == 'neverawarded') {
+            $members = Membership::where('awarded', 0)->orderBy('id', 'desc')->get();
+            $message = 'একবারও পুরষ্কারপ্রাপ্ত নন';
+        } elseif ($request->members_report_type == 'all') {
+            $members = Membership::orderBy('awarded', 'desc')->get();
+            $message = 'পুরষ্কারপ্রাপ্ত এবং পুরষ্কারপ্রাপ্ত নন সবাই';
+        }
+        // /dd($members);
+
+        $pdf = PDF::loadView('reports.pdf.member', ['members' => $members], ['message' => $message]);
+        $fileName = $message . '.pdf';
         return $pdf->stream($fileName);
     }
 }

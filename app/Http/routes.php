@@ -44,6 +44,15 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/reports/export/source/pdf', ['as'=>'reports.getsourcepdf','uses'=>'ReportController@getPDFSource']);
 	Route::get('/reports/export/usage/pdf', ['as'=>'reports.getusagepdf','uses'=>'ReportController@getPDFUsage']);
 	Route::get('/reports/export/itemwise/pdf', ['as'=>'reports.getincomepdf','uses'=>'ReportController@getPDFIncome']);
+	Route::get('/reports/export/members/pdf', ['as'=>'reports.getmembers','uses'=>'ReportController@getPDFMember']);
+
+	// Membership Controller
+	Route::get('/membership', ['as'=>'membership.index','uses'=>'MembershipController@getIndex']);
+	Route::post('/membership', ['as'=>'membership.store','uses'=>'MembershipController@store']);
+	Route::put('/membership/{id}', ['as'=>'membership.update','uses'=>'MembershipController@update']);
+	Route::patch('/membership/award/{id}', ['as'=>'membership.award','uses'=>'MembershipController@award']);
+	Route::delete('/membership/{id}', ['as'=>'membership.destroy','uses'=>'MembershipController@destroy']);
+
 });
 
 Route::any('{query}', 

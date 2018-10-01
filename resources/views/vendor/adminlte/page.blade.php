@@ -302,6 +302,12 @@
                         <li class="{{ Request::is('usages') ? 'active' : '' }}"><a href="{{ route('usages.index') }}"><i class="fa fa-battery-half"></i> Usage</a></li>
                       </ul>
                     </li>
+                    <li class="{{ Request::is('membership') ? 'active' : '' }}">
+                        <a href="{{ route('membership.index') }}">
+                            <i class="fa fa-fw fa-address-card-o"></i>
+                            <span>Membership</span>
+                        </a>
+                    </li>
                     <li class="{{ Request::is('reports') ? 'active' : '' }}">
                         <a href="{{ route('reports.index') }}">
                             <i class="fa fa-fw fa-pie-chart"></i>
