@@ -61,6 +61,19 @@ class ReceiptController extends Controller
         }
     }
 
+    public function printReceipt($receiptno)
+    {
+        try {
+          $receipt = Receipt::where('receiptno', $receiptno)->first();
+          return view('receipts.print')->withReceipt($receipt);
+        }
+        catch (\Exception $e) {
+          return 'N/A';
+        }
+    }
+
+
+
     public function create()
     {
         //

@@ -97,6 +97,7 @@
                             </script>
                           </div>
                           <div class="modal-footer noPrint tableModalFooter">
+                            <a href="{{ route('receipt.print', $receipt->receiptno) }}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> POS Print</a>
                             <button type="button" class="btn btn-sm btn-primary" id="printModalBtn{{ $receipt->id }}"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                           </div>

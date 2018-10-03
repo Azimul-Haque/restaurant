@@ -315,10 +315,17 @@ ul.errorlist > li {
   }
   #printSection {
     width: 100%;
-    position:absolute;
+    font-family: Courier;
+    font-size: 14px;
     left:0;
     top:0;
+    padding: 0;
   }
+}
+
+@page { 
+    size: 80mm auto;
+    margin: 0mm;
 }
 /* print css */
 
