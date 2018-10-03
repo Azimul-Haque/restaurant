@@ -23,6 +23,8 @@
               <th>No</th>
               <th>Receipt No</th>
               <th>Total</th>
+              <th>Discount (%)</th>
+              <th>Discounted Total</th>
               <th>Created at</th>
               <th>Action</th>
             </tr>
@@ -33,6 +35,8 @@
               <td>{{ ++$i }}</td>
               <td><a class="link bold" style="cursor: pointer;" data-toggle="modal" data-target="#showModal{{ $receipt->id }}" data-backdrop="static">{{ $receipt->receiptno }}</a></td>
               <td>{{ $receipt->total }}</td>
+              <td>{{ $receipt->discount }}%</td>
+              <td>{{ $receipt->discounted_total }}</td>
               <td>
                 {{ date('F d, Y h:i A', strtotime($receipt->created_at)) }}
               </td>
@@ -78,6 +82,16 @@
                                 receipttable += '  <td></td>';
                                 receipttable += '  <td><b>Total Price</b></td>';
                                 receipttable += '  <td><b>৳ ' + {{ $receipt->total }} + '</b></td>';
+                              receipttable += '</tr>';
+                              receipttable += '<tr>';
+                                receipttable += '  <td></td>';
+                                receipttable += '  <td><b>Discount</b></td>';
+                                receipttable += '  <td><b>' + {{ $receipt->discount }} + '%</b></td>';
+                              receipttable += '</tr>';
+                              receipttable += '<tr>';
+                                receipttable += '  <td></td>';
+                                receipttable += '  <td><b>Discounted Price</b></td>';
+                                receipttable += '  <td><b>৳ ' + {{ $receipt->discounted_total }} + '</b></td>';
                               receipttable += '</tr>';
                               document.getElementById('receiptItemsTr{{ $receipt->receiptno }}').innerHTML = receipttable;
                             </script>
@@ -243,11 +257,21 @@
                     receipttable += '  <td>৳ ' + receipt.items[i].price + '</td>';
                     receipttable += '</tr>';
                   }
-                  receipttable += '<tr>';
+                    receipttable += '<tr>';
                     receipttable += '  <td></td>';
                     receipttable += '  <td><b>Total Price</b></td>';
                     receipttable += '  <td><b>৳ ' + data.total + '</b></td>';
-                  receipttable += '</tr>';
+                    receipttable += '</tr>';
+                    receipttable += '<tr>';
+                    receipttable += '  <td></td>';
+                    receipttable += '  <td><b>Discount</b></td>';
+                    receipttable += '  <td><b>' + data.discount + '%</b></td>';
+                    receipttable += '</tr>';
+                    receipttable += '<tr>';
+                    receipttable += '  <td></td>';
+                    receipttable += '  <td><b>Discounted Price</b></td>';
+                    receipttable += '  <td><b>৳ ' + data.discounted_total + '</b></td>';
+                    receipttable += '</tr>';
                   document.getElementById('searchModalItemsTr').innerHTML = receipttable;
                 } else {
                   document.getElementById('searchModalItemsTr').innerHTML = '<tr><td colspan="3"><center><h3>পাওয়া যায়নি!</h3></center></td></tr>';

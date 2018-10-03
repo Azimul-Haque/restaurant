@@ -18,6 +18,8 @@ class CreateReceiptsTable extends Migration
             $table->string('receiptno')->unique();
             $table->text('receiptdata');
             $table->string('total');
+            $table->string('discount');
+            $table->string('discounted_total');
             $table->timestamps();
         });
     }

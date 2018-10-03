@@ -23,14 +23,14 @@ class DashboardController extends Controller
     
     public function index() {
         $thismonthscollection = DB::table('receipts')
-                        ->select('created_at', DB::raw('SUM(total) as totalprice'))
+                        ->select('created_at', DB::raw('SUM(discounted_total) as totalprice'))
                         ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), "=", Carbon::now()->format('Y-m'))
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"))
                         ->orderBy('created_at', 'DESC')
                         ->first();
                         //dd($thismonthscollection);
         $lastsevendayscollection = DB::table('receipts')
-                        ->select('created_at', DB::raw('SUM(total) as totalprice'))
+                        ->select('created_at', DB::raw('SUM(discounted_total) as totalprice'))
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                         ->orderBy('created_at', 'DESC')
                         ->take(7)

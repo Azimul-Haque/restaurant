@@ -31,7 +31,7 @@ class ReceiptController extends Controller
     public function getSales()
     {
         $sales = DB::table('receipts')
-                        ->select('created_at', DB::raw('SUM(total) as totalsale'))
+                        ->select('created_at', DB::raw('SUM(discounted_total) as totalsale'))
                         ->where('isdeleted', '=', 0)
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                         ->orderBy('created_at', 'DESC')
@@ -131,13 +131,13 @@ class ReceiptController extends Controller
     // accounts
     public function getIncome() {
         $todayscollection = DB::table('receipts')
-                        ->select(DB::raw('SUM(total) as totalprice'))
+                        ->select(DB::raw('SUM(discounted_total) as totalprice'))
                         ->where('isdeleted', '=', 0)
                         ->whereDate('created_at', '>=', Carbon::today())
                         ->first();
 
         $thisyearscollection = DB::table('receipts')
-                        ->select('created_at', DB::raw('SUM(total) as totalprice'))
+                        ->select('created_at', DB::raw('SUM(discounted_total) as totalprice'))
                         ->where('isdeleted', '=', 0)
                         ->where(DB::raw("DATE_FORMAT(created_at, '%Y')"), "=", Carbon::now()->format('Y'))
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"))
@@ -146,7 +146,7 @@ class ReceiptController extends Controller
                         // dd($thisyearscollection);
 
         $thismonthscollection = DB::table('receipts')
-                        ->select('created_at', DB::raw('SUM(total) as totalprice'))
+                        ->select('created_at', DB::raw('SUM(discounted_total) as totalprice'))
                         ->where('isdeleted', '=', 0)
                         ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), "=", Carbon::now()->format('Y-m'))
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
@@ -156,7 +156,7 @@ class ReceiptController extends Controller
                         // to get month omit %d & get to first, to take last 7 use ->take(7)
 
         $lastsevendayscollection = DB::table('receipts')
-                        ->select('created_at', DB::raw('SUM(total) as totalprice'))
+                        ->select('created_at', DB::raw('SUM(discounted_total) as totalprice'))
                         ->where('isdeleted', '=', 0)
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                         ->orderBy('created_at', 'DESC')

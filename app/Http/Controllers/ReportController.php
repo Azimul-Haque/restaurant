@@ -132,14 +132,14 @@ class ReportController extends Controller
 
         DB::statement('SET SESSION group_concat_max_len = 1000000');
         $incomes = DB::table('receipts')
-                        ->select('created_at', DB::raw('SUM(total) as totalsale'))
+                        ->select('created_at', DB::raw('SUM(discounted_total) as totalsale'))
                         ->where('isdeleted', '=', 0)
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                         ->whereBetween('created_at', [$from, $to])
                         ->orderBy('created_at', 'desc')
                         ->get();
         $incomes_total = DB::table('receipts')
-                        ->select(DB::raw('SUM(total) as totalgross'))
+                        ->select(DB::raw('SUM(discounted_total) as totalgross'))
                         ->where('isdeleted', '=', 0)
                         ->whereBetween('created_at', [$from, $to])
                         ->first();
