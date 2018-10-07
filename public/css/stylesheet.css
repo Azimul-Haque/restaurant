@@ -116,6 +116,21 @@ ul.errorlist > li {
     background-color: #ffc107;
     border-color: #ffc107;
 }
+.btn-gray {
+    color: #ffffff;
+    background-color: #00887A;
+    border-color: #00685B;
+}
+.btn-gray:hover {
+    color: #ffffff;
+    background-color: #00695c;
+    border-color: #00685B;
+}
+.btn-gray:focus {
+    color: #ffffff;
+    background-color: #00695c;
+    border-color: #00685B;
+}
 .link {
     text-decoration: none !important;
 }
@@ -315,17 +330,10 @@ ul.errorlist > li {
   }
   #printSection {
     width: 100%;
-    font-family: Courier;
-    font-size: 14px;
     left:0;
     top:0;
     padding: 0;
   }
-}
-
-@page { 
-    size: 80mm auto;
-    margin: 0mm;
 }
 /* print css */
 

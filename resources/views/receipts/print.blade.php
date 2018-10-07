@@ -1,3 +1,4 @@
+<title>Receipt Printing...</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="{{ asset('js/dateformat.js') }}"></script>
 <style type="text/css">
@@ -21,7 +22,7 @@
           display: none !important;
       }
       #printArea {
-           width: 80mm; 
+          width: 80mm; 
           height: auto; 
           font-family: Courier; 
           font-size: 14px; 
@@ -47,7 +48,7 @@
     <center>
       <span>Queen Island Kitchen</span><br>
       <span>Press Club, Bhola-8300</span><br>
-      <span>Phone: 01733222111</span><br>
+      <span>Phone: 01704-828518</span><br>
       <span>queenislandkitchen.com</span><br>
     </center>
     <span style="border: 1px dotted #000000; margin: 5px; float: right;width: 30mm;">QTY:</span><br><br><br/>
@@ -57,7 +58,7 @@
       document.getElementById("dateTimeP").innerHTML = dateTime = dateFormat(new Date(), "mmmm dd, yyyy, HH:MM TT");;
     </script>
 <div width="100%">
-  <table class="table">
+  <table width="100%" style="width: 100%">
     <thead>
       <tr>
         <td>Item Name</td>
@@ -67,7 +68,8 @@
     </thead>
     <tbody id="receiptItemsTr{{ $receipt->receiptno }}"></tbody>
   </table>
-</div>
+</div><br>
+<center>*** FEEL THE FOOD ***</center>
 <script type="text/javascript">
   var receipt = JSON.parse({!! json_encode($receipt->receiptdata) !!});
   //console.log(receipt.items);
@@ -76,20 +78,24 @@
     receipttable += '<tr>';
     receipttable += '  <td>' + receipt.items[i].name + '</td>';
     receipttable += '  <td>' + receipt.items[i].qty + '</td>';
-    receipttable += '  <td class="rightalign">৳ ' + receipt.items[i].price + '</td>';
+    receipttable += '  <td class="rightalign">' + receipt.items[i].price + '</td>';
     receipttable += '</tr>';
   }
   receipttable += '<tr>';
-    receipttable += '  <td  colspan="2" class="rightalign">Total Price</td>';
-    receipttable += '  <td class="rightalign">৳ ' + {{ $receipt->total }} + '</td>';
+    receipttable += '  <td  colspan="3" style="border: 1px dotted #000;"></td>';
+  receipttable += '</tr>';
+
+  receipttable += '<tr>';
+    receipttable += '  <td  colspan="2" class="rightalign">Total:</td>';
+    receipttable += '  <td class="rightalign">' + {{ $receipt->total }} + '</td>';
   receipttable += '</tr>';
   receipttable += '<tr>';
-    receipttable += '  <td  colspan="2" class="rightalign">Discount</td>';
+    receipttable += '  <td  colspan="2" class="rightalign">Discount:</td>';
     receipttable += '  <td class="rightalign">' + {{ $receipt->discount }} + '%</td>';
   receipttable += '</tr>';
   receipttable += '<tr>';
-    receipttable += '  <td colspan="2" class="rightalign">Discounted Price</td>';
-    receipttable += '  <td class="rightalign">৳ ' + {{ $receipt->discounted_total }} + '</td>';
+    receipttable += '  <td colspan="2" class="rightalign">Total Price:</td>';
+    receipttable += '  <td class="rightalign">' + {{ $receipt->discounted_total }} + '</td>';
   receipttable += '</tr>';
   document.getElementById('receiptItemsTr{{ $receipt->receiptno }}').innerHTML = receipttable;
 </script>

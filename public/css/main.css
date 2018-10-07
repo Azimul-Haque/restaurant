@@ -550,6 +550,13 @@ nav .block .navbar-default .navbar-nav > .active > a:hover:before {
 #subscribe .block form .input-group-addon button:hover {
   background: #69a8a1;
 }
+
+#membership {
+  padding: 100px 0px;
+  text-align: center;
+  background: #F5F5F5;
+  position: relative;
+}
 /*--
     contact-us Start
 --*/

@@ -47,6 +47,9 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/reports/export/itemwise/pdf', ['as'=>'reports.getincomepdf','uses'=>'ReportController@getPDFIncome']);
 	Route::get('/reports/export/members/pdf', ['as'=>'reports.getmembers','uses'=>'ReportController@getPDFMember']);
 
+	// POS Print from Report
+	Route::get('/reports/export/source/pos', ['as'=>'reports.getsourcepos','uses'=>'ReportController@getPOSSource']);
+
 	// Membership Controller
 	Route::get('/membership', ['as'=>'membership.index','uses'=>'MembershipController@getIndex']);
 	Route::post('/membership', ['as'=>'membership.store','uses'=>'MembershipController@store']);

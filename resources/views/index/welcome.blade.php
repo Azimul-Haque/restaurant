@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Queen Island Kitchen</title>
+    <title>Queen Island Kitchen | Feel The Food</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" sizes="192x192" href="{{ asset('images/icon.png') }}">
     <meta name="theme-color" content="#AD7E61">
     <meta name="msapplication-navbutton-color" content="#AD7E61">
     <meta name="apple-mobile-web-app-status-bar-style" content="#AD7E61">
-    <meta name="description" content="Official website of Queen Island Kitchen, Bhola-8300, Bangladesh. @amp; {{ date('Y') }} Copyright Reserved. Developed By A. H. M. Azimul Haque"/>
+    <meta name="description" content="Official website of Queen Island Kitchen, Press Club Bulding, Bhola-8300, Bangladesh. @copy; {{ date('Y') }} Copyright Reserved. Developed By A. H. M. Azimul Haque. Slogan: *** FEEL THE FOOD ***"/>
     <!-- CSS
         ================================================ -->
         <!-- Owl Carousel -->
@@ -73,6 +73,7 @@
                                 <li><a href="#about-us">about us</a></li>
                                 <li><a href="#price">menu</a></li>
                                 <li><a href="#subscribe">news</a></li>
+                                <li><a href="#membership">membership</a></li>
                                 <li><a href="#contact-us">contacts</a></li>
                               </ul>
                             </div><!-- /.navbar-collapse -->
@@ -134,7 +135,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="block">
-                        <img class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms" src="images/cooker-img.png" alt="cooker-img">
+                        <center>
+                            <img class="wow fadeInUp img-responsive img-circle" data-wow-duration="300ms" data-wow-delay="400ms" src="images/cooker-img.png" alt="cooker-img" style="max-height: 200px; border: 5px solid #dddddd;">
+                        </center>
                         <h1 class="heading wow fadeInUp" data-wow-duration="400ms" data-wow-delay="500ms" >Your <span>Restaurant’s</span> </br> Website Has To Look <span>Good</span>
                         </h1>
                         <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="600ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim </br> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in </br>voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat</p>
@@ -322,6 +325,21 @@
             </div><!-- .row close -->
         </div><!-- .containe close -->
     </section><!-- #subscribe close -->
+    <!--
+    membership start
+    ============================ -->
+    <section id="membership">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="block">
+                        <h1 class="heading wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms"> Be A <span>member</span> RIGHT NOW!</h1>
+                        <center>Under Construction...</center>
+                    </div>
+                </div><!-- .col-md-12 close -->
+            </div><!-- .row close -->
+        </div><!-- .containe close -->
+    </section><!-- #membership close -->
     <!--
     CONTACT US  start
     ============================= -->

@@ -82,7 +82,10 @@
                 <option value="justdue">শুধু বাকির হিসাব</option>
               </select>
             </div>
-          <button class="btn btn-success" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
+            <div class="form-group">
+              <button class="btn btn-success" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
+              <button class="btn btn-gray" type="submit" style="float: right;" formaction="{{ route('reports.getsourcepos') }}"><i class="fa fa-fw fa-print" aria-hidden="true"></i> POS Print</button>
+            </div>
           {!! Form::close() !!}
         </div>
         <!-- /.box-body -->

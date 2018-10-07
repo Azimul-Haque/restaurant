@@ -103,6 +103,38 @@ class ReportController extends Controller
         return $pdf->stream($fileName);
     }
 
+    public function getPOSSource(Request $request)
+    {
+        //validation
+        $this->validate($request, array(
+          'source_id' => 'required',
+          'source_report_type' => 'required',
+        ));
+
+        $source = Source::find($request->source_id);
+        if($request->source_report_type == 'all') {
+          $sources = Commodity::where('source_id', $request->source_id)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+        } elseif ($request->source_report_type == 'justdue') {
+          $sources = Commodity::where('source_id', $request->source_id)
+                        ->where('due', '!=', 0)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+        }
+        
+        $sourcetotal = DB::table('commodities')
+                        ->select('source_id', DB::raw('SUM(total) as totalsource'), DB::raw('SUM(paid) as paidsource'), DB::raw('SUM(due) as duesource'))
+                        ->where('source_id', $request->source_id)
+                        ->first();
+
+        return view('reports.pos.source')
+                   ->withSource($source)
+                   ->withSources($sources)
+                   ->withSourcetotal($sourcetotal);
+    }
+
+
     public function getPDFUsage(Request $request)
     {
         //validation
