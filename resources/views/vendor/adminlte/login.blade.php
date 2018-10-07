@@ -11,6 +11,7 @@
 @section('body')
     <div class="login-box">
         <div class="login-logo">
+            <img src="{{ asset('images/icon.png') }}" style="max-width: 70px; height: auto;">
             <a href="{{ url(config('adminlte.dashboard_url', 'dashboard')) }}">{!! config('adminlte.logo', '<b>QueenIsland</b>Kitchen') !!}</a>
         </div>
         <!-- /.login-logo -->
