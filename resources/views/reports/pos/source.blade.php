@@ -49,6 +49,7 @@
 <div class="receipt" id="printArea">
   <section class="sheet padding-10mm">
   <center>
+    <img src="{{ asset('images/icon.png') }}" style="width: 50px; height: auto;"><br>
     <span>Queen Island Kitchen</span><br>
     <span>Press Club, Bhola-8300</span><br>
     <span>Phone: 01704-828518</span><br>
