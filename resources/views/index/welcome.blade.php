@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#AD7E61">
     <meta name="msapplication-navbutton-color" content="#AD7E61">
     <meta name="apple-mobile-web-app-status-bar-style" content="#AD7E61">
-    <meta name="description" content="Official website of Queen Island Kitchen, Press Club Bulding, Bhola-8300, Bangladesh. @copy; {{ date('Y') }} Copyright Reserved. Developed By A. H. M. Azimul Haque. Slogan: *** FEEL THE FOOD ***"/>
+    <meta name="description" content="Official website of Queen Island Kitchen, Press Club Bulding, Bhola-8300, Bangladesh. &copy; {{ date('Y') }} Copyright Reserved. Developed By A. H. M. Azimul Haque. Slogan: *** FEEL THE FOOD ***"/>
     <!-- CSS
         ================================================ -->
         <!-- Owl Carousel -->
