@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Queen Island Kitchen | Receipts')
+@section('title', 'Queen Island Kitchen | Deleted Receipts')
 
 @section('css')
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -8,12 +8,12 @@
 
 @section('content_header')
   <h1>
-    Receipts Management
+    Deleted Receipts
   </h1>
 @stop
 
 @section('content')
-  @permission('receipt-crud')
+  @permission('receipt-delete')
   <div class="row">
     <div class="col-md-8">
       <div class="table-responsive">
@@ -124,36 +124,6 @@
                         window.print();
                     }
                 </script>
-                {{-- print code --}}
-                {{-- <a class="btn btn-primary btn-sm" href="{{ route('receipts.edit',$receipt->id) }}">
-                  <i class="fa fa-pencil"></i>
-                </a> --}}
-                @permission('receipt-delete')
-                {{-- delete modal--}}
-                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $receipt->id }}" data-backdrop="static"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                    <!-- Trigger the modal with a button -->
-                    <!-- Modal -->
-                    <div class="modal fade" id="deleteModal{{ $receipt->id }}" role="dialog">
-                      <div class="modal-dialog modal-md">
-                        <div class="modal-content">
-                          <div class="modal-header modal-header-danger">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Delete confirmation</h4>
-                          </div>
-                          <div class="modal-body">
-                            Delete receipt <b>{{ $receipt->receiptno }}</b>?
-                          </div>
-                          <div class="modal-footer">
-                            {!! Form::model($receipt, ['route' => ['receipts.destroy', $receipt->id], 'method' => 'DELETE']) !!}
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            {!! Form::close() !!}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                {{-- delete modal--}}
-                @endpermission
               </td>
             </tr>
           @endforeach
@@ -215,19 +185,6 @@
 @stop
 
 @section('js')
-  <script type="text/javascript">
-    $(function () {
-      $('#datatable-receptssss').DataTable({
-        'paging'      : true,
-        'pageLength'  : 7,
-        'lengthChange': true,
-        'search_receipt'   : true,
-        'ordering'    : true,
-        'info'        : true,
-        'autoWidth'   : true,
-      });
-    })
-  </script>
   <script type="text/javascript">
     $(document).ready(function() {
       $('#search_receipt').attr('disabled', true);

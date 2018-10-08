@@ -54,6 +54,7 @@
               <td>{{ date('F d, Y h:i A', strtotime($commodity->created_at)) }}</td>
               <td class="noPrint">
                 <div class="tools">
+                  @permission('commodity-edit')
                   {{-- edit modal--}}
                   <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal{{ $commodity->id }}" data-backdrop="static"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                       <!-- Trigger the modal with a button -->
@@ -138,6 +139,7 @@
                         })
                       </script>
                   {{-- edit modal--}}
+                  @endpermission
                   {{-- delete modal--}}
                   <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $commodity->id }}" data-backdrop="static"><i class="fa fa-trash" aria-hidden="true"></i></button>
                       <!-- Trigger the modal with a button -->

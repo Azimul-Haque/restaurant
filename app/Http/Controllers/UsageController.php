@@ -102,6 +102,10 @@ class UsageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $usage = Usage::find($id);
+        $usage->delete();
+
+        Session::flash('success', 'Deleted successfully!');
+        return redirect()->route('usages.index');
     }
 }

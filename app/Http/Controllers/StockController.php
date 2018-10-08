@@ -29,15 +29,23 @@ class StockController extends Controller
           $category_id[] = $category->id;
         }
         $stocks = Stock::whereIn('category_id', $category_id)
-                         ->where('quantity', '>', 0)
                          ->orderBy('created_at', 'desc')->get();
-        
 
         return view('stocks.index')
                     ->withStocks($stocks)
                     ->withCategories($categories);
     }
 
+    public function getCategoryMaxAPI($category_id)
+    {
+        try {
+          $categorymax = Stock::where('category_id', $category_id)->first();
+          return $categorymax->quantity;
+        }
+        catch (\Exception $e) {
+          return 'N/A';
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *

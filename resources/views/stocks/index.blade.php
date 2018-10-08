@@ -22,7 +22,9 @@
               <th>Quantity</th>
               <th>Submitted By</th>
               <th>Created At</th>
+              @permission('stock-edit')
               <th class="noPrint">Action</th>
+              @endpermission
             </tr>
           </thead>
           <tbody>
@@ -32,6 +34,7 @@
               <td>{{ $stock->quantity }} {{ $stock->category->unit }}</td>
               <td>{{ $stock->user->name }}</td>
               <td>{{ date('F d, Y h:i A', strtotime($stock->created_at)) }}</td>
+              @permission('stock-edit')
               <td class="noPrint">
                 <div class="tools">
                   {{-- edit modal--}}
@@ -75,32 +78,10 @@
                         </div>
                       </div>
                   {{-- edit modal--}}
-                  {{-- delete modal--}}
-                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $stock->id }}" data-backdrop="static" disabled=""><i class="fa fa-trash" aria-hidden="true"></i></button>
-                      <!-- Trigger the modal with a button -->
-                      <!-- Modal -->
-                      <div class="modal fade" id="deleteModal{{ $stock->id }}" role="dialog">
-                        <div class="modal-dialog modal-md">
-                          <div class="modal-content">
-                            <div class="modal-header modal-header-danger">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h4 class="modal-title">Delete Confirmation</h4>
-                            </div>
-                            <div class="modal-body">
-                              Delete this Stock?
-                            </div>
-                            <div class="modal-footer">
-                              {!! Form::model($stock, ['route' => ['stocks.destroy', $stock->id], 'method' => 'DELETE']) !!}
-                                  <button type="submit" class="btn btn-danger">Delete</button>
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                              {!! Form::close() !!}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  {{-- delete modal--}}
+
                 </div>
               </td>
+              @endpermission
             </tr>
           @endforeach
           </tbody>
@@ -120,15 +101,15 @@
               {!! Form::label('category_id', 'Category') !!}
               <select class="form-control" name="category_id" id="category_id_store" required="">
                   <option value="" selected="" disabled="">Select Category</option>
-                @foreach($categories as $category)
-                  <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @foreach($stocks as $category)
+                  <option value="{{ $category->category_id }}">{{ $category->category->name }}</option>
                 @endforeach
               </select>
             </div>
             <div class="form-group">
               {!! Form::label('quantity', 'Quantity:') !!}
               <div class="input-group">
-                {!! Form::number('quantity', null, array('class' => 'form-control', 'placeholder' => 'Write Quantity', 'step' => 'any', 'min' => 0, 'required' => '')) !!}
+                {!! Form::number('quantity', null, array('class' => 'form-control', 'placeholder' => 'Write Quantity', 'step' => 'any', 'min' => 0, 'required' => '', 'id' => 'stockusagequantity')) !!}
                 <span class="input-group-addon" id="unittostore">Unit</span>
               </div>
             </div>
@@ -152,7 +133,11 @@
       $.get(window.location.protocol + "//" + window.location.host + "/categories/getcategoryunit/" + $(this).val(), function(data, status){
           //console.log("Data: " + data + "\nStatus: " + status);
           $("#unittostore").text(data);
-      });     
+      });
+      $.get(window.location.protocol + "//" + window.location.host + "/stocks/getcategorymax/" + $(this).val(), function(data, status){
+          console.log("Data: " + data + "\nStatus: " + status);
+          $("#stockusagequantity").attr('max', data);
+      });
     });
   }); 
 </script>

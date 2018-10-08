@@ -38,10 +38,12 @@ class ReportController extends Controller
         $to = date("Y-m-d H:i:s", strtotime($request->to.' 23:59:59'));
         $commodities = Commodity::whereBetween('created_at', [$from, $to])
                         ->orderBy('created_at', 'desc')
+                        ->where('isdeleted', '=', 0)
                         ->get();
         $commodity_total = DB::table('commodities')
                         ->select(DB::raw('SUM(total) as totaltotal'), DB::raw('SUM(paid) as paidtotal'), DB::raw('SUM(due) as duetotal'))
                         ->whereBetween('created_at', [$from, $to])
+                        ->where('isdeleted', '=', 0)
                         ->first();
 
         $pdf = PDF::loadView('reports.pdf.commodity', ['commodities' => $commodities], ['data' => [$request->from, $request->to, $commodity_total->totaltotal, $commodity_total->paidtotal, $commodity_total->duetotal]]);
@@ -85,17 +87,20 @@ class ReportController extends Controller
         if($request->source_report_type == 'all') {
           $sources = Commodity::where('source_id', $request->source_id)
                         ->orderBy('created_at', 'desc')
+                        ->where('isdeleted', '=', 0)
                         ->get();
         } elseif ($request->source_report_type == 'justdue') {
           $sources = Commodity::where('source_id', $request->source_id)
                         ->where('due', '!=', 0)
                         ->orderBy('created_at', 'desc')
+                        ->where('isdeleted', '=', 0)
                         ->get();
         }
         
         $source_total = DB::table('commodities')
                         ->select('source_id', DB::raw('SUM(total) as totalsource'), DB::raw('SUM(paid) as paidsource'), DB::raw('SUM(due) as duesource'))
                         ->where('source_id', $request->source_id)
+                        ->where('isdeleted', '=', 0)
                         ->first();
 
         $pdf = PDF::loadView('reports.pdf.source', ['sources' => $sources], ['source_data' => [$source->name, $source_total->totalsource, $source_total->paidsource, $source_total->duesource]]);
@@ -115,17 +120,20 @@ class ReportController extends Controller
         if($request->source_report_type == 'all') {
           $sources = Commodity::where('source_id', $request->source_id)
                         ->orderBy('created_at', 'desc')
+                        ->where('isdeleted', '=', 0)
                         ->get();
         } elseif ($request->source_report_type == 'justdue') {
           $sources = Commodity::where('source_id', $request->source_id)
                         ->where('due', '!=', 0)
                         ->orderBy('created_at', 'desc')
+                        ->where('isdeleted', '=', 0)
                         ->get();
         }
         
         $sourcetotal = DB::table('commodities')
                         ->select('source_id', DB::raw('SUM(total) as totalsource'), DB::raw('SUM(paid) as paidsource'), DB::raw('SUM(due) as duesource'))
                         ->where('source_id', $request->source_id)
+                        ->where('isdeleted', '=', 0)
                         ->first();
 
         return view('reports.pos.source')

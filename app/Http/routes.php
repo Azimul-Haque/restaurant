@@ -32,9 +32,12 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('income',['as'=>'receipts.income','uses'=>'ReceiptController@getIncome']);
 	Route::get('expenditure',['as'=>'commodities.expenditure','uses'=>'CommodityController@getExpenditure']);
 	Route::get('sales', ['as'=>'receipts.sales','uses'=>'ReceiptController@getSales']);
+	Route::get('deleted/receipts', ['as'=>'receipts.deleted','uses'=>'ReceiptController@getDeleted']);
+	Route::get('deleted/commodities', ['as'=>'commodities.deleted','uses'=>'CommodityController@getDeleted']);
 
 	// APIs
 	Route::get('categories/getcategoryunit/{id}','CategoryController@getCategoryUnitAPI');
+	Route::get('stocks/getcategorymax/{category_id}','StockController@getCategoryMaxAPI');
 	Route::get('receipt/search/{receiptno}', ['as'=>'receipts.search','uses'=>'ReceiptController@searchReceiptAPI']);
 	Route::get('receipt/print/{receiptno}', ['as'=>'receipt.print','uses'=>'ReceiptController@printReceipt']);
 

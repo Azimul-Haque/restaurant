@@ -5,6 +5,20 @@
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
     @stack('css')
     @yield('css')
+    <style type="text/css">
+      .slimScrollBar {
+        background: none repeat scroll 0 0 #6b58cd !important;
+        border-radius: 0;
+        display: none;
+        height: 702.936px;
+        position: absolute;
+        right: 1px;
+        top: 145px;
+        width: 5px!important;
+        z-index: 99;
+        opacity:0.5!important;
+      }
+    </style>
 @stop
 
 @section('body_class', 'skin-' . config('adminlte.skin', 'blue') . ' sidebar-mini ' . (config('adminlte.layout') ? [
@@ -224,8 +238,8 @@
                 <ul class="sidebar-menu" data-widget="tree">
                     {{-- @each('adminlte::partials.menu-item', $adminlte->menu(), 'item') --}}
 
-                    <li class="header">User Management</li>
                     @permission('user-crud')
+                    <li class="header">User Management</li>
                     <li class="{{ Request::is('users') ? 'active' : '' }}">
                         <a href="{{ route('users.index') }}">
                             <i class="fa fa-fw fa-user"></i>
@@ -261,7 +275,7 @@
                             <span>Expenditure</span>
                         </a>
                     </li>
-                    <li class="{{ Request::is('receipts') ? 'active menu-open' : '' }} {{ Request::is('sales') ? 'active menu-open' : '' }} treeview">
+                    <li class="{{ Request::is('receipts') ? 'active menu-open' : '' }} {{ Request::is('sales') ? 'active menu-open' : '' }} {{ Request::is('deleted/receipts') ? 'active menu-open' : '' }} treeview">
                       <a href="#">
                           <i class="fa fa-fw fa-cutlery"></i>
                           <span>Receipts &amp; Sales</span>
@@ -272,11 +286,14 @@
                       <ul class="treeview-menu">
                         <li class="{{ Request::is('receipts') ? 'active' : '' }}"><a href="{{ route('receipts.index') }}"><i class="fa fa-file-text"></i> Receipts</a></li>
                         <li class="{{ Request::is('sales') ? 'active' : '' }}"><a href="{{ route('receipts.sales') }}"><i class="fa fa-balance-scale"></i> Sales</a></li>
+                        @permission('receipt-delete')
+                        <li class="{{ Request::is('deleted/receipts') ? 'active' : '' }}"><a href="{{ route('receipts.deleted') }}"><i class="fa fa-trash-o"></i> Deleted Receipts</a></li>
+                        @endpermission
                       </ul>
                     </li>
                     @endpermission
                     @permission('commodity-crud')
-                    <li class="{{ Request::is('commodities') ? 'active menu-open' : '' }} {{ Request::is('categories') ? 'active menu-open' : '' }} treeview">
+                    <li class="{{ Request::is('commodities') ? 'active menu-open' : '' }} {{ Request::is('categories') ? 'active menu-open' : '' }} {{ Request::is('deleted/commodities') ? 'active menu-open' : '' }} treeview">
                       <a href="#">
                           <i class="fa fa-fw fa-shopping-basket"></i>
                           <span>Commodity</span>
@@ -287,6 +304,9 @@
                       <ul class="treeview-menu">
                         <li class="{{ Request::is('commodities') ? 'active' : '' }}"><a href="{{ route('commodities.index') }}"><i class="fa fa-file-text-o"></i> Commodities</a></li>
                         <li class="{{ Request::is('categories') ? 'active' : '' }}"><a href="{{ route('categories.index') }}"><i class="fa fa-tags"></i> Category &amp; Source</a></li>
+                        @permission('commodity-edit')
+                        <li class="{{ Request::is('deleted/commodities') ? 'active' : '' }}"><a href="{{ route('commodities.deleted') }}"><i class="fa fa-trash-o"></i> Deleted Commodities</a></li>
+                        @endpermission
                       </ul>
                     </li>
                     <li class="{{ Request::is('stocks') ? 'active menu-open' : '' }} {{ Request::is('usages') ? 'active menu-open' : '' }} treeview">

@@ -26,11 +26,25 @@ class CommodityController extends Controller
      */
     public function index()
     {
-        $commodities = Commodity::orderBy('created_at', 'desc')->get();
+        $commodities = Commodity::where('isdeleted', '=', 0)
+                                ->orderBy('created_at', 'desc')->get();
         $categories = Category::all();
         $sources = Source::all();
 
         return view('commodities.index')
+                    ->withCommodities($commodities)
+                    ->withCategories($categories)
+                    ->withSources($sources);
+    }
+
+    public function getDeleted()
+    {
+        $commodities = Commodity::where('isdeleted', '=', 1)
+                                ->orderBy('created_at', 'desc')->get();
+        $categories = Category::all();
+        $sources = Source::all();
+
+        return view('commodities.deleted')
                     ->withCommodities($commodities)
                     ->withCategories($categories)
                     ->withSources($sources);
@@ -67,6 +81,7 @@ class CommodityController extends Controller
        
         //store to DB
         $commodity = new Commodity;
+        $commodity->isdeleted = 0;
         $commodity->category_id = $request->category_id;
         $commodity->source_id = $request->source_id;
         $commodity->user_id = Auth::user()->id;
@@ -106,7 +121,6 @@ class CommodityController extends Controller
         }
         // STOCK PART
         
-
         Session::flash('success', 'A new Commodity has been created successfully!');
         //redirect
         return redirect()->route('commodities.index');
@@ -193,7 +207,8 @@ class CommodityController extends Controller
     public function destroy($id)
     {
         $commodity = Commodity::find($id);
-        $commodity->delete();
+        $commodity->isdeleted = 1;
+        $commodity->save();
         
         // STOCK PART
         $stock = Stock::where('category_id', $commodity->category_id)->first();
@@ -211,12 +226,14 @@ class CommodityController extends Controller
         $todaysexpense = DB::table('commodities')
                         ->select(DB::raw('SUM(total) as totalprice'))
                         ->whereDate('created_at', '>=', Carbon::today())
+                        ->where('isdeleted', '=', 0)
                         ->first();
 
         $thisyearsexpense = DB::table('commodities')
                         ->select('created_at', DB::raw('SUM(total) as totalprice'))
                         ->where(DB::raw("DATE_FORMAT(created_at, '%Y')"), "=", Carbon::now()->format('Y'))
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"))
+                        ->where('isdeleted', '=', 0)
                         ->orderBy('created_at', 'DESC')
                         ->get();
 
@@ -224,12 +241,14 @@ class CommodityController extends Controller
                         ->select('created_at', DB::raw('SUM(total) as totalprice'))
                         ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), "=", Carbon::now()->format('Y-m'))
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+                        ->where('isdeleted', '=', 0)
                         ->orderBy('created_at', 'DESC')
                         ->get();
 
         $lastsevendaysexpense = DB::table('commodities')
                         ->select('created_at', DB::raw('SUM(total) as totalprice'))
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+                        ->where('isdeleted', '=', 0)
                         ->orderBy('created_at', 'DESC')
                         ->take(7)
                         ->get();

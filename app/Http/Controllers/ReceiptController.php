@@ -50,6 +50,14 @@ class ReceiptController extends Controller
             ->withDetails($details);
     }
 
+    public function getDeleted(Request $request)
+    {
+        $data = Receipt::where('isdeleted', '=', 1)
+                       ->orderBy('created_at','DESC')->paginate(8);
+        return view('receipts.deleted',compact('data'))
+            ->with('i', ($request->input('page', 1) - 1) * 8);
+    }
+
     public function searchReceiptAPI($receiptno)
     {
         try {

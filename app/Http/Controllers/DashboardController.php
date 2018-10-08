@@ -51,11 +51,13 @@ class DashboardController extends Controller
         $thismonthsexpense = DB::table('commodities')
                         ->select('created_at', DB::raw('SUM(total) as totalprice'))
                         ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), "=", Carbon::now()->format('Y-m'))
+                        ->where('isdeleted', '=', 0)
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"))
                         ->orderBy('created_at', 'DESC')
                         ->first();
         $lastsevendaysexpense = DB::table('commodities')
                         ->select('created_at', DB::raw('SUM(total) as totalprice'))
+                        ->where('isdeleted', '=', 0)
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                         ->orderBy('created_at', 'DESC')
                         ->take(7)
