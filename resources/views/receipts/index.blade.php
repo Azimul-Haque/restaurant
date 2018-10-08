@@ -198,6 +198,7 @@
                   </div>
                 </div>
                 <div class="modal-footer noPrint">
+                  <a href="" id="printPosSearchBtn" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> POS Print</a>
                   <button type="button" class="btn btn-sm btn-primary" id="printSearchBtn"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
                   <button type="button" class="btn btn-default" id="clearSearchModalData" data-dismiss="modal">Close</button>
                 </div>
@@ -244,6 +245,7 @@
       });
       $('#search_receipt').click(function() {
         $('#search_receipt_no').text($('#receiptno').val());
+        $('#printPosSearchBtn').attr('href', window.location.protocol + "//" + window.location.host + '/receipt/print/' +$('#receiptno').val());
         $.ajax({
              type: 'GET',
              url: window.location.protocol + "//" + window.location.host + '/receipt/search/' + $('#receiptno').val().trim(),
