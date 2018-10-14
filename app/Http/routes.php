@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('categories/getcategoryunit/{id}','CategoryController@getCategoryUnitAPI');
 	Route::get('stocks/getcategorymax/{category_id}','StockController@getCategoryMaxAPI');
 	Route::get('receipt/search/{receiptno}', ['as'=>'receipts.search','uses'=>'ReceiptController@searchReceiptAPI']);
+
+	// Receipt print route
 	Route::get('receipt/print/{receiptno}', ['as'=>'receipt.print','uses'=>'ReceiptController@printReceipt']);
 
 	// Report Generation Controller
@@ -62,6 +64,9 @@ Route::group(['middleware' => ['auth']], function() {
 
 });
 
-Route::any('{query}', 
-  function() { return redirect('/'); })
-  ->where('query', '.*');
+	// Public APIs
+	Route::get('member/points/{phone}','IndexController@getMemberAPI');
+	
+	Route::any('{query}', 
+	  function() { return redirect('/'); })
+	  ->where('query', '.*');

@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#3C8CBB">
     <meta name="msapplication-navbutton-color" content="#3C8CBB">
     <meta name="apple-mobile-web-app-status-bar-style" content="#3C8CBB">
-    <meta name="description" content="Official website of Queen Island Kitchen, Press Club Bulding, Bhola-8300, Bangladesh. &copy; {{ date('Y') }} Copyright Reserved. Developed By A. H. M. Azimul Haque. Slogan: *** FEEL THE FOOD ***"/>
+    <meta name="description" content="The hotel management system for GungchilTourism, Bangladesh. &copy; {{ date('Y') }} Copyright Reserved. Developed By A. H. M. Azimul Haque. Slogan: *** FEEL THE FOOD ***"/>
     <meta name="google-site-verification" content="QQXeHm-_ZOiwe0COC_gg0vLT__XzWMOVR2T7GzQsn1s" />
 <title>@yield('title_prefix', config('adminlte.title_prefix', ''))
 @yield('title', config('adminlte.title', 'Queen Island Kitchen'))

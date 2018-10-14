@@ -308,7 +308,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="block">
-                        <h1 class=" heading wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms"> SUBSCRIBE <span>to our</span> NEWSLETTER</h1>
+                        <h1 class="heading wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms"> SUBSCRIBE <span>to our</span> NEWSLETTER</h1>
                         <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </p>
                         <form class="form-inline">
                             <div class="form-group">
@@ -334,9 +334,83 @@
                 <div class="col-md-12">
                     <div class="block">
                         <h1 class="heading wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms"> Be A <span>member</span> RIGHT NOW!</h1>
-                        <center>Under Construction...</center>
+                        <center><h2 style="margin-bottom: 20px;" class="wow fadeInUp">Please pay a visit to our restaurent to get a membership!</h2></center>
                     </div>
-                </div><!-- .col-md-12 close -->
+                </div>
+                <div class="col-md-6">
+                    <table class="table wow fadeInUp">
+                        <tr>
+                            <th>
+                                <img src="{{ asset('images/icon.png') }}" style="width: 25px; height: auto;">
+                                <span style="margin-left: 10px;">Per BDT 100/- worth cost will add 5 points</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <img src="{{ asset('images/icon.png') }}" style="width: 25px; height: auto;">
+                                <span style="margin-left: 10px;">If 100 poits earned, gift can be claimed</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <img src="{{ asset('images/icon.png') }}" style="width: 25px; height: auto;">
+                                <span style="margin-left: 10px;">There are numbers of valuable gifts for members</span>
+                            </th>
+                        </tr>
+                    </table></li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="panel panel-success wow fadeInUp">
+                                <div class="panel-heading">Check your points</div>
+                                <div class="panel-body">
+                                    <div>
+                                        <span id="error_message" style="color: red;"></span>
+                                        <h3 id="member_name"></h3>
+                                        <h3 id="member_phone"></h3>
+                                        <h3 id="member_point"></h3>
+                                    </div><br/>
+                                    <div class="form-group">
+                                        <label>Member Id/ 11 digit mobile number:</label>
+                                        <input type="text" id="check_phone" class="form-control wow fadeInUp" autocomplete="on">
+                                    </div>
+                                    <button class="btn btn-success btn-block" id="check_button">Check</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $("#check_button").click(function(){
+                            member_id = $('#check_phone').val().trim();
+                            if(member_id == '') {
+                                $('#error_message').show();
+                                $('#error_message').text('Write your mobile number...');
+                                $('#error_message').delay(2000).fadeOut('slow');
+                                
+                            } else {
+                            $.get(window.location.protocol + "//" + window.location.host + "/member/points/" + member_id, function(data, status){
+                                  //console.log("Data: " + data + "\nStatus: " + status);
+                                  if(data == 'N/A') {
+                                    $('#error_message').show();
+                                    $('#error_message').text('No member found!');
+                                    $('#error_message').delay(2000).fadeOut('slow');
+                                    $('#member_name').text('');
+                                    $('#member_phone').text('');
+                                    $('#member_point').text('');
+                                  } else {
+                                    $('#member_name').text(data.name);
+                                    $('#member_phone').text(data.phone);
+                                    $('#member_point').text('Points: '+data.point);
+                                  }
+                              });
+                            }
+                        });
+                    });
+                </script>
             </div><!-- .row close -->
         </div><!-- .containe close -->
     </section><!-- #membership close -->
