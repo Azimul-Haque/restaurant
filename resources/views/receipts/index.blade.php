@@ -68,8 +68,8 @@
                                 </thead>
                                 <tbody id="receiptItemsTr{{ $receipt->receiptno }}"></tbody>
                               </table>
-                            </div>
-                            <div>QT: {{ $receipt->customqty}}</div>
+                            </div><br/>
+                            <div>QT: <b>{{ $receipt->customqty}}</b></div>
                             <script type="text/javascript">
                               var receipt = JSON.parse({!! json_encode($receipt->receiptdata) !!});
                               //console.log(receipt.items);
@@ -198,7 +198,7 @@
                       </thead>
                       <tbody id="searchModalItemsTr"></tbody>
                     </table>
-                  </div>
+                  </div><br/>
                   <div id="search_receipt_customqty"></div>
                 </div>
                 <div class="modal-footer noPrint">
@@ -282,7 +282,7 @@
                     receipttable += '  <td><b>৳ ' + data.discounted_total + '</b></td>';
                     receipttable += '</tr>';
                   document.getElementById('searchModalItemsTr').innerHTML = receipttable;
-                  document.getElementById('search_receipt_customqty').innerHTML = data.customqty;
+                  document.getElementById('search_receipt_customqty').innerHTML = 'QT: <b>' + data.customqty + '</b>';
                 } else {
                   document.getElementById('searchModalItemsTr').innerHTML = '<tr><td colspan="3"><center><h3>পাওয়া যায়নি!</h3></center></td></tr>';
                 }
