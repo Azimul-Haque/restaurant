@@ -98,8 +98,10 @@
   
   <script type="text/javascript">
     $(document).ready(function(){
-        window.print();
-        window.close();
+      setTimeout(function () {
+          window.print();
+          window.close();
+      }, 1000);
     });
   </script>
 

@@ -52,7 +52,7 @@
       <span>Phone: 01704-828518</span><br>
       <span>queenislandkitchen.com</span><br>
     </center>
-    <span style="border: 1px dotted #000000; margin: 5px; float: right;width: 30mm;">QTY:</span><br><br><br/>
+    <span style="border: 1px dotted #000000; margin: 5px; float: right;width: 30mm;">QTY: {{ $receipt->customqty }}</span><br><br><br/>
     <span>Receipt # <span id="receiptnoRP">{{ $receipt->receiptno }}</span></span><br>
     <span id="dateTimeP"></span><br>
     <script>
@@ -103,8 +103,10 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-      window.print();
-      window.close();
+    setTimeout(function () {
+        window.print();
+        window.close();
+    }, 1000);
   });
 </script>
 </section>
