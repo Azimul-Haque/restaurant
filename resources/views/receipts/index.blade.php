@@ -22,6 +22,7 @@
             <tr>
               <th>No</th>
               <th>Receipt No</th>
+              <th>QT</th>
               <th>Total</th>
               <th>Discount (%)</th>
               <th>Discounted Total</th>
@@ -34,6 +35,7 @@
             <tr>
               <td>{{ ++$i }}</td>
               <td><a class="link bold" style="cursor: pointer;" data-toggle="modal" data-target="#showModal{{ $receipt->id }}" data-backdrop="static">{{ $receipt->receiptno }}</a></td>
+              <td>{{ $receipt->customqty }}</td>
               <td>{{ $receipt->total }}</td>
               <td>{{ $receipt->discount }}%</td>
               <td>{{ $receipt->discounted_total }}</td>
@@ -67,6 +69,7 @@
                                 <tbody id="receiptItemsTr{{ $receipt->receiptno }}"></tbody>
                               </table>
                             </div>
+                            <div>QT: {{ $receipt->customqty}}</div>
                             <script type="text/javascript">
                               var receipt = JSON.parse({!! json_encode($receipt->receiptdata) !!});
                               //console.log(receipt.items);
@@ -196,6 +199,7 @@
                       <tbody id="searchModalItemsTr"></tbody>
                     </table>
                   </div>
+                  <div id="search_receipt_customqty"></div>
                 </div>
                 <div class="modal-footer noPrint">
                   <a href="" id="printPosSearchBtn" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> POS Print</a>
@@ -278,6 +282,7 @@
                     receipttable += '  <td><b>৳ ' + data.discounted_total + '</b></td>';
                     receipttable += '</tr>';
                   document.getElementById('searchModalItemsTr').innerHTML = receipttable;
+                  document.getElementById('search_receipt_customqty').innerHTML = data.customqty;
                 } else {
                   document.getElementById('searchModalItemsTr').innerHTML = '<tr><td colspan="3"><center><h3>পাওয়া যায়নি!</h3></center></td></tr>';
                 }
