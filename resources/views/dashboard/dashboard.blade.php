@@ -48,6 +48,19 @@
                 <!-- /.info-box-content -->
               </div>
             </div>
+          </div><br/>
+          <div class="panel panel-danger">
+            <div class="panel-heading">
+              স্বাগতম!
+            </div>
+            <div class="panel-body">
+              <big>
+                For any inconvenience:<br/>
+                <p><i class="fa fa-fw fa-phone" aria-hidden="true"></i>  &lt;+880 1751 398 392&gt;<br/>
+                  <i class="fa fa-fw fa-envelope-o" aria-hidden="true"></i>  &lt;orbachinujbuk&commat;gmail.com&gt;
+                </p>
+              </big>
+            </div>
           </div>
         </div>
 
