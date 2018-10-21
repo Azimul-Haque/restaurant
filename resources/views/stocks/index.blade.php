@@ -116,7 +116,7 @@
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
-            {!! Form::submit('Add Stock', array('class' => 'btn btn-success btn-block')) !!}
+            {!! Form::submit('Add Usage', array('class' => 'btn btn-success btn-block')) !!}
           </div>
         {!! Form::close() !!}
       </div>
