@@ -62,7 +62,7 @@
   <table width="100%" style="width: 100%">
     <thead>
       <tr>
-        <td>Item Name</td>
+        <td>Item</td>
         <td>Qty</td>
         <td class="rightalign">Price</td>
       </tr>
@@ -77,7 +77,7 @@
   var receipttable = '';
   for(i = 0; i < receipt.items.length; i++) {
     receipttable += '<tr>';
-    receipttable += '  <td>' + receipt.items[i].name + '</td>';
+    receipttable += '  <td style="font-size:11px;">' + receipt.items[i].name + '</td>';
     receipttable += '  <td>' + receipt.items[i].qty + '</td>';
     receipttable += '  <td class="rightalign">' + receipt.items[i].price + '</td>';
     receipttable += '</tr>';

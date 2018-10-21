@@ -107,6 +107,7 @@
                       @endforeach
                     </div>
                     <div class="modal-footer noPrint tableModalFooter">
+                      <a class="btn btn-sm btn-info" href="{{ route('sales.print', $sale->created_at) }}" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> POS Print</a>
                       <button type="button" class="btn btn-sm btn-primary" id="printModalBtn{{ date('Y-m-d', strtotime($sale->created_at)) }}"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
                       <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     </div>

@@ -80,6 +80,26 @@ class ReceiptController extends Controller
         }
     }
 
+    public function printSales($date)
+    {
+        $sale = DB::table('receipts')
+                        ->select('created_at', DB::raw('SUM(discounted_total) as totalsale'))
+                        ->where('isdeleted', '=', 0)
+                        ->whereDate('created_at', '=', date('Y-m-d', strtotime($date)))
+                        ->first();
+                        //dd($sale);
+        DB::statement('SET SESSION group_concat_max_len = 1000000');
+        $detail = DB::table('receipts')
+                        ->select('created_at', DB::raw('group_concat(receiptdata) as receiptdata'))
+                        ->where('isdeleted', '=', 0)
+                        ->whereDate('created_at', '=', date('Y-m-d', strtotime($date)))
+                        ->first();
+                        //dd($detail);
+        return view('receipts.possales')
+                  ->withSale($sale)
+                  ->withDetail($detail);
+    }
+
 
 
     public function create()

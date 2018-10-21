@@ -40,8 +40,9 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('stocks/getcategorymax/{category_id}','StockController@getCategoryMaxAPI');
 	Route::get('receipt/search/{receiptno}', ['as'=>'receipts.search','uses'=>'ReceiptController@searchReceiptAPI']);
 
-	// Receipt print route
+	// Receipt print route through POS
 	Route::get('receipt/print/{receiptno}', ['as'=>'receipt.print','uses'=>'ReceiptController@printReceipt']);
+	Route::get('receipt/sales/{date}', ['as'=>'sales.print','uses'=>'ReceiptController@printSales']);
 
 	// Report Generation Controller
 	Route::get('/reports', ['as'=>'reports.index','uses'=>'ReportController@getIndex']);
