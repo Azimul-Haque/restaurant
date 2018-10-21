@@ -101,6 +101,8 @@
                                   <option value="Number" @if($category->unit=='Number') selected="" @endif>Number</option>
                                   <option value="Packet" @if($category->unit=='Packet') selected="" @endif>Packet</option>
                                   <option value="Dozen" @if($category->unit=='Dozen') selected="" @endif>Dozen</option>
+                                  <option value="Can" @if($category->unit=='Can') selected="" @endif>Can</option>
+                                  <option value="Bottle" @if($category->unit=='Bottle') selected="" @endif>Bottle</option>
                                   <option value="N/A" @if($category->unit=='N/A') selected="" @endif>N/A</option>
                                 </select>
                               </div>
