@@ -66,14 +66,12 @@
           <table class="table">
             <tbody>
               <tr>
-                <th style="width: 10px">#</th>
                 <th>Name</th>
                 <th>Unit</th>
                 <th style="width: 40px">Action</th>
               </tr>
             @foreach ($categories as $category)
               <tr>
-                <td>{{ $category->id }}</td>
                 <td>{{ $category->name }}</td>
                 <td>{{ $category->unit }}</td>
                 <td>
