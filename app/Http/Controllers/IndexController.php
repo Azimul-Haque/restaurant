@@ -30,4 +30,15 @@ class IndexController extends Controller
         return 'N/A';
       }
     }
+
+    // clear configs, routes and serve
+    public function clear()
+    {
+        Artisan::call('config:cache');
+        Artisan::call('route:cache');
+        Artisan::call('optimize');
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        echo 'Config and Route Cached. All Cache Cleared';
+    }
 }
