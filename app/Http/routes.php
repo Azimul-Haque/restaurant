@@ -1,9 +1,5 @@
 <?php
 
-Route::get('/phpinfo', function () {
-    phpinfo(); 
-});
-
 Route::get('/clear', ['as'=>'clear','uses'=>'IndexController@clear']);
 
 Route::get('/', ['as'=>'index.index','uses'=>'IndexController@index']);
