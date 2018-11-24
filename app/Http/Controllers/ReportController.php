@@ -48,7 +48,7 @@ class ReportController extends Controller
 
         $pdf = PDF::loadView('reports.pdf.commodity', ['commodities' => $commodities], ['data' => [$request->from, $request->to, $commodity_total->totaltotal, $commodity_total->paidtotal, $commodity_total->duetotal]]);
         $fileName = date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
-        return $pdf->download($fileName);
+        return $pdf->stream($fileName);
     }
 
     public function getPDFStock(Request $request)
