@@ -48,7 +48,7 @@ class ReportController extends Controller
 
         $pdf = PDF::loadView('reports.pdf.commodity', ['commodities' => $commodities], ['data' => [$request->from, $request->to, $commodity_total->totaltotal, $commodity_total->paidtotal, $commodity_total->duetotal]]);
         $fileName = date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
-        return $pdf->stream($fileName);
+        return $pdf->download($fileName);
     }
 
     public function getPDFStock(Request $request)
@@ -72,7 +72,7 @@ class ReportController extends Controller
 
         $pdf = PDF::loadView('reports.pdf.stock', ['stocks' => $stocks], ['message' => $message]);
         $fileName = $message .'.pdf';
-        return $pdf->stream($fileName);
+        return $pdf->download($fileName);
     }
 
     public function getPDFSource(Request $request)
@@ -105,7 +105,7 @@ class ReportController extends Controller
 
         $pdf = PDF::loadView('reports.pdf.source', ['sources' => $sources], ['source_data' => [$source->name, $source_total->totalsource, $source_total->paidsource, $source_total->duesource]]);
         $fileName = $source->name .'.pdf';
-        return $pdf->stream($fileName);
+        return $pdf->download($fileName);
     }
 
     public function getPOSSource(Request $request)
@@ -157,7 +157,7 @@ class ReportController extends Controller
                         ->get();
         $pdf = PDF::loadView('reports.pdf.usage', ['usages' => $usages], ['date' => [$request->from, $request->to]]);
         $fileName = date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
-        return $pdf->stream($fileName);
+        return $pdf->download($fileName);
     }
 
     public function getPDFIncome(Request $request)
@@ -185,7 +185,7 @@ class ReportController extends Controller
                         ->first();
         $pdf = PDF::loadView('reports.pdf.income', ['incomes' => $incomes], ['data' => [$request->from, $request->to, $incomes_total->totalgross]]);
         $fileName = date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
-        return $pdf->stream($fileName);
+        return $pdf->download($fileName);
     }
 
     public function getPDFMember(Request $request)
@@ -210,6 +210,6 @@ class ReportController extends Controller
 
         $pdf = PDF::loadView('reports.pdf.member', ['members' => $members], ['message' => $message]);
         $fileName = $message . '.pdf';
-        return $pdf->stream($fileName);
+        return $pdf->download($fileName);
     }
 }
