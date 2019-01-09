@@ -23,9 +23,8 @@ class ReceiptController extends Controller
     public function index(Request $request)
     {
         $data = Receipt::where('isdeleted', '=', 0)
-                       ->orderBy('created_at','DESC')->paginate(8);
-        return view('receipts.index',compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 8);
+                       ->orderBy('created_at','DESC')->get();
+        return view('receipts.index')->withData($data);
     }
 
     public function getSales()
@@ -61,7 +60,7 @@ class ReceiptController extends Controller
     public function searchReceiptAPI($receiptno)
     {
         try {
-          $receipt = Receipt::where('receiptno', $receiptno)->first();
+          $receipt = Receipt::where('customqty', 'like', '%'.$receiptno.'%')->first();
           return $receipt;
         }
         catch (\Exception $e) {

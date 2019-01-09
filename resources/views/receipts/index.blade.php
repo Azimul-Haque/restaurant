@@ -15,13 +15,13 @@
 @section('content')
   @permission('receipt-crud')
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-9">
       <div class="table-responsive">
         <table class="table table-condensed" id="datatable-recepts">
           <thead>
             <tr>
-              <th>No</th>
               <th>Receipt No</th>
+              <th>Table</th>
               <th>QT</th>
               <th>Total</th>
               <th>Discount (%)</th>
@@ -33,8 +33,8 @@
           <tbody>
           @foreach ($data as $key => $receipt)
             <tr>
-              <td>{{ ++$i }}</td>
               <td><a class="link bold" style="cursor: pointer;" data-toggle="modal" data-target="#showModal{{ $receipt->id }}" data-backdrop="static">{{ $receipt->receiptno }}</a></td>
+              <td>{{ $receipt->tableno }}</td>
               <td>{{ $receipt->customqty }}</td>
               <td>{{ $receipt->total }}</td>
               <td>{{ $receipt->discount }}%</td>
@@ -69,7 +69,9 @@
                                 <tbody id="receiptItemsTr{{ $receipt->receiptno }}"></tbody>
                               </table>
                             </div><br/>
-                            <div>QT: <b>{{ $receipt->customqty}}</b></div>
+                            <div>
+                              Table: <b>{{ $receipt->tableno}}</b> QT: <b>{{ $receipt->customqty}}</b>
+                            </div>
                             <script type="text/javascript">
                               var receipt = JSON.parse({!! json_encode($receipt->receiptdata) !!});
                               //console.log(receipt.items);
@@ -164,7 +166,7 @@
         </table>  
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="box box-primary">
         <div class="box-header with-border text-blue">
           <i class="fa fa-fw fa-search"></i>
@@ -173,8 +175,8 @@
         <!-- /.box-header -->
         <div class="box-body">
           <div class="form-group">
-            <label for="receiptno">Receipt ID:</label>
-            <input type="text" class="form-control" id="receiptno" placeholder="Enter Receipt ID" required="" autocomplete="off">
+            <label for="receiptno">Qty No:</label>
+            <input type="text" class="form-control" id="receiptno" placeholder="Enter Qty No" required="" autocomplete="off">
           </div>
           <button class="btn btn-primary" id="search_receipt" data-toggle="modal" data-target="#searchModal" data-backdrop="static"><i class="fa fa-fw fa-search" aria-hidden="true"></i> Search Receipt</button>
           <div id="printSearchModal">
@@ -199,6 +201,7 @@
                       <tbody id="searchModalItemsTr"></tbody>
                     </table>
                   </div><br/>
+                  <div id="search_receipt_tableno"></div>
                   <div id="search_receipt_customqty"></div>
                 </div>
                 <div class="modal-footer noPrint">
@@ -215,14 +218,14 @@
       </div>
     </div>
   </div>
-  {!! $data->render() !!}
+  
   @endpermission
 @stop
 
 @section('js')
   <script type="text/javascript">
     $(function () {
-      $('#datatable-receptssss').DataTable({
+      $('#datatable-recepts').DataTable({
         'paging'      : true,
         'pageLength'  : 7,
         'lengthChange': true,
@@ -282,6 +285,7 @@
                     receipttable += '  <td><b>৳ ' + data.discounted_total + '</b></td>';
                     receipttable += '</tr>';
                   document.getElementById('searchModalItemsTr').innerHTML = receipttable;
+                  document.getElementById('search_receipt_tableno').innerHTML = 'Table: <b>' + data.tableno + '</b>';
                   document.getElementById('search_receipt_customqty').innerHTML = 'QT: <b>' + data.customqty + '</b>';
                 } else {
                   document.getElementById('searchModalItemsTr').innerHTML = '<tr><td colspan="3"><center><h3>পাওয়া যায়নি!</h3></center></td></tr>';

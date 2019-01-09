@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::resource('stocks','StockController');
 	Route::resource('usages','UsageController');
 	Route::resource('sources','SourceController');
+	Route::resource('waiters','WaiterController');
 
 	Route::get('income',['as'=>'receipts.income','uses'=>'ReceiptController@getIncome']);
 	Route::get('expenditure',['as'=>'commodities.expenditure','uses'=>'CommodityController@getExpenditure']);

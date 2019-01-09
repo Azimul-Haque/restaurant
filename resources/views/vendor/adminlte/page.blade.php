@@ -328,6 +328,12 @@
                             <span>Membership</span>
                         </a>
                     </li>
+                    <li class="{{ Request::is('waiters/*') ? 'active' : '' }}">
+                        <a href="{{ route('waiters.index') }}">
+                            <i class="fa fa-fw fa-male"></i>
+                            <span>Waiter Management</span>
+                        </a>
+                    </li>
                     <li class="{{ Request::is('reports') ? 'active' : '' }}">
                         <a href="{{ route('reports.index') }}">
                             <i class="fa fa-fw fa-pie-chart"></i>
