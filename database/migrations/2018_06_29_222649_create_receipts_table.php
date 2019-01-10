@@ -21,6 +21,7 @@ class CreateReceiptsTable extends Migration
             $table->string('discount');
             $table->string('customqty');
             $table->string('tableno');
+            $table->string('totalpoint');
             $table->string('discounted_total');
             $table->timestamps();
         });

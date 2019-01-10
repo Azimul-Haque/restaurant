@@ -26,6 +26,7 @@
               <th>Total</th>
               <th>Discount (%)</th>
               <th>Discounted Total</th>
+              <th>Points</th>
               <th>Created at</th>
               <th>Action</th>
             </tr>
@@ -39,6 +40,7 @@
               <td>{{ $receipt->total }}</td>
               <td>{{ $receipt->discount }}%</td>
               <td>{{ $receipt->discounted_total }}</td>
+              <td>{{ $receipt->totalpoint }}</td>
               <td>
                 {{ date('F d, Y h:i A', strtotime($receipt->created_at)) }}
               </td>
@@ -70,7 +72,9 @@
                               </table>
                             </div><br/>
                             <div>
-                              Table: <b>{{ $receipt->tableno}}</b> QT: <b>{{ $receipt->customqty}}</b>
+                              Table: <b>{{ $receipt->tableno}}</b> 
+                              QT: <b>{{ $receipt->customqty}}</b>
+                              Points earned: <b>{{ $receipt->totalpoint}}</b>
                             </div>
                             <script type="text/javascript">
                               var receipt = JSON.parse({!! json_encode($receipt->receiptdata) !!});
@@ -203,6 +207,7 @@
                   </div><br/>
                   <div id="search_receipt_tableno"></div>
                   <div id="search_receipt_customqty"></div>
+                  <div id="search_receipt_totalpoint"></div>
                 </div>
                 <div class="modal-footer noPrint">
                   <a href="" id="printPosSearchBtn" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> POS Print</a>
@@ -233,6 +238,7 @@
         'ordering'    : true,
         'info'        : true,
         'autoWidth'   : true,
+        'order': [[ 0, "desc" ]],
       });
     })
   </script>
@@ -252,13 +258,13 @@
       });
       $('#search_receipt').click(function() {
         $('#search_receipt_no').text($('#receiptno').val());
-        $('#printPosSearchBtn').attr('href', window.location.protocol + "//" + window.location.host + '/receipt/print/' +$('#receiptno').val());
         $.ajax({
              type: 'GET',
              url: window.location.protocol + "//" + window.location.host + '/receipt/search/' + $('#receiptno').val().trim(),
              data: [],
              success:function(data){
                 if(data != '') {
+                  $('#printPosSearchBtn').attr('href', window.location.protocol + "//" + window.location.host + '/receipt/print/' +data.receiptno);
                   var receipt = JSON.parse(data.receiptdata);
                   //console.log(data.total);
                   var receipttable = '';
@@ -287,6 +293,7 @@
                   document.getElementById('searchModalItemsTr').innerHTML = receipttable;
                   document.getElementById('search_receipt_tableno').innerHTML = 'Table: <b>' + data.tableno + '</b>';
                   document.getElementById('search_receipt_customqty').innerHTML = 'QT: <b>' + data.customqty + '</b>';
+                  document.getElementById('search_receipt_totalpoint').innerHTML = 'Points earned: <b>' + data.totalpoint + '</b>';
                 } else {
                   document.getElementById('searchModalItemsTr').innerHTML = '<tr><td colspan="3"><center><h3>পাওয়া যায়নি!</h3></center></td></tr>';
                 }

@@ -34,6 +34,9 @@
   .rightalign {
       text-align: right;
   }
+  .bold {
+    font-weight: bold;
+  }
 
   .centeralign {
       text-align: center;
@@ -73,6 +76,7 @@
     <tbody id="receiptItemsTr{{ $receipt->receiptno }}"></tbody>
   </table>
 </div><br>
+<center>Points earned: {{ $receipt->totalpoint }}</center>
 <center>*** FEEL THE FOOD ***</center>
 <script type="text/javascript">
   var receipt = JSON.parse({!! json_encode($receipt->receiptdata) !!});
@@ -90,16 +94,17 @@
   receipttable += '</tr>';
 
   receipttable += '<tr>';
-    receipttable += '  <td  colspan="2" class="rightalign">Total:</td>';
-    receipttable += '  <td class="rightalign">' + {{ $receipt->total }} + '</td>';
+    receipttable += '  <td align="left">Mobile:</td>';
+    receipttable += '  <td class="rightalign bold">Total:</td>';
+    receipttable += '  <td class="rightalign bold">' + {{ $receipt->total }} + '</td>';
   receipttable += '</tr>';
   receipttable += '<tr>';
-    receipttable += '  <td  colspan="2" class="rightalign">Discount:</td>';
-    receipttable += '  <td class="rightalign">' + {{ $receipt->discount }} + '%</td>';
+    receipttable += '  <td  colspan="2" class="rightalign bold">Discount(%):</td>';
+    receipttable += '  <td class="rightalign bold">' + {{ $receipt->discount }} + '</td>';
   receipttable += '</tr>';
   receipttable += '<tr>';
-    receipttable += '  <td colspan="2" class="rightalign">Total Price:</td>';
-    receipttable += '  <td class="rightalign">' + {{ $receipt->discounted_total }} + '</td>';
+    receipttable += '  <td colspan="2" class="rightalign bold">Total Price:</td>';
+    receipttable += '  <td class="rightalign bold">' + {{ $receipt->discounted_total }} + '</td>';
   receipttable += '</tr>';
   document.getElementById('receiptItemsTr{{ $receipt->receiptno }}').innerHTML = receipttable;
 </script>
