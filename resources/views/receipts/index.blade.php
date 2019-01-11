@@ -32,7 +32,7 @@
             </tr>
           </thead>
           <tbody>
-          @foreach ($data as $key => $receipt)
+          @foreach ($data as $receipt)
             <tr>
               <td><a class="link bold" style="cursor: pointer;" data-toggle="modal" data-target="#showModal{{ $receipt->id }}" data-backdrop="static">{{ $receipt->receiptno }}</a></td>
               <td>{{ $receipt->tableno }}</td>
