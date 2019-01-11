@@ -22,11 +22,12 @@
             <tr>
               <th>Category</th>
               <th>Quantity</th>
+              <th>Rate</th>
               <th>Submitted By</th>
               <th>Source</th>
               <th>Total</th>
-              <th>Paid</th>
-              <th>Due</th>
+              {{-- <th>Paid</th>
+              <th>Due</th> --}}
               <th>Created At</th>
             </tr>
           </thead>
@@ -35,12 +36,13 @@
             <tr>
               <td>{{ $commodity->category->name }}</td>
               <td>{{ $commodity->quantity }} {{ $commodity->category->unit }}</td>
+              <td><span class="label label-default" style="font-size: 13px;">৳ {{ $commodity->rate }}</span></td>
               <td>{{ $commodity->user->name }}</td>
               <td>{{ $commodity->source->name }}</td>
               <td>
                 <span class="badge bg-light-blue" style="font-size: 14.5px;">৳ {{ $commodity->total }}</span>
               </td>
-              <td>
+              {{-- <td>
                 <span class="badge bg-green" style="font-size: 14.5px;">৳ {{ $commodity->paid }}</span>
               </td>
               <td>
@@ -49,7 +51,7 @@
                 @else
                 <span class="badge bg-red" style="font-size: 14.5px;">৳ {{ $commodity->due }}</span>
                 @endif
-              </td>
+              </td> --}}
               <td>{{ date('F d, Y h:i A', strtotime($commodity->created_at)) }}</td>
             </tr>
           @endforeach

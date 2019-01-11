@@ -75,12 +75,20 @@
                 @endforeach
               </select>
             </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
               <select class="form-control text-green" name="source_report_type" required="">
                 <option value="" selected="" disabled="">রিপোর্টের ধরণ</option>
                 <option value="all">সম্পূর্ণ পরিশোধের হিসাবসহ</option>
                 <option value="justdue">শুধু বাকির হিসাব</option>
               </select>
+            </div> --}}
+            <div class="row">
+              <div class="form-group col-md-6">
+                {!! Form::text('from', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'From Date', 'id' => 'fromsourceDate', 'autocomplete' => 'off')) !!}
+              </div>
+              <div class="form-group col-md-6">
+                {!! Form::text('to', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'To Date', 'id' => 'tosourceDate', 'autocomplete' => 'off')) !!}
+              </div>
             </div>
             <div class="">
               <button class="btn btn-success" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
@@ -132,6 +140,25 @@
         </div>
         <!-- /.box-body -->
       </div>
+      <div class="box box-warning">
+        <div class="box-header with-border text-yellow">
+          <i class="fa fa-cutlery"></i>
+          <h3 class="box-title">Items Sales</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          {!! Form::open(['route' => 'reports.getitemsdatewise', 'method' => 'GET', 'target' => '_blank']) !!}
+            <div class="form-group">
+              {!! Form::text('from', null, array('class' => 'form-control text-yellow', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromitemsdatewiseDate', 'autocomplete' => 'off')) !!}
+            </div>
+            <div class="form-group">
+              {!! Form::text('to', null, array('class' => 'form-control text-yellow', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'toitemsdatewiseDate', 'autocomplete' => 'off')) !!}
+            </div>
+          <button class="btn btn-warning" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
+          {!! Form::close() !!}
+        </div>
+        <!-- /.box-body -->
+      </div>
     </div>
     <div class="col-md-3">
       <div class="box box-danger">
@@ -172,6 +199,16 @@
           todayHighlight: true,
           autoclose: true,
         });
+        $("#fromsourceDate").datepicker({
+          format: 'dd-mm-yyyy',
+          todayHighlight: true,
+          autoclose: true,
+        });
+        $("#tosourceDate").datepicker({
+          format: 'dd-mm-yyyy',
+          todayHighlight: true,
+          autoclose: true,
+        });
         $("#fromusageDate").datepicker({
           format: 'MM dd, yyyy',
           todayHighlight: true,
@@ -188,6 +225,16 @@
           autoclose: true,
         });
         $("#toincomeDate").datepicker({
+          format: 'MM dd, yyyy',
+          todayHighlight: true,
+          autoclose: true,
+        });
+        $("#fromitemsdatewiseDate").datepicker({
+          format: 'MM dd, yyyy',
+          todayHighlight: true,
+          autoclose: true,
+        });
+        $("#toitemsdatewiseDate").datepicker({
           format: 'MM dd, yyyy',
           todayHighlight: true,
           autoclose: true,

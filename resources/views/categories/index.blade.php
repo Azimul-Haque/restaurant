@@ -133,7 +133,7 @@
           <div class="box-header">
             <h3 class="box-title">Source List</h3>
             <div class="box-tools pull-right noPrint">
-              <button class="btn btn-primary btn-sm" id="printBtn"><i class="fa fa-fw fa-print" aria-hidden="true"></i> Print</button>
+              <a class="btn btn-primary btn-sm" href="{{ route('sources.print.normal') }}" target="_blank"><i class="fa fa-fw fa-print" aria-hidden="true"></i> POS Print</a>
               <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addSourceModal" data-backdrop="static"><i class="fa fa-fw fa-cart-plus" aria-hidden="true"></i> Add Source</button>
               {{-- add source modal--}}
                 <!-- Modal -->
@@ -180,23 +180,10 @@
                 <tr>
                   <td>{{ $source->id }}</td>
                   <td>{{ $source->name }}</td>
-                  @foreach($commodities as $commodity)
-                    @if($commodity->source_id == $source->id)
-                      <td>{{ $commodity->totalsource }}</td>
-                      <td>{{ $commodity->paidsource }}</td>
-                      <td>{{ $commodity->duesource }}</td>
-                      @php $flagnull = 0; @endphp
-                      @break
-                    @else
-                      @php $flagnull = 1; @endphp
-                      @continue
-                    @endif
-                  @endforeach
-                  @if($flagnull == 1)
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  @endif
+                  <td>{{ $source->total }}</td>
+                  <td>{{ $source->paid }}</td>
+                  <td>{{ $source->due }}</td>
+                  
                   <td class="noPrint">
                     <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editSourceModal{{ $source->id }}" data-backdrop="static"><i class="fa fa-fw fa-pencil" aria-hidden="true"></i></button>
                     {{-- edit source modal--}}
@@ -214,6 +201,18 @@
                                 <div class="form-group">
                                   {!! Form::label('name', 'Source Name:') !!}
                                   {!! Form::text('name', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Enter New Source/ Store')) !!}
+                                </div>
+                                <div class="form-group">
+                                  {!! Form::label('total', 'Total:') !!}
+                                  {!! Form::text('total', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Total')) !!}
+                                </div>
+                                <div class="form-group">
+                                  {!! Form::label('paid', 'Paid') !!}
+                                  {!! Form::text('paid', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Paid')) !!}
+                                </div>
+                                <div class="form-group">
+                                  {!! Form::label('due', 'Due:') !!}
+                                  {!! Form::text('due', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Due')) !!}
                                 </div>
                             </div>
                             <div class="modal-footer">

@@ -19,6 +19,7 @@ class CreateCommoditiesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('source_id')->unsigned();
             $table->float('quantity');
+            $table->string('rate');
             $table->string('total');
             $table->string('paid');
             $table->string('due');

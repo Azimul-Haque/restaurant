@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('stocks/getcategorymax/{category_id}','StockController@getCategoryMaxAPI');
 	Route::get('receipt/search/{receiptno}', ['as'=>'receipts.search','uses'=>'ReceiptController@searchReceiptAPI']);
 
+	// Source Print from Category & Source Page
+	Route::get('print/sources/normal', ['as'=>'sources.print.normal','uses'=>'SourceController@printSourcesNormal']);
 	// Receipt print route through POS
 	Route::get('receipt/print/{receiptno}', ['as'=>'receipt.print','uses'=>'ReceiptController@printReceipt']);
 	Route::get('receipt/sales/{date}', ['as'=>'sales.print','uses'=>'ReceiptController@printSales']);
@@ -51,6 +53,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/reports/export/usage/pdf', ['as'=>'reports.getusagepdf','uses'=>'ReportController@getPDFUsage']);
 	Route::get('/reports/export/itemwise/pdf', ['as'=>'reports.getincomepdf','uses'=>'ReportController@getPDFIncome']);
 	Route::get('/reports/export/members/pdf', ['as'=>'reports.getmembers','uses'=>'ReportController@getPDFMember']);
+	Route::get('/reports/export/items/date/wise/pdf', ['as'=>'reports.getitemsdatewise','uses'=>'ReportController@getPDFItemsDateWise']);
 
 	// POS Print from Report
 	Route::get('/reports/export/source/pos', ['as'=>'reports.getsourcepos','uses'=>'ReportController@getPOSSource']);

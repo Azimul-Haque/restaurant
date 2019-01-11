@@ -74,9 +74,10 @@ class CommodityController extends Controller
           'category_id' => 'required|integer',
           'source_id' => 'required|integer',
           'quantity'=>'required|numeric',
-          'total'=>'required|numeric',
-          'paid'=>'required|numeric',
-          'due'=>'required|numeric'
+          'rate'=>'required|numeric',
+          'total'=>'required|numeric' // the comma is ommited du to the next comments
+          // 'paid'=>'required|numeric',
+          // 'due'=>'required|numeric'
         ));
        
         //store to DB
@@ -86,10 +87,17 @@ class CommodityController extends Controller
         $commodity->source_id = $request->source_id;
         $commodity->user_id = Auth::user()->id;
         $commodity->quantity = $request->quantity;
+        $commodity->rate = $request->rate;
         $commodity->total = $request->total;
-        $commodity->paid = $request->paid;
-        $commodity->due = $request->total - $request->paid;
+        // $commodity->paid = $request->paid;
+        // $commodity->due = $request->total - $request->paid;
         $commodity->save();
+
+        // update source TOTAL
+        $source = Source::find($request->source_id);
+        $source->total = $source->total + $request->total;
+        $source->save();
+        // update source TOTAL
 
         // STOCK PART
         $category = Category::find($request->category_id);
@@ -163,18 +171,27 @@ class CommodityController extends Controller
           'category_id' => 'required|integer',
           'source_id' => 'required|integer',
           'quantity'=>'required|numeric',
-          'total'=>'required|numeric',
-          'paid'=>'required|numeric',
-          'due'=>'required|numeric'
+          'rate'=>'required|numeric',
+          'total'=>'required|numeric' // the comma is ommited du to the next comments
+          // 'paid'=>'required|numeric',
+          // 'due'=>'required|numeric'
         ));
         //update to DB
         $commodity->user_id = Auth::user()->id;
         $commodity->source_id = $request->source_id;
         $oldquantity = $commodity->quantity;
         $commodity->quantity = $request->quantity;
+        $commodity->rate = $request->rate;
+
+        // update source TOTAL before newTOTAL
+        $source = Source::find($request->source_id);
+        $source->total = $source->total - $commodity->total + $request->total;
+        $source->save();
+        // update source TOTAL before newTOTAL
+        
         $commodity->total = $request->total;
-        $commodity->paid = $request->paid;
-        $commodity->due = $request->total - $request->paid;
+        // $commodity->paid = $request->paid;
+        // $commodity->due = $request->total - $request->paid;
         $commodity->save();
 
         // STOCK PART
@@ -216,6 +233,16 @@ class CommodityController extends Controller
         $stock->quantity = $stock->quantity - $commodity->quantity;
         $stock->save();
         // STOCK PART
+
+        // update source TOTAL before newTOTAL
+        $source = Source::find($commodity->source_id);
+        $total_non_zero = $source->total - $commodity->total;
+        if($total_non_zero < 0) {
+          $total_non_zero = 0;
+        }
+        $source->total = $total_non_zero;
+        $source->save();
+        // update source TOTAL before newTOTAL
 
         Session::flash('success', 'Deleted successfully!');
         //redirect

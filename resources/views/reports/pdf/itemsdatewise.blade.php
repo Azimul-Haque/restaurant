@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Income | PDF</title>
+  <title>Item Wise | PDF</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="icon" sizes="192x192" href="{{ asset('images/pdf-icon.png') }}">
   <style>
@@ -25,25 +25,27 @@
 <body>
   <center>
     <span style="font-size: 20px;"><b>কুইন আইল্যান্ড কিচেন</b></span><br/>
-    <span style="font-size: 15px;"><b>তারিখ অনুযায়ী আয়ের হিসাব</b></span><br/>
+    <span style="font-size: 15px;"><b>তারিখ অনুযায়ী নির্দিষ্ট খাদ্যপণ্য বিক্রয়ের হিসাব</b></span><br/>
     <span style="font-size: 15px;"><b><u>{{ $data[0] }} - {{ $data[1] }}</u></b></span><br/>
   </center>
   <div class="">
     <table class="">
-      <tr style="background: #D3D3D3;">
-        <th>তারিখ</th>
-        <th>মোট বিক্রয়</th>
-      </tr>
-      @foreach($incomes as $income)
-        <tr>
-          <td>{{ date('F d, Y', strtotime($income->created_at)) }}</td>
-          <td align="right">৳ {{ $income->totalsale }}</td>
+      <thead>
+        <tr style="background: #D3D3D3;">
+          <th>খাদ্য সামগ্রীর নাম</th>
+          <th>মোট পরিমাণ</th>
+          <th>মোট বিক্রয়</th>
         </tr>
-      @endforeach
-      <tr style="background: #D3D3D3;">
-        <th>মোট</th>
-        <td align="right">৳ {{ $data[2] }}</td>
-      </tr>
+      </thead>
+      <tbody>
+        @foreach($grossitems as $item)
+        <tr>
+          <td>{{ $item[0]['name'] }}</td>
+          <td>{{ $item[0]['qty'] }}</td>
+          <td>{{ $item[0]['price'] }}</td>
+        </tr>
+        @endforeach
+      </tbody>
     </table>
   </div>
 </body>

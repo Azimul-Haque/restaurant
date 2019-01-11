@@ -80,25 +80,24 @@ class ReportController extends Controller
         //validation
         $this->validate($request, array(
           'source_id' => 'required',
-          'source_report_type' => 'required',
+          'from' => 'required',
+          'to' => 'required'
         ));
+        
+        $from = date("Y-m-d H:i:s", strtotime($request->from));
+        $to = date("Y-m-d H:i:s", strtotime($request->to.' 23:59:59'));
 
         $source = Source::find($request->source_id);
-        if($request->source_report_type == 'all') {
-          $sources = Commodity::where('source_id', $request->source_id)
-                        ->orderBy('created_at', 'desc')
-                        ->where('isdeleted', '=', 0)
-                        ->get();
-        } elseif ($request->source_report_type == 'justdue') {
-          $sources = Commodity::where('source_id', $request->source_id)
-                        ->where('due', '!=', 0)
-                        ->orderBy('created_at', 'desc')
-                        ->where('isdeleted', '=', 0)
-                        ->get();
-        }
+
+        $sources = Commodity::whereBetween('created_at', [$from, $to])
+                                ->where('source_id', $request->source_id)
+                                ->orderBy('created_at', 'desc')
+                                ->where('isdeleted', '=', 0)
+                                ->get();
         
         $source_total = DB::table('commodities')
                         ->select('source_id', DB::raw('SUM(total) as totalsource'), DB::raw('SUM(paid) as paidsource'), DB::raw('SUM(due) as duesource'))
+                        ->whereBetween('created_at', [$from, $to])
                         ->where('source_id', $request->source_id)
                         ->where('isdeleted', '=', 0)
                         ->first();
@@ -113,25 +112,24 @@ class ReportController extends Controller
         //validation
         $this->validate($request, array(
           'source_id' => 'required',
-          'source_report_type' => 'required',
+          'from' => 'required',
+          'to' => 'required'
         ));
+        
+        $from = date("Y-m-d H:i:s", strtotime($request->from));
+        $to = date("Y-m-d H:i:s", strtotime($request->to.' 23:59:59'));
 
         $source = Source::find($request->source_id);
-        if($request->source_report_type == 'all') {
-          $sources = Commodity::where('source_id', $request->source_id)
-                        ->orderBy('created_at', 'desc')
-                        ->where('isdeleted', '=', 0)
-                        ->get();
-        } elseif ($request->source_report_type == 'justdue') {
-          $sources = Commodity::where('source_id', $request->source_id)
-                        ->where('due', '!=', 0)
-                        ->orderBy('created_at', 'desc')
-                        ->where('isdeleted', '=', 0)
-                        ->get();
-        }
+
+        $sources = Commodity::whereBetween('created_at', [$from, $to])
+                                ->where('source_id', $request->source_id)
+                                ->orderBy('created_at', 'desc')
+                                ->where('isdeleted', '=', 0)
+                                ->get();
         
-        $sourcetotal = DB::table('commodities')
+        $source_total = DB::table('commodities')
                         ->select('source_id', DB::raw('SUM(total) as totalsource'), DB::raw('SUM(paid) as paidsource'), DB::raw('SUM(due) as duesource'))
+                        ->whereBetween('created_at', [$from, $to])
                         ->where('source_id', $request->source_id)
                         ->where('isdeleted', '=', 0)
                         ->first();
@@ -139,7 +137,7 @@ class ReportController extends Controller
         return view('reports.pos.source')
                    ->withSource($source)
                    ->withSources($sources)
-                   ->withSourcetotal($sourcetotal);
+                   ->withSourcetotal($source_total);
     }
 
 
@@ -176,7 +174,7 @@ class ReportController extends Controller
                         ->where('isdeleted', '=', 0)
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                         ->whereBetween('created_at', [$from, $to])
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('created_at', 'asc')
                         ->get();
         $incomes_total = DB::table('receipts')
                         ->select(DB::raw('SUM(discounted_total) as totalgross'))
@@ -211,5 +209,55 @@ class ReportController extends Controller
         $pdf = PDF::loadView('reports.pdf.member', ['members' => $members], ['message' => $message]);
         $fileName = $message . '.pdf';
         return $pdf->download($fileName);
+    }
+
+    public function getPDFItemsDateWise(Request $request)
+    {
+        //validation
+        $this->validate($request, array(
+          'from' => 'required',
+          'to' => 'required',
+        ));
+        $from = date("Y-m-d H:i:s", strtotime($request->from));
+        $to = date("Y-m-d H:i:s", strtotime($request->to.' 23:59:59'));
+        
+        $sales = DB::table('receipts')
+                        ->select(DB::raw('SUM(discounted_total) as totalsale'))
+                        ->whereBetween('created_at', [$from, $to])
+                        ->where('isdeleted', '=', 0)
+                        ->first();
+        DB::statement('SET SESSION group_concat_max_len = 10000000');
+        $items = DB::table('receipts')
+                     ->select(DB::raw('group_concat(receiptdata) as receiptdata'))
+                     ->whereBetween('created_at', [$from, $to])
+                     ->where('isdeleted', '=', 0)
+                     ->first();
+
+        $items_array = '[' .$items->receiptdata . ']';
+        $decoded_items_array = json_decode($items_array);
+        $merged = [];
+        for($i = 0; $i < count($decoded_items_array); $i++) {
+          $merged2 = json_decode(json_encode($decoded_items_array[$i]->items), true);
+          $merged = array_merge($merged,$merged2);
+        }
+
+        $mergedReceiptData = [];
+        foreach ($merged as $values) {
+            $key = $values['name'];
+
+            if(array_key_exists($key, $mergedReceiptData)) {
+                $mergedReceiptData[$key][0]['qty'] = $mergedReceiptData[$key][0]['qty'] + $values['qty'];
+                $mergedReceiptData[$key][0]['price'] = $mergedReceiptData[$key][0]['price'] + $values['price'];
+            } else {
+                $mergedReceiptData[$key][] = $values;
+            }
+        }
+  
+        // dd($mergedReceiptData);
+        $grossitems =$mergedReceiptData;
+        
+        $pdf = PDF::loadView('reports.pdf.itemsdatewise', ['grossitems' => $grossitems], ['data' => [$request->from, $request->to, $sales->totalsale]]);
+        $fileName = date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
+        return $pdf->stream($fileName);
     }
 }

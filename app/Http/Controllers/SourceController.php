@@ -51,16 +51,25 @@ class SourceController extends Controller
         if($source->name == $request->name) {
             $this->validate($request, array(
                 'name'=>'required|max:255',
+                'total'=>'required|max:255',
+                'paid'=>'required|max:255',
+                'due'=>'required|max:255'
             ));
         } else {
             $this->validate($request, array(
                 'name'=>'required|max:255|unique:sources,name',
+                'total'=>'required|max:255',
+                'paid'=>'required|max:255',
+                'due'=>'required|max:255'
             ));
         }
 
         //update DB
         
         $source->name = $request->name;
+        $source->total = $request->total;
+        $source->paid = $request->paid;
+        $source->due = $request->due;
         $source->save();
 
         Session::flash('success', 'Updated successfully!');
@@ -71,5 +80,13 @@ class SourceController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function printSourcesNormal()
+    {
+        $sources = Source::all();
+
+        return view('sources.normalprint')
+                  ->withSources($sources);
     }
 }

@@ -1,4 +1,4 @@
-<title>হিসাব প্রিন্টিংঃ {{ $source->name }}...</title>
+<title>হিসাব প্রিন্টিংঃ...</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="{{ asset('js/dateformat.js') }}"></script>
 <style type="text/css">
@@ -7,7 +7,7 @@
         margin: 0mm;
     }
    /* output size */
-  .receipt .sheet {
+  .sources .sheet {
       width: 80mm; 
       height: auto; 
       font-family: Courier; 
@@ -15,7 +15,7 @@
   } /* sheet size */
   /*.sheet { text-align: justify; text-justify: inter-word;  }*/
   @media print { 
-      .receipt { width: 80mm } 
+      .sources { width: 80mm } 
 
       .noPrint, .no-print *
       {
@@ -43,10 +43,16 @@
     margin: 0px !important;
   }
 </style>
+<script type="text/javascript">
+  $(document).ready(function(){
+    setTimeout(function () {
+        window.print();
+        window.close();
+    }, 1000);
+  });
+</script>
 
-
-
-<div class="receipt" id="printArea">
+<div class="sources" id="printArea">
   <section class="sheet padding-10mm">
   <center>
     <img src="{{ asset('images/icon-white.png') }}" style="width: 50px; height: auto;"><br>
@@ -59,33 +65,23 @@
   <script>
     document.getElementById("dateTimeP").innerHTML = dateTime = dateFormat(new Date(), "mmmm dd, yyyy, HH:MM TT");;
   </script>
-  <p align="center" style="font-size: 12px;"><b><u><big>{{ $source->name }}</big></u></b><br/>লেনদেনের হিসাব</p>
+  <p align="center" style="font-size: 12px;">দোকান/সোর্সের হিসাব</p>
   <div width="100%">
     <table width="100%" style="width: 100%">
       <tr>
-        <td>Item</td>
-        <td>Qty</td>
-        <td>Total</td>
-        <td>Date</td>
+        <th>দোকান/সোর্সের নাম</th>
+        <th>মোট</th>
+        <th>পরিশোধিত</th>
+        <th>বক্যেয়া</th>
       </tr>
-      @foreach($sources as $commodity)
+      @foreach($sources as $source)
         <tr>
-          <td style="font-size: 12px;">{{ $commodity->category->name }}</td>
-          <td>{{ $commodity->quantity }}</td>
-          <td align="right">{{ $commodity->total }}/-</td>
-          <td>{{ date('d/m/y', strtotime($commodity->created_at)) }}</td>
+          <td>{{ $source->name }}</td>
+          <td>{{ $source->total }}/-</td>
+          <td>{{ $source->paid }}/-</td>
+          <td>{{ $source->due }}/-</td>
         </tr>
       @endforeach
-      <tr>
-        <td colspan="2"></td>
-        <td colspan="3" style="border: 1px dotted #000;"></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td colspan="2">Total:</td>
-        <td align="right">{{ $sourcetotal->totalsource }}/-</td>
-        <td></td>
-      </tr>
     </table>
   </div><br><br/>
   <div style="float: right; margin-top: 20;">Signature</div>

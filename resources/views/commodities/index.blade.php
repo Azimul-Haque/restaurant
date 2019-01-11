@@ -22,11 +22,12 @@
             <tr>
               <th>Category</th>
               <th>Quantity</th>
+              <th>Rate</th>
               <th>Submitted By</th>
               <th>Source</th>
               <th>Total</th>
-              <th>Paid</th>
-              <th>Due</th>
+              {{-- <th>Paid</th>
+              <th>Due</th> --}}
               <th>Created At</th>
               <th class="noPrint">Action</th>
             </tr>
@@ -36,12 +37,13 @@
             <tr>
               <td>{{ $commodity->category->name }}</td>
               <td>{{ $commodity->quantity }} {{ $commodity->category->unit }}</td>
+              <td><span class="label label-default" style="font-size: 13px;">৳ {{ $commodity->rate }}</span></td>
               <td>{{ $commodity->user->name }}</td>
               <td>{{ $commodity->source->name }}</td>
               <td>
                 <span class="badge bg-light-blue" style="font-size: 14.5px;">৳ {{ $commodity->total }}</span>
               </td>
-              <td>
+              {{-- <td>
                 <span class="badge bg-green" style="font-size: 14.5px;">৳ {{ $commodity->paid }}</span>
               </td>
               <td>
@@ -50,7 +52,7 @@
                 @else
                 <span class="badge bg-red" style="font-size: 14.5px;">৳ {{ $commodity->due }}</span>
                 @endif
-              </td>
+              </td> --}}
               <td>{{ date('F d, Y h:i A', strtotime($commodity->created_at)) }}</td>
               <td class="noPrint">
                 <div class="tools">
@@ -87,13 +89,19 @@
                                 </div>
                               </div>
                               <div class="form-group">
+                                {!! Form::label('rate', 'Rate:') !!}
+                                {!! Form::number('rate', null, array('class' => 'form-control', 'placeholder' => 'Write Rate', 'step' => 'any', 'required' => '', 'min' => 0)) !!}
+                              </div>
+                              <div class="form-group">
                                 {!! Form::label('source_id', 'Source') !!}
-                                <select class="form-control" name="source_id" required="">
+                                {{-- <select class="form-control" name="source_id" required="" disabled="">
                                     <option value="" selected="" disabled="">Select Source</option>
                                   @foreach($sources as $source)
                                     <option value="{{ $source->id }}" @if($commodity->source_id == $source->id) selected @endif>{{ $source->name }}</option>
                                   @endforeach
-                                </select>
+                                </select> --}}
+                                <input type="hidden" name="source_id" value="{{ $commodity->source_id }}" class="form-control">
+                                <input type="text" value="{{ $commodity->source->name }}" class="form-control" disabled="">
                               </div>
                               <div class="row">
                                 <div class="col-md-4">
@@ -103,16 +111,16 @@
                                   </div>
                                 </div>
                                 <div class="col-md-4">
-                                  <div class="form-group">
+                                  {{-- <div class="form-group">
                                     {!! Form::label('paid', 'Paid:') !!}
                                     {!! Form::number('paid', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Write Paid Amount', 'min' => 0, 'step' => 'any', 'id' => 'paid_edit'.$commodity->id)) !!}
-                                  </div>
+                                  </div> --}}
                                 </div>
                                 <div class="col-md-4">
-                                  <div class="form-group">
+                                  {{-- <div class="form-group">
                                     {!! Form::label('due', 'Due:') !!}
                                     {!! Form::number('due', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Write Due Amount', 'min' => 0, 'step' => 'any', 'id' => 'due_edit'.$commodity->id)) !!}
-                                  </div>
+                                  </div> --}}
                                 </div>
                               </div>
                             </div>
@@ -200,6 +208,10 @@
                     </div>
                   </div>
                   <div class="form-group">
+                    {!! Form::label('rate', 'Rate:') !!}
+                    {!! Form::number('rate', null, array('class' => 'form-control', 'placeholder' => 'Write Rate', 'step' => 'any', 'required' => '', 'min' => 0)) !!}
+                  </div>
+                  <div class="form-group">
                     {!! Form::label('source_id', 'Source') !!}
                     <select class="form-control" name="source_id" required="">
                         <option value="" selected="" disabled="">Select Source</option>
@@ -216,16 +228,16 @@
                       </div>
                     </div>
                     <div class="col-md-4">
-                      <div class="form-group">
+                      {{-- <div class="form-group">
                         {!! Form::label('paid', 'Paid:') !!}
                         {!! Form::number('paid', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Write Paid Amount', 'min' => 0, 'step' => 'any')) !!}
-                      </div>
+                      </div> --}}
                     </div>
                     <div class="col-md-4">
-                      <div class="form-group">
+                      {{-- <div class="form-group">
                         {!! Form::label('due', 'Due:') !!}
                         {!! Form::number('due', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Write Due Amount', 'min' => 0, 'step' => 'any')) !!}
-                      </div>
+                      </div> --}}
                     </div>
                   </div>
             </div>
