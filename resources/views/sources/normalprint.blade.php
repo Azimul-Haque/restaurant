@@ -1,4 +1,4 @@
-<title>হিসাব প্রিন্টিংঃ...</title>
+<title>হিসাব প্রিন্টিং...</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="{{ asset('js/dateformat.js') }}"></script>
 <style type="text/css">

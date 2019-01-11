@@ -253,7 +253,7 @@ class ReportController extends Controller
             }
         }
   
-        // dd($mergedReceiptData);
+        dd($mergedReceiptData);
         $grossitems =$mergedReceiptData;
         
         $pdf = PDF::loadView('reports.pdf.itemsdatewise', ['grossitems' => $grossitems], ['data' => [$request->from, $request->to, $sales->totalsale]]);
