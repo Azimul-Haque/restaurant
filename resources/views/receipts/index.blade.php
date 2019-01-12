@@ -167,8 +167,9 @@
             </tr>
           @endforeach
           </tbody>
-        </table>  
+        </table>
       </div>
+      {{ $data->links() }}
     </div>
     <div class="col-md-3">
       <div class="box box-primary">
@@ -230,7 +231,7 @@
 @section('js')
   <script type="text/javascript">
     $(function () {
-      $('#datatable-recepts').DataTable({
+      $('#datatable-receptssss').DataTable({
         'paging'      : true,
         'pageLength'  : 7,
         'lengthChange': true,
