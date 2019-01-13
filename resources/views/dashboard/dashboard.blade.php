@@ -68,7 +68,7 @@
           </div><br/>
           <div class="panel panel-success">
             <div class="panel-heading">
-              <big class="blink">নতুন ফিচার!</big>
+              <big class="blink">নতুন ফিচার! (Version 2.0.0)</big>
             </div>
             <div class="panel-body">
               <big>
