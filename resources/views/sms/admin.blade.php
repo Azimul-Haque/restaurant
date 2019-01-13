@@ -12,7 +12,7 @@
 @stop
 
 @section('content')
-  @if(Auth::user()->name == 'Admin')
+  @if((Auth::user()->name == 'Admin') || (Auth::user()->name == 'Developer'))
   <div class="row">
     <div class="col-md-6">
       <div class="row">
