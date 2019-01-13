@@ -16,16 +16,17 @@
       border: 1px solid black;
   }
   th, td{
-    padding: 5px;
+    padding: 3px;
     font-family: 'kalpurush', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
   }
   </style>
 </head>
 <body>
   <h2 align="center">কুইন আইল্যান্ড কিচেন</h2>
-  <p align="center">রান্নাঘরে মালামাল ব্যবহারের হিসাব</p>
-  <p align="center"><b><u>{{ $date[0] }} - {{ $date[1] }}</u></b></p>
+  <p align="center">
+    রান্নাঘরে মালামাল ব্যবহারের হিসাব<br/>
+    <b><u>{{ $date[0] }} - {{ $date[1] }}</u></b></p>
   <div class="">
     <table class="">
       <tr style="background: #D3D3D3;">

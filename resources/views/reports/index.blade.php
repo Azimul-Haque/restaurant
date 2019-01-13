@@ -25,12 +25,12 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          {!! Form::open(['route' => 'reports.getcommoditypdf', 'method' => 'GET']) !!}
+          {!! Form::open(['route' => 'reports.getcommoditypdf', 'method' => 'GET', 'target' => '_blank']) !!}
             <div class="form-group">
-              {!! Form::text('from', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromcomexDate', 'autocomplete' => 'off')) !!}
+              {!! Form::text('from', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromcomexDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
             </div>
             <div class="form-group">
-              {!! Form::text('to', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'tocomexDate', 'autocomplete' => 'off')) !!}
+              {!! Form::text('to', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'tocomexDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
             </div>
           <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
           {!! Form::close() !!}
@@ -44,7 +44,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          {!! Form::open(['route' => 'reports.getstockpdf', 'method' => 'GET']) !!}
+          {!! Form::open(['route' => 'reports.getstockpdf', 'method' => 'GET', 'target' => '_blank']) !!}
             <div class="form-group">
               <select class="form-control text-green" name="stock_report_type" required="">
                 <option value="" selected="" disabled="">রিপোর্টের ধরণ</option>
@@ -84,10 +84,10 @@
             </div> --}}
             <div class="row">
               <div class="form-group col-md-6">
-                {!! Form::text('from', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'From Date', 'id' => 'fromsourceDate', 'autocomplete' => 'off')) !!}
+                {!! Form::text('from', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'From Date', 'id' => 'fromsourceDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
               </div>
               <div class="form-group col-md-6">
-                {!! Form::text('to', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'To Date', 'id' => 'tosourceDate', 'autocomplete' => 'off')) !!}
+                {!! Form::text('to', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'To Date', 'id' => 'tosourceDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
               </div>
             </div>
             <div class="">
@@ -130,10 +130,10 @@
         <div class="box-body">
           {!! Form::open(['route' => 'reports.getusagepdf', 'method' => 'GET']) !!}
             <div class="form-group">
-              {!! Form::text('from', null, array('class' => 'form-control text-yellow', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromusageDate', 'autocomplete' => 'off')) !!}
+              {!! Form::text('from', null, array('class' => 'form-control text-yellow', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromusageDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
             </div>
             <div class="form-group">
-              {!! Form::text('to', null, array('class' => 'form-control text-yellow', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'tousageDate', 'autocomplete' => 'off')) !!}
+              {!! Form::text('to', null, array('class' => 'form-control text-yellow', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'tousageDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
             </div>
           <button class="btn btn-warning" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
           {!! Form::close() !!}
@@ -149,10 +149,10 @@
         <div class="box-body">
           {!! Form::open(['route' => 'reports.getitemsdatewise', 'method' => 'GET', 'target' => '_blank']) !!}
             <div class="form-group">
-              {!! Form::text('from', null, array('class' => 'form-control text-yellow', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromitemsdatewiseDate', 'autocomplete' => 'off')) !!}
+              {!! Form::text('from', null, array('class' => 'form-control text-yellow', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromitemsdatewiseDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
             </div>
             <div class="form-group">
-              {!! Form::text('to', null, array('class' => 'form-control text-yellow', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'toitemsdatewiseDate', 'autocomplete' => 'off')) !!}
+              {!! Form::text('to', null, array('class' => 'form-control text-yellow', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'toitemsdatewiseDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
             </div>
           <button class="btn btn-warning" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
           {!! Form::close() !!}
@@ -170,10 +170,29 @@
         <div class="box-body">
           {!! Form::open(['route' => 'reports.getincomepdf', 'method' => 'GET']) !!}
             <div class="form-group">
-              {!! Form::text('from', null, array('class' => 'form-control text-red', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromincomeDate', 'autocomplete' => 'off')) !!}
+              {!! Form::text('from', null, array('class' => 'form-control text-red', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromincomeDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
             </div>
             <div class="form-group">
-              {!! Form::text('to', null, array('class' => 'form-control text-red', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'toincomeDate', 'autocomplete' => 'off')) !!}
+              {!! Form::text('to', null, array('class' => 'form-control text-red', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'toincomeDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
+            </div>
+          <button class="btn btn-danger" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
+          {!! Form::close() !!}
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <div class="box box-danger">
+        <div class="box-header with-border text-red">
+          <i class="fa fa-fw fa-envelope-o"></i>
+          <h3 class="box-title">SMS Report</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          {!! Form::open(['route' => 'reports.getsmshistory', 'method' => 'GET', 'target' => '_blank']) !!}
+            <div class="form-group">
+              {!! Form::text('from', null, array('class' => 'form-control text-red', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromsmsDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
+            </div>
+            <div class="form-group">
+              {!! Form::text('to', null, array('class' => 'form-control text-red', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'tosmsDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
             </div>
           <button class="btn btn-danger" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
           {!! Form::close() !!}
@@ -235,6 +254,16 @@
           autoclose: true,
         });
         $("#toitemsdatewiseDate").datepicker({
+          format: 'MM dd, yyyy',
+          todayHighlight: true,
+          autoclose: true,
+        });
+        $("#fromsmsDate").datepicker({
+          format: 'MM dd, yyyy',
+          todayHighlight: true,
+          autoclose: true,
+        });
+        $("#tosmsDate").datepicker({
           format: 'MM dd, yyyy',
           todayHighlight: true,
           autoclose: true,

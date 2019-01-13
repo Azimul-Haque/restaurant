@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/clear', ['as'=>'clear','uses'=>'IndexController@clear']);
+Route::get('/clear', ['as'=>'clear', 'uses'=>'IndexController@clear']);
 
 Route::get('/', ['as'=>'index.index','uses'=>'IndexController@index']);
 
@@ -54,6 +54,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/reports/export/itemwise/pdf', ['as'=>'reports.getincomepdf','uses'=>'ReportController@getPDFIncome']);
 	Route::get('/reports/export/members/pdf', ['as'=>'reports.getmembers','uses'=>'ReportController@getPDFMember']);
 	Route::get('/reports/export/items/date/wise/pdf', ['as'=>'reports.getitemsdatewise','uses'=>'ReportController@getPDFItemsDateWise']);
+	Route::get('/reports/export/sms/history/pdf', ['as'=>'reports.getsmshistory','uses'=>'ReportController@getPDFSMSHistory']);
 
 	// POS Print from Report
 	Route::get('/reports/export/source/pos', ['as'=>'reports.getsourcepos','uses'=>'ReportController@getPOSSource']);
@@ -63,8 +64,16 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::post('/membership', ['as'=>'membership.store','uses'=>'MembershipController@store']);
 	Route::put('/membership/{id}', ['as'=>'membership.update','uses'=>'MembershipController@update']);
 	Route::patch('/membership/award/{id}', ['as'=>'membership.award','uses'=>'MembershipController@award']);
+	Route::post('/membership/send/sms/{id}', ['as'=>'membership.singlesms','uses'=>'MembershipController@sendSingleSMS']);
 	Route::delete('/membership/{id}', ['as'=>'membership.destroy','uses'=>'MembershipController@destroy']);
 
+	// SMS Admin Panel
+	Route::get('/sms/admin', ['as'=>'sms.admin','uses'=>'SmsController@getAdmin']);
+	Route::post('/sms/add/sms', ['as'=>'sms.addsms','uses'=>'SmsController@addSms']);
+	// SMS Admin Panel
+
+	Route::get('/sms', ['as'=>'sms.index','uses'=>'SmsController@index']);
+	Route::post('/sms/send/bulk', ['as'=>'sms.sendbulk','uses'=>'SmsController@sendBulk']);
 });
 
 	// Public APIs

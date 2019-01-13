@@ -3,6 +3,8 @@
 @section('title', 'Queen Island Kitchen | Receipts')
 
 @section('css')
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="{{ asset('js/smscounter.js') }}"></script>
 @stop
 
 @section('content_header')
@@ -52,7 +54,7 @@
             <td>{{ date('F d, Y', strtotime($membership->created_at)) }}</td>
       
             <td class="noPrint">
-              <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editMemberModal{{ $membership->id }}" data-backdrop="static"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editMemberModal{{ $membership->id }}" data-backdrop="static" data-placement="top" title="মেম্বার সম্পাদনা করুন (পয়েন্ট যোগ করুন)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
               <!-- Trigger the modal with a button -->
               {{-- edit modal--}}
               <div class="modal fade" id="editMemberModal{{ $membership->id }}" role="dialog">
@@ -88,7 +90,7 @@
               {{-- edit modal--}}
 
               {{-- award modal--}}
-              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#awardMemberModal{{ $membership->id }}" data-backdrop="static"><i class="fa fa-trophy" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#awardMemberModal{{ $membership->id }}" data-backdrop="static" data-placement="top" title="পুরস্কার প্রদান করুন"><i class="fa fa-trophy" aria-hidden="true"></i></button>
               <!-- Trigger the modal with a button -->
               <!-- Modal -->
               <div class="modal fade" id="awardMemberModal{{ $membership->id }}" role="dialog">
@@ -112,8 +114,56 @@
               </div>
               {{-- award modal--}}
 
+              {{-- sms modal--}}
+              <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#deleteModal{{ $membership->id }}" data-backdrop="static" data-placement="top" title="{{ $membership->name }}-কে SMS পাঠান"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+              <!-- Trigger the modal with a button -->
+              <!-- Modal -->
+              <div class="modal fade" id="deleteModal{{ $membership->id }}" role="dialog">
+                <div class="modal-dialog modal-md">
+                  <div class="modal-content">
+                    <div class="modal-header modal-header-warning">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title"><i class="fa fa-envelope-o" aria-hidden="true"></i> SMS Panel (Send a SMS to <b>{{ $membership->name }}</b>)</h4>
+                    </div>
+                    <div class="modal-body">
+                      {!! Form::open(['route' => ['membership.singlesms', $membership->id], 'method' => 'POST']) !!}
+                          <div class="form-group">
+                            <label for="phone">Mobile Number: (Just write the 11 digit mobile number)</label>
+                            <input type="text" name="phone" id="phone" class="form-control" value="{{ $membership->phone }}" required="">
+                          </div>
+                          <div class="form-group">
+                            <label for="singlemessage{{ $membership->id }}">Message:</label>
+                            <textarea type="text" name="message" id="singlemessage{{ $membership->id }}" class="form-control textarea" required=""></textarea>
+                          </div>
+                          <table class="table">
+                            <tr id="smstestresult{{ $membership->id }}">
+                              <td>Encoding: <span class="encoding">GSM_7BIT</span></td>
+                              <td>Length: <span class="length">0</span></td>
+                              <td>SMS Cost: <span class="messages" id="smscount{{ $membership->id }}">0</span></td>
+                              <td>Remaining: <span class="remaining">160</span></td>
+                            </tr>
+                          </table>
+                          <input type="hidden" name="smscount" id="smscounthidden{{ $membership->id }}" required="">
+                          <input type="hidden" name="membership_id" value="{{ $membership->id }}" required="">
+                    </div>
+                    <div class="modal-footer">
+                          <button type="submit" class="btn btn-warning"><i class="fa fa-paper-plane"></i> Send SMS</button>
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      {!! Form::close() !!}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <script type="text/javascript">
+                $('#singlemessage{{ $membership->id }}').countSms('#smstestresult{{ $membership->id }}');
+                $('#singlemessage{{ $membership->id }}').keyup(function() {
+                    $('#smscounthidden{{ $membership->id }}').val($('#smscount{{ $membership->id }}').text());
+                });
+              </script>
+              {{-- sms modal--}}
+
               {{-- delete modal--}}
-              <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $membership->id }}" data-backdrop="static"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $membership->id }}" data-backdrop="static" data-placement="top" title="মেম্বার মুছে দিন"><i class="fa fa-trash" aria-hidden="true"></i></button>
               <!-- Trigger the modal with a button -->
               <!-- Modal -->
               <div class="modal fade" id="deleteModal{{ $membership->id }}" role="dialog">
@@ -181,6 +231,12 @@
 @stop
 
 @section('js')
+  <script>
+    $(document).ready(function(){
+      $('a[title]').tooltip();
+      $('button[title]').tooltip();
+    });
+  </script>
   <script type="text/javascript">
   $(function () {
     //$.fn.dataTable.moment('DD MMMM, YYYY hh:mm:ss tt');

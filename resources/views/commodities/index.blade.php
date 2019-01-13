@@ -203,13 +203,13 @@
                   <div class="form-group">
                     {!! Form::label('quantity', 'Quantity:') !!}
                     <div class="input-group">
-                      {!! Form::number('quantity', null, array('class' => 'form-control', 'placeholder' => 'Write Quantity', 'step' => 'any', 'required' => '', 'min' => 0)) !!}
+                      {!! Form::number('quantity', null, array('class' => 'form-control', 'placeholder' => 'Write Quantity', 'step' => 'any', 'required' => '', 'min' => 0, 'id' => 'addquantity')) !!}
                       <span class="input-group-addon" id="unittostore">Unit</span>
                     </div>
                   </div>
                   <div class="form-group">
                     {!! Form::label('rate', 'Rate:') !!}
-                    {!! Form::number('rate', null, array('class' => 'form-control', 'placeholder' => 'Write Rate', 'step' => 'any', 'required' => '', 'min' => 0)) !!}
+                    {!! Form::number('rate', null, array('class' => 'form-control', 'placeholder' => 'Write Rate', 'step' => 'any', 'required' => '', 'min' => 0, 'id' => 'addrate')) !!}
                   </div>
                   <div class="form-group">
                     {!! Form::label('source_id', 'Source') !!}
@@ -224,7 +224,7 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         {!! Form::label('total', 'Total Cost:') !!}
-                        {!! Form::number('total', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Write Total Cost', 'min' => 0, 'step' => 'any')) !!}
+                        {!! Form::number('total', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Write Total Cost', 'min' => 0, 'step' => 'any', 'id' => 'addtotal')) !!}
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -326,5 +326,16 @@
   }
 </script>
 {{-- print code --}}
+
+<script type="text/javascript">
+  $('#addrate').keyup(function() {
+    var addtotal = $('#addrate').val() * $('#addquantity').val();
+    $('#addtotal').val(addtotal);
+  })
+  $('#addquantity').keyup(function() {
+    var addtotal = $('#addrate').val() * $('#addquantity').val();
+    $('#addtotal').val(addtotal);
+  })
+</script>
 
 @stop

@@ -16,16 +16,18 @@
       border: 1px solid black;
   }
   th, td{
-    padding: 5px;
+    padding: 3px;
     font-family: 'kalpurush', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
   }
   </style>
 </head>
 <body>
   <h2 align="center">কুইন আইল্যান্ড কিচেন</h2>
-  <p align="center">বর্তমানে স্টকের অবস্থা</p>
-  <p align="center"><b><u>{{ $message }}</u></b></p>
+  <p align="center">
+    বর্তমানে স্টকের অবস্থা
+    <br/><b><u>{{ $message }}</u></b>
+  </p>
   <div class="">
     <table class="">
       <tr style="background: #D3D3D3;">

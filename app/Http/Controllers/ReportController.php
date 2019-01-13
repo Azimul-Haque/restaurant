@@ -13,6 +13,7 @@ use App\Source;
 use App\Usage;
 use App\Receipt;
 use App\Membership;
+use App\Smshistory;
 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -47,7 +48,7 @@ class ReportController extends Controller
                         ->first();
 
         $pdf = PDF::loadView('reports.pdf.commodity', ['commodities' => $commodities], ['data' => [$request->from, $request->to, $commodity_total->totaltotal, $commodity_total->paidtotal, $commodity_total->duetotal]]);
-        $fileName = date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
+        $fileName = 'Commodity_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
         return $pdf->stream($fileName);
     }
 
@@ -61,18 +62,32 @@ class ReportController extends Controller
         $stocks = null;
         $message = '';
         if($request->stock_report_type == 'all') {
-            $stocks = Stock::orderBy('created_at', 'desc')->get();
+            $stocks = Stock::with(['category' => function($query) {
+                                $query->orderBy('name', 'asc');
+                             }])->get();
             $message = 'শেষ হয়ে যাওয়া সামগ্রীসহ';
         } elseif ($request->stock_report_type == 'onlyexisting') {
             $stocks = Stock::where('quantity', '>', 0)
-                           ->orderBy('created_at', 'desc')
-                           ->get();
+                           ->with(['category' => function($query) {
+                                $query->orderBy('name', 'asc');
+                             }])->get();
             $message = 'শুধুমাত্র বিদ্যমান সামগ্রীগুলো';
         }
 
-        $pdf = PDF::loadView('reports.pdf.stock', ['stocks' => $stocks], ['message' => $message]);
+        $categories = Category::orderBy('name', 'asc')->get();
+
+        $newstocks = [];
+        foreach($categories as $category) {
+            foreach($stocks as $stock) {
+                if($category->name == $stock->category->name) {
+                    array_push($newstocks, $stock);
+                }
+            }
+        }
+
+        $pdf = PDF::loadView('reports.pdf.stock', ['stocks' => $newstocks], ['message' => $message]);
         $fileName = $message .'.pdf';
-        return $pdf->download($fileName);
+        return $pdf->stream($fileName);
     }
 
     public function getPDFSource(Request $request)
@@ -150,11 +165,19 @@ class ReportController extends Controller
         ));
         $from = date("Y-m-d H:i:s", strtotime($request->from));
         $to = date("Y-m-d H:i:s", strtotime($request->to.' 23:59:59'));
-        $usages = Usage::whereBetween('created_at', [$from, $to])
-                        ->orderBy('created_at', 'desc')
-                        ->get();
-        $pdf = PDF::loadView('reports.pdf.usage', ['usages' => $usages], ['date' => [$request->from, $request->to]]);
-        $fileName = date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
+        $usages = Usage::whereBetween('created_at', [$from, $to])->get();
+        
+        $categories = Category::orderBy('name', 'asc')->get();
+        $newusages = [];
+        foreach($categories as $category) {
+            foreach($usages as $usage) {
+                if($category->name == $usage->category->name) {
+                    array_push($newusages, $usage);
+                }
+            }
+        }
+        $pdf = PDF::loadView('reports.pdf.usage', ['usages' => $newusages], ['date' => [$request->from, $request->to]]);
+        $fileName = 'Usage_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
         return $pdf->download($fileName);
     }
 
@@ -182,7 +205,7 @@ class ReportController extends Controller
                         ->whereBetween('created_at', [$from, $to])
                         ->first();
         $pdf = PDF::loadView('reports.pdf.income', ['incomes' => $incomes], ['data' => [$request->from, $request->to, $incomes_total->totalgross]]);
-        $fileName = date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
+        $fileName = 'Income_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
         return $pdf->download($fileName);
     }
 
@@ -257,7 +280,29 @@ class ReportController extends Controller
         $grossitems =$mergedReceiptData;
         
         $pdf = PDF::loadView('reports.pdf.itemsdatewise', ['grossitems' => $grossitems], ['data' => [$request->from, $request->to, $sales->totalsale]]);
-        $fileName = date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
+        $fileName = 'Item_Date_Wise_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
+        return $pdf->stream($fileName);
+    }
+
+    public function getPDFSMSHistory(Request $request)
+    {
+        //validation
+        $this->validate($request, array(
+          'from' => 'required',
+          'to' => 'required',
+        ));
+        $from = date("Y-m-d H:i:s", strtotime($request->from));
+        $to = date("Y-m-d H:i:s", strtotime($request->to.' 23:59:59'));
+        
+        $smshistory = Smshistory::whereBetween('created_at', [$from, $to])->get();
+
+        $totalsms = DB::table('smshistories')
+                        ->select(DB::raw('SUM(smscount) as totalsms'))
+                        ->whereBetween('created_at', [$from, $to])
+                        ->first();
+
+        $pdf = PDF::loadView('reports.pdf.smshistory', ['smshistory' => $smshistory], ['date' => [$request->from, $request->to, (int)$totalsms->totalsms]]);
+        $fileName = 'SMS_History_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
         return $pdf->stream($fileName);
     }
 }

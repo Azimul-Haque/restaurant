@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Source | PDF</title>
+  <title>SMS History | PDF</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="icon" sizes="192x192" href="{{ asset('images/pdf-icon.png') }}">
   <style>
@@ -24,26 +24,32 @@
 </head>
 <body>
   <h2 align="center">কুইন আইল্যান্ড কিচেন</h2>
-  <p align="center"><b><u><big>{{ $source_data[0] }}</big></u></b>-থেকে ক্রয়ের হিসাব</p>
+  <p align="center">
+    এসএমএস (SMS) রিপোর্ট<br/>
+    <b><u>{{ $date[0] }} - {{ $date[1] }}</u></b></p>
+  </p>
   <div class="">
     <table class="">
       <tr style="background: #D3D3D3;">
-        <th>পণ্য/ খাত</th>
-        <th>পরিমাণ</th>
-        <th>মোট প্রদেয়</th>
+        <th>সদস্যের নাম</th>
+        <th>মোবাইল নম্বর</th>
+        <th>SMS এর পরিমাণ</th>
+        <th>খরচ</th>
         <th>তারিখ</th>
       </tr>
-      @foreach($sources as $commodity)
+      @foreach($smshistory as $sms)
         <tr>
-          <td>{{ $commodity->category->name }}</td>
-          <td>{{ $commodity->quantity }}</td>
-          <td align="right">৳ {{ $commodity->total }}</td>
-          <td>{{ date('F d, Y', strtotime($commodity->created_at)) }}</td>
+          <td>{{ $sms->membership->name }}</td>
+          <td>{{ $sms->membership->phone }}</td>
+          <td align="right">{{ $sms->smscount }}</td>
+          <td align="right">৳ {{ number_format((float) ($sms->smscount * 0.40), 2, '.', '') }}</td>
+          <td>{{ date('F d, Y', strtotime($sms->created_at)) }}</td>
         </tr>
       @endforeach
       <tr style="background: #D3D3D3;">
         <th colspan="2">মোট</th>
-        <td align="right">৳ {{ $source_data[1] }}</td>
+        <th align="right">{{ $date[2] }}</th>
+        <th align="right">৳ {{ number_format((float) ($date[2] * 0.40), 2, '.', '') }}</th>
         <th></th>
       </tr>
     </table>

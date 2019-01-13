@@ -59,7 +59,7 @@
   <script>
     document.getElementById("dateTimeP").innerHTML = dateTime = dateFormat(new Date(), "mmmm dd, yyyy, HH:MM TT");;
   </script>
-  <p align="center" style="font-size: 12px;"><b><u><big>{{ $source->name }}</big></u></b><br/>লেনদেনের হিসাব</p>
+  <p align="center" style="font-size: 12px;"><b><u><big>{{ $source->name }}</big></u></b><br/> ক্রয়ের হিসাব</p>
   <div width="100%">
     <table width="100%" style="width: 100%">
       <tr>

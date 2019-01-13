@@ -2,6 +2,23 @@
 
 @section('title', 'Queen Island Kitchen | Dashboard')
 
+@section('css')
+    <style type="text/css">
+      @-webkit-keyframes blinker {
+        from {opacity: 1.0;}
+        to {opacity: 0.0;}
+      }
+      .blink{
+        text-decoration: blink;
+        -webkit-animation-name: blinker;
+        -webkit-animation-duration: 0.6s;
+        -webkit-animation-iteration-count:infinite;
+        -webkit-animation-timing-function:ease-in-out;
+        -webkit-animation-direction: alternate;
+      }
+    </style>
+@stop
+
 @section('content_header')
     <h1>Dashboard</h1>
 @stop
@@ -49,16 +66,16 @@
               </div>
             </div>
           </div><br/>
-          <div class="panel panel-danger">
+          <div class="panel panel-success">
             <div class="panel-heading">
-              স্বাগতম!
+              <big class="blink">নতুন ফিচার!</big>
             </div>
             <div class="panel-body">
               <big>
-                For any inconvenience:<br/>
-                <p><i class="fa fa-fw fa-phone" aria-hidden="true"></i>  &lt;+880 1751 398 392&gt;<br/>
-                  <i class="fa fa-fw fa-envelope-o" aria-hidden="true"></i>  &lt;orbachinujbuk&commat;gmail.com&gt;
-                </p>
+                <ul>
+                  <li>মেম্বারদের সিঙ্গেল SMS পাঠানো <b>(কাজ চলছে)</b></li>
+                  <li><a href="{{ route('sms.index') }}">SMS Module</a> থেকে সকল মেম্বারকে SMS পাঠানো <b>(কাজ চলছে)</b></li>
+                </ul>
               </big>
             </div>
           </div>

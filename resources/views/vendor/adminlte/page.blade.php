@@ -340,6 +340,12 @@
                             <span>Reports</span>
                         </a>
                     </li>
+                    <li class="{{ Request::is('sms/*') ? 'active' : '' }}">
+                        <a href="{{ route('sms.index') }}">
+                            <i class="fa fa-fw fa-envelope-o"></i>
+                            <span>SMS Module</span>
+                        </a>
+                    </li>
                     @endpermission
                 </ul>
                 <!-- /.sidebar-menu -->

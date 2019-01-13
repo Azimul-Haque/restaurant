@@ -23,16 +23,26 @@ class StockController extends Controller
      */
     public function index()
     {
-        $categories = Category::where('unit', '!=', 'N/A')->get();
+        $categories = Category::where('unit', '!=', 'N/A')
+                              ->orderBy('name', 'asc')
+                              ->get();
         $category_id = array();
         foreach ($categories as $category) {
           $category_id[] = $category->id;
         }
-        $stocks = Stock::whereIn('category_id', $category_id)
-                         ->orderBy('created_at', 'desc')->get();
+        $stocks = Stock::whereIn('category_id', $category_id)->get();
+
+        $newstocks = [];
+        foreach($categories as $category) {
+            foreach($stocks as $stock) {
+                if($category->name == $stock->category->name) {
+                    array_push($newstocks, $stock);
+                }
+            }
+        }
 
         return view('stocks.index')
-                    ->withStocks($stocks)
+                    ->withStocks($newstocks)
                     ->withCategories($categories);
     }
 
