@@ -541,7 +541,7 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <div class="block">
-                        <p>Copyright &copy; {{ date('Y') }} - All Rights Reserved</a></p>
+                        <p>Copyright &copy; {{ date('Y') }} - All Rights Reserved</a> | Developed by: <a href="http://orbachinujbuk.com/">A. H. M. Azimul Haque</a></p>
                     </div>
                 </div>
             </div>
