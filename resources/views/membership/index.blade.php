@@ -115,10 +115,10 @@
               {{-- award modal--}}
 
               {{-- sms modal--}}
-              <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#deleteModal{{ $membership->id }}" data-backdrop="static" data-placement="top" title="{{ $membership->name }}-কে SMS পাঠান"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#sendSMSModal{{ $membership->id }}" data-backdrop="static" data-placement="top" title="{{ $membership->name }}-কে SMS পাঠান"><i class="fa fa-envelope" aria-hidden="true"></i></button>
               <!-- Trigger the modal with a button -->
               <!-- Modal -->
-              <div class="modal fade" id="deleteModal{{ $membership->id }}" role="dialog">
+              <div class="modal fade" id="sendSMSModal{{ $membership->id }}" role="dialog">
                 <div class="modal-dialog modal-md">
                   <div class="modal-content">
                     <div class="modal-header modal-header-warning">

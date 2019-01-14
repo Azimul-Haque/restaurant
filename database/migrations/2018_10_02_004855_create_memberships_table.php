@@ -18,6 +18,7 @@ class CreateMembershipsTable extends Migration
             $table->string('phone', 11)->unique();
             $table->integer('point');
             $table->integer('awarded');
+            $table->integer('isdeleted');
             $table->timestamps();
         });
     }
