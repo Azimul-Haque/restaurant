@@ -79,10 +79,6 @@
               </big>
             </div>
           </div>
-
-          <br/>
-          <a href="{{ asset('images/icon.png') }}" download>Test</a>
-
         </div>
 
         <div class="col-md-6">
