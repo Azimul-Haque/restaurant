@@ -81,7 +81,7 @@
           </div>
 
           <br/>
-          <a href="{{ asset('images/icon.png') }}" download>Test</a>
+          <a href="{{ asset('images/icon.png') }}">Test</a>
 
         </div>
 
