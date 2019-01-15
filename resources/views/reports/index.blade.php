@@ -25,7 +25,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          {!! Form::open(['route' => 'reports.getcommoditypdf', 'method' => 'GET', 'target' => '_blank']) !!}
+          {!! Form::open(['route' => 'reports.getcommoditypdf', 'method' => 'GET']) !!}
             <div class="form-group">
               {!! Form::text('from', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromcomexDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
             </div>
@@ -44,7 +44,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          {!! Form::open(['route' => 'reports.getstockpdf', 'method' => 'GET', 'target' => '_blank']) !!}
+          {!! Form::open(['route' => 'reports.getstockpdf', 'method' => 'GET']) !!}
             <div class="form-group">
               <select class="form-control text-green" name="stock_report_type" required="">
                 <option value="" selected="" disabled="">রিপোর্টের ধরণ</option>
@@ -147,7 +147,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          {!! Form::open(['route' => 'reports.getitemsdatewise', 'method' => 'GET', 'target' => '_blank']) !!}
+          {!! Form::open(['route' => 'reports.getitemsdatewise', 'method' => 'GET']) !!}
             <div class="form-group">
               {!! Form::text('from', null, array('class' => 'form-control text-yellow', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromitemsdatewiseDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
             </div>
@@ -187,7 +187,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          {!! Form::open(['route' => 'reports.getsmshistory', 'method' => 'GET', 'target' => '_blank']) !!}
+          {!! Form::open(['route' => 'reports.getsmshistory', 'method' => 'GET']) !!}
             <div class="form-group">
               {!! Form::text('from', null, array('class' => 'form-control text-red', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromsmsDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
             </div>

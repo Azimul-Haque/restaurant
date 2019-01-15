@@ -49,7 +49,7 @@ class ReportController extends Controller
 
         $pdf = PDF::loadView('reports.pdf.commodity', ['commodities' => $commodities], ['data' => [$request->from, $request->to, $commodity_total->totaltotal, $commodity_total->paidtotal, $commodity_total->duetotal]]);
         $fileName = 'Commodity_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
-        return $pdf->stream($fileName);
+        return $pdf->download($fileName);
     }
 
     public function getPDFStock(Request $request)
@@ -87,7 +87,7 @@ class ReportController extends Controller
 
         $pdf = PDF::loadView('reports.pdf.stock', ['stocks' => $newstocks], ['message' => $message]);
         $fileName = $message .'.pdf';
-        return $pdf->stream($fileName);
+        return $pdf->download($fileName);
     }
 
     public function getPDFSource(Request $request)
@@ -281,7 +281,7 @@ class ReportController extends Controller
         
         $pdf = PDF::loadView('reports.pdf.itemsdatewise', ['grossitems' => $grossitems], ['data' => [$request->from, $request->to, $sales->totalsale]]);
         $fileName = 'Item_Date_Wise_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
-        return $pdf->stream($fileName);
+        return $pdf->download($fileName);
     }
 
     public function getPDFSMSHistory(Request $request)
@@ -303,6 +303,6 @@ class ReportController extends Controller
 
         $pdf = PDF::loadView('reports.pdf.smshistory', ['smshistory' => $smshistory], ['date' => [$request->from, $request->to, (int)$totalsms->totalsms]]);
         $fileName = 'SMS_History_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
-        return $pdf->stream($fileName);
+        return $pdf->download($fileName);
     }
 }
