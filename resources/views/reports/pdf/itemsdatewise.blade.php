@@ -34,7 +34,7 @@
         <tr style="background: #D3D3D3;">
           <th>খাদ্য সামগ্রীর নাম</th>
           <th>মোট পরিমাণ</th>
-          <th>মোট বিক্রয়</th>
+          <th>মোট বিক্রয় (টাকা)</th>
         </tr>
       </thead>
       <tbody>
@@ -42,7 +42,7 @@
         <tr>
           <td>{{ $item[0]['name'] }}</td>
           <td>{{ $item[0]['qty'] }}</td>
-          <td>{{ $item[0]['price'] }}</td>
+          <td>৳ {{ $item[0]['price'] }}</td>
         </tr>
         @endforeach
       </tbody>
