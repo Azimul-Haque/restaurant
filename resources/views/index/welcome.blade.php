@@ -342,15 +342,15 @@
                         <tr>
                             <th>
                                 <img src="{{ asset('images/icon.png') }}" style="width: 25px; height: auto;">
-                                <span style="margin-left: 10px;">Per BDT 100/- worth cost will add 5 points</span>
+                                <span style="margin-left: 10px;">Per item has individual points</span>
                             </th>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <th>
                                 <img src="{{ asset('images/icon.png') }}" style="width: 25px; height: auto;">
                                 <span style="margin-left: 10px;">If 100 poits earned, gift can be claimed</span>
                             </th>
-                        </tr>
+                        </tr> --}}
                         <tr>
                             <th>
                                 <img src="{{ asset('images/icon.png') }}" style="width: 25px; height: auto;">
@@ -422,7 +422,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="block">
-                        <h1 class="heading wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">our <span>CONTACT US</span></h1>
+                        <h1 class="heading wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms"><span>CONTACT US</span></h1>
                         <h3 class="title wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms">Sign Up for <span>Email Alerts</span> </h3>
                         <form>
                             <div class="form-group wow fadeInDown" data-wow-duration="500ms" data-wow-delay="600ms">
@@ -454,8 +454,7 @@
                             <ul>
                                 <li>
                                   <h4><i class="fa fa-phone"></i>Telephone</h4>
-                                  <p>(000) 123 456 78- (000) 123 4567 89</p>
-                                    
+                                  <p>+880 1704 828 518, +880 1611 828 518</p>
                                 </li>
                                 <li>
                                   <h4><i class="fa fa-map-marker"></i>Address</h4>
@@ -516,7 +515,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#!">
+                                    <a href="https://www.facebook.com/Queen-Island-Kitchen-211011202809953/?ref=br_rs" target="_blank">
                                         <i class="fa fa-facebook"></i>
                                     </a>
                                 </li>

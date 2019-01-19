@@ -140,7 +140,7 @@
       'autoWidth'   : true,
       'order': [[ 0, "asc" ]]
     });
-    $('#datatable-members_wrapper').removeClass( 'form-inline' );
+    $('#datatable-waiters_wrapper').removeClass( 'form-inline' );
   })
 </script>
 
