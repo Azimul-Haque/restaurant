@@ -23,7 +23,7 @@ class ReceiptController extends Controller
     public function index(Request $request)
     {
         $data = Receipt::where('isdeleted', '=', 0)
-                       ->orderBy('created_at','DESC')->paginate(8);
+                       ->orderBy('created_at','DESC')->paginate(20);
         return view('receipts.index')->withData($data);
     }
 

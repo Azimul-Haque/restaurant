@@ -40,7 +40,12 @@
         <tbody>
           @foreach($memberships as $membership)
           <tr>
-            <td>{{ $membership->name }}</td>
+            <td>
+              {{ $membership->name }}
+              @if($membership->type == 1)
+                <span class="label label-success" style="font-size: 11px; cursor: pointer; padding: 3px;" title="{{ $membership->name }} is a VIP Member!"><i class="fa fa-diamond"></i> VIP</span>
+              @endif
+            </td>
             <td>{{ $membership->phone }}</td>
             <td>{{ $membership->point }}</td>
             <td>{{ $membership->awarded }}</td>
@@ -73,6 +78,14 @@
                           <div class="form-group">
                             {!! Form::label('phone', 'Mobile Number (11 Digits)') !!}
                             {!! Form::text('phone', null, array('class' => 'form-control', 'placeholder' => 'Write 11 Digit Mobile Number (Like 01700000000)', 'pattern' =>'\d*', 'required' => '', 'maxlength' => '11')) !!}
+                          </div>
+                          <div class="form-group">
+                            {!! Form::label('type', 'Member Type:') !!}
+                            <select name="type" class="form-control" id="type" required="">
+                              <option value="" selected="" disabled="">Select Member Type</option>
+                              <option value="0" @if($membership->type == 0) selected="" @endif>General Member</option>
+                              <option value="1" @if($membership->type == 1) selected="" @endif>VIP Member</option>
+                            </select>
                           </div>
                           <div class="form-group">
                             {!! Form::label('newpoint', 'Add Points:') !!}
@@ -213,6 +226,14 @@
                   {!! Form::text('phone', null, array('class' => 'form-control', 'placeholder' => 'Write 11 Digit Mobile Number (Like 01700000000)', 'required' => '', 'pattern' =>'\d*', 'maxlength' => '11')) !!}
                 </div>
                 <div class="form-group">
+                  {!! Form::label('type', 'Member Type:') !!}
+                  <select name="type" class="form-control" id="type" required="">
+                    <option value="" selected="" disabled="">Select Member Type</option>
+                    <option value="0">General Member</option>
+                    <option value="1">VIP Member</option>
+                  </select>
+                </div>
+                <div class="form-group">
                   {!! Form::label('point', 'Add Points:') !!}
                   {!! Form::number('point', null, array('class' => 'form-control', 'placeholder' => 'Write Points', 'step' => 'any', 'required' => '', 'min' => 0)) !!}
                 </div>
@@ -235,6 +256,7 @@
     $(document).ready(function(){
       $('a[title]').tooltip();
       $('button[title]').tooltip();
+      $('span[title]').tooltip();
     });
   </script>
   <script type="text/javascript">
@@ -242,7 +264,7 @@
     //$.fn.dataTable.moment('DD MMMM, YYYY hh:mm:ss tt');
     $('#datatable-members').DataTable({
       'paging'      : true,
-      'pageLength'  : 8,
+      'pageLength'  : 20,
       'lengthChange': true,
       'searching'   : true,
       'ordering'    : true,

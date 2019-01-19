@@ -290,17 +290,17 @@
     //$.fn.dataTable.moment('DD MMMM, YYYY hh:mm:ss tt');
     $('#datatable-commodities').DataTable({
       'paging'      : true,
-      'pageLength'  : 8,
+      'pageLength'  : 20,
       'lengthChange': true,
       'searching'   : true,
       'ordering'    : true,
       'info'        : true,
       'autoWidth'   : true,
-      'order': [[ 7, "desc" ]],
+      'order': [[ 6, "desc" ]],
        columnDefs: [
-              { targets: [8], visible: true, searchable: false},
+              { targets: [7], visible: true, searchable: false},
               { targets: '_all', visible: true, searchable: true },
-              { targets: [7], type: 'date'}
+              { targets: [6], type: 'date'}
        ]
     });
     $('#datatable-commodities_wrapper').removeClass( 'form-inline' );

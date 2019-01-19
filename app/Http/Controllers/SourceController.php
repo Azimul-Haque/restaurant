@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Validator, Input, Redirect, Session;
-
+use Auth;
 use App\Source;
 
 class SourceController extends Controller
@@ -67,7 +67,9 @@ class SourceController extends Controller
         //update DB
         
         $source->name = $request->name;
-        $source->total = $request->total;
+        if(Auth::user()->roles->first()->name == 'superadmin') {
+            $source->total = $request->total;
+        }
         $source->paid = $request->paid;
         $source->due = $request->due;
         $source->save();

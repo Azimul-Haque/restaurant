@@ -115,7 +115,12 @@ class SmsController extends Controller
     }
 
     public function getAdmin() {
-        $actualbalance = number_format((float) file_get_contents('http://66.45.237.70/balancechk.php?username=01878036200&password=Bulk.Sms.Bd.123'), 2, '.', '');
+        $actualbalance = 0;
+        try {
+            $actualbalance = number_format((float) file_get_contents('http://66.45.237.70/balancechk.php?username=01878036200&password=Bulk.Sms.Bd.123'), 2, '.', '');
+        } catch (\Exception $e) {
+
+        }
         $qikbalance = Smsbalance::find(1);
 
         return view('sms.admin')

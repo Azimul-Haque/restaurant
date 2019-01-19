@@ -8,9 +8,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Category;
 use App\Commodity;
-use App\Stock;
 use App\Source;
+use App\Stock;
 use App\Usage;
+use App\Qikstock;
+use App\Qikusage;
 use App\Receipt;
 use App\Membership;
 use App\Smshistory;
@@ -90,6 +92,29 @@ class ReportController extends Controller
         return $pdf->download($fileName);
     }
 
+    public function getPDFQIKStock(Request $request)
+    {
+        //validation
+        $this->validate($request, array(
+          'stock_report_type' => 'required'
+        ));
+
+        $stocks = null;
+        $message = '';
+        if($request->stock_report_type == 'all') {
+            $stocks = Qikstock::orderBy('name', 'asc')->get();
+            $message = 'শেষ হয়ে যাওয়া সামগ্রীসহ';
+        } elseif ($request->stock_report_type == 'onlyexisting') {
+            $stocks = Qikstock::where('quantity', '>', 0)
+                              ->orderBy('name', 'asc')->get();
+            $message = 'শুধুমাত্র বিদ্যমান সামগ্রীগুলো';
+        }
+
+        $pdf = PDF::loadView('reports.pdf.qikstock', ['stocks' => $stocks], ['message' => $message]);
+        $fileName = $message .'.pdf';
+        return $pdf->download($fileName);
+    }
+
     public function getPDFSource(Request $request)
     {
         //validation
@@ -155,7 +180,6 @@ class ReportController extends Controller
                    ->withSourcetotal($source_total);
     }
 
-
     public function getPDFUsage(Request $request)
     {
         //validation
@@ -178,6 +202,31 @@ class ReportController extends Controller
         }
         $pdf = PDF::loadView('reports.pdf.usage', ['usages' => $newusages], ['date' => [$request->from, $request->to]]);
         $fileName = 'Usage_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
+        return $pdf->download($fileName);
+    }
+
+    public function getPDFQIKUsage(Request $request)
+    {
+        //validation
+        $this->validate($request, array(
+          'from' => 'required',
+          'to' => 'required',
+        ));
+        $from = date("Y-m-d H:i:s", strtotime($request->from));
+        $to = date("Y-m-d H:i:s", strtotime($request->to.' 23:59:59'));
+        $usages = Qikusage::whereBetween('created_at', [$from, $to])->get();
+        
+        $stocks = Qikstock::orderBy('name', 'asc')->get();
+        $newusages = [];
+        foreach($stocks as $stock) {
+            foreach($usages as $usage) {
+                if($stock->name == $usage->qikstock->name) {
+                    array_push($newusages, $usage);
+                }
+            }
+        }
+        $pdf = PDF::loadView('reports.pdf.qikusage', ['usages' => $newusages], ['date' => [$request->from, $request->to]]);
+        $fileName = 'QIK_Usage_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
         return $pdf->download($fileName);
     }
 

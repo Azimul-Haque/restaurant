@@ -1,12 +1,12 @@
 @extends('adminlte::page')
 
-@section('title', 'Queen Island Kitchen | Usages')
+@section('title', 'Queen Island Kitchen | QIK Usage')
 
 @section('content_header')
     <h1>
-      Usages
+      QIK Usages
       <div class="pull-right">
-        <button class="btn btn-primary" id="printBtn"><i class="fa fa-fw fa-print" aria-hidden="true"></i> Print</button>
+        {{-- <button class="btn btn-primary" id="printBtn"><i class="fa fa-fw fa-print" aria-hidden="true"></i> Print</button> --}}
       </div>
   </h1>
 @stop
@@ -18,7 +18,6 @@
         <tr>
           <th>Category</th>
           <th>Quantity</th>
-          <th>Submitted By</th>
           <th>Updated At</th>
           <th class="noPrint">Action</th>
         </tr>
@@ -26,54 +25,12 @@
       <tbody>
       @foreach ($usages as $usage)
         <tr>
-          <td>{{ $usage->category->name }}</td>
-          <td>{{ $usage->quantity }} {{ $usage->category->unit }}</td>
-          <td>{{ $usage->user->name }}</td>
+          <td>{{ $usage->qikstock->name }}</td>
+          <td>{{ $usage->quantity }} {{ $usage->unit }}</td>
           <td>{{ date('F d, Y h:i A', strtotime($usage->updated_at)) }}</td>
           <td class="noPrint">
             @permission('usage-crud')
             <div class="tools">
-              {{-- edit modal--}}
-              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal{{ $usage->id }}" data-backdrop="static"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                  <!-- Trigger the modal with a button -->
-                  <!-- Modal -->
-                  <div class="modal fade" id="editModal{{ $usage->id }}" role="dialog">
-                    <div class="modal-dialog modal-md">
-                      <div class="modal-content">
-                      {!! Form::model($usage, ['route' => ['usages.update', $usage->id], 'method' => 'PUT']) !!}
-                        <div class="modal-header modal-header-success">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">Edit {{ $usage->category->name }}</h4>
-                        </div>
-                        <div class="modal-body">
-                          <div class="form-group">
-                            {!! Form::label('category_id', 'Category') !!}
-                            <select class="form-control" name="category_id" required="" disabled="">
-                                <option value="" selected="" disabled="">Select Category</option>
-                              @foreach($categories as $category)
-                                <option value="{{ $category->id }}" @if($usage->category_id == $category->id) selected @endif>{{ $category->name }}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                          <div class="form-group">
-                            {!! Form::label('quantity', 'Quantity:') !!}
-                            <div class="input-group">
-                              {!! Form::number('quantity', null, array('class' => 'form-control', 'placeholder' => 'Write Quantity', 'step' => 'any')) !!}
-                              <span class="input-group-addon" id="unittoedit">
-                                {{ $usage->category->unit }}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="submit" class="btn btn-success">Save</button>
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        </div>
-                      {!! Form::close() !!}
-                      </div>
-                    </div>
-                  </div>
-              {{-- edit modal--}}
               {{-- delete modal--}}
               <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $usage->id }}" data-backdrop="static"><i class="fa fa-trash" aria-hidden="true"></i></button>
                   <!-- Trigger the modal with a button -->
@@ -132,9 +89,9 @@
   </script>
   {{-- print code --}}
   <script type="text/javascript">
-    document.getElementById("printBtn").onclick = function () {
-        printElement(document.getElementById("printTable"));
-    }
+    // document.getElementById("printBtn").onclick = function () {
+    //     printElement(document.getElementById("printTable"));
+    // }
     function printElement(elem) {
         var domClone = elem.cloneNode(true);
         

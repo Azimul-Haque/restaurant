@@ -150,7 +150,7 @@
     //$.fn.dataTable.moment('DD MMMM, YYYY hh:mm:ss tt');
     $('#datatable-itemwise').DataTable({
       'paging'      : true,
-      'pageLength'  : 8,
+      'pageLength'  : 20,
       'lengthChange': true,
       'searching'   : true,
       'ordering'    : true,

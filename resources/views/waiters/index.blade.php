@@ -17,7 +17,7 @@
 
 @section('content')
     <div class="table-responsive" id="printTable">
-      <table class="table table-condensed" id="datatable-members">
+      <table class="table table-condensed" id="datatable-waiters">
         <thead>
           <tr>
             <th>Name</th>
@@ -130,18 +130,15 @@
   <script type="text/javascript">
   $(function () {
     //$.fn.dataTable.moment('DD MMMM, YYYY hh:mm:ss tt');
-    $('#datatable-members').DataTable({
+    $('#datatable-waiters').DataTable({
       'paging'      : true,
-      'pageLength'  : 8,
+      'pageLength'  : 20,
       'lengthChange': true,
       'searching'   : true,
       'ordering'    : true,
       'info'        : true,
       'autoWidth'   : true,
-      'order': [[ 5, "desc" ]],
-       columnDefs: [
-              { targets: [5], type: 'date'}
-       ]
+      'order': [[ 0, "asc" ]]
     });
     $('#datatable-members_wrapper').removeClass( 'form-inline' );
   })

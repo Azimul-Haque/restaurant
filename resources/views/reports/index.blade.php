@@ -57,6 +57,26 @@
         </div>
         <!-- /.box-body -->
       </div>
+      <div class="box box-primary">
+        <div class="box-header with-border text-blue">
+          <i class="fa fa-fw fa-pagelines"></i>
+          <h3 class="box-title">QIK Stock Reports</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          {!! Form::open(['route' => 'reports.getqikstockpdf', 'method' => 'GET']) !!}
+            <div class="form-group">
+              <select class="form-control text-green" name="stock_report_type" required="">
+                <option value="" selected="" disabled="">রিপোর্টের ধরণ</option>
+                <option value="all">শেষ হয়ে যাওয়া সামগ্রীসহ</option>
+                <option value="onlyexisting">শুধুমাত্র বিদ্যমান সামগ্রীগুলো</option>
+              </select>
+            </div>
+          <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
+          {!! Form::close() !!}
+        </div>
+        <!-- /.box-body -->
+      </div>
     </div>
     <div class="col-md-3">
       <div class="box box-success">
@@ -113,6 +133,25 @@
                 <option value="neverawarded">একবারও পুরষ্কারপ্রাপ্ত নন</option>
                 <option value="all">সবাই</option>
               </select>
+            </div>
+          <button class="btn btn-success" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
+          {!! Form::close() !!}
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <div class="box box-success">
+        <div class="box-header with-border text-green">
+          <i class="fa fa-hourglass-start"></i>
+          <h3 class="box-title">QIK Usages</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          {!! Form::open(['route' => 'reports.getqikusagepdf', 'method' => 'GET']) !!}
+            <div class="form-group">
+              {!! Form::text('from', null, array('class' => 'form-control text-green', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromqikusageDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
+            </div>
+            <div class="form-group">
+              {!! Form::text('to', null, array('class' => 'form-control text-green', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'toqikusageDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
             </div>
           <button class="btn btn-success" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
           {!! Form::close() !!}
@@ -264,6 +303,16 @@
           autoclose: true,
         });
         $("#tosmsDate").datepicker({
+          format: 'MM dd, yyyy',
+          todayHighlight: true,
+          autoclose: true,
+        });
+        $("#fromqikusageDate").datepicker({
+          format: 'MM dd, yyyy',
+          todayHighlight: true,
+          autoclose: true,
+        });
+        $("#toqikusageDate").datepicker({
           format: 'MM dd, yyyy',
           todayHighlight: true,
           autoclose: true,

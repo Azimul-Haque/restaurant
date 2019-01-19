@@ -14,7 +14,7 @@ use App\Source;
 
 use Illuminate\Support\Facades\DB;
 
-class CategoryController extends Controller
+class getCategoryUnitAPI extends Controller
 {
     /**
      * Display a listing of the resource.

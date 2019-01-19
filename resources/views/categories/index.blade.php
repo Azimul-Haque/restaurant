@@ -204,7 +204,9 @@
                                 </div>
                                 <div class="form-group">
                                   {!! Form::label('total', 'Total:') !!}
-                                  {!! Form::text('total', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Total')) !!}
+                                  <input type="text" name="total" placeholder='Total' class="form-control" value="{{ $source->total }}"
+                                  @role('manager') disabled="" @endrole
+                                  >
                                 </div>
                                 <div class="form-group">
                                   {!! Form::label('paid', 'Paid') !!}
@@ -240,9 +242,9 @@
 @section('js')
 {{-- print code --}}
 <script type="text/javascript">
-  document.getElementById("printBtn").onclick = function () {
-      printElement(document.getElementById("printTable"));
-  }
+  // document.getElementById("printBtn").onclick = function () {
+  //     printElement(document.getElementById("printTable"));
+  // }
   function printElement(elem) {
       var domClone = elem.cloneNode(true);
       var $printSection = document.getElementById("printSection");

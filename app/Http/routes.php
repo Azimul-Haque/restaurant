@@ -49,12 +49,24 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/reports', ['as'=>'reports.index','uses'=>'ReportController@getIndex']);
 	Route::get('/reports/export/commodity/pdf', ['as'=>'reports.getcommoditypdf','uses'=>'ReportController@getPDFCommodity']);
 	Route::get('/reports/export/stock/pdf', ['as'=>'reports.getstockpdf','uses'=>'ReportController@getPDFStock']);
+	Route::get('/reports/export/qikstock/pdf', ['as'=>'reports.getqikstockpdf','uses'=>'ReportController@getPDFQIKStock']);
 	Route::get('/reports/export/source/pdf', ['as'=>'reports.getsourcepdf','uses'=>'ReportController@getPDFSource']);
 	Route::get('/reports/export/usage/pdf', ['as'=>'reports.getusagepdf','uses'=>'ReportController@getPDFUsage']);
+	Route::get('/reports/export/qikusage/pdf', ['as'=>'reports.getqikusagepdf','uses'=>'ReportController@getPDFQIKUsage']);
 	Route::get('/reports/export/itemwise/pdf', ['as'=>'reports.getincomepdf','uses'=>'ReportController@getPDFIncome']);
 	Route::get('/reports/export/members/pdf', ['as'=>'reports.getmembers','uses'=>'ReportController@getPDFMember']);
 	Route::get('/reports/export/items/date/wise/pdf', ['as'=>'reports.getitemsdatewise','uses'=>'ReportController@getPDFItemsDateWise']);
 	Route::get('/reports/export/sms/history/pdf', ['as'=>'reports.getsmshistory','uses'=>'ReportController@getPDFSMSHistory']);
+
+	// QIK Stocks and Usages
+	Route::get('qikstocks', ['as' => 'qikstocks.index', 'uses' => 'QikstockController@index']);
+	Route::post('qikstocks/store', ['as' => 'qikstocks.store', 'uses' => 'QikstockController@store']);
+	Route::put('qikstocks/{id}', ['as' => 'qikstocks.update', 'uses' => 'QikstockController@update']);
+	Route::post('qikstocks/usage', ['as' => 'qikstocks.storeusage', 'uses' => 'QikstockController@storeUsage']);
+	Route::get('qikusage', ['as' => 'qikstocks.qikusage', 'uses' => 'QikstockController@getQIKUsage']);
+	Route::get('qikstocks/getqikstockunit/{id}','QikstockController@getQIKStockUnitAPI');
+	Route::get('qikstocks/getqikstockmax/{id}','QikstockController@getQIKStockMaxAPI');
+	// QIK Stocks and Usages
 
 	// POS Print from Report
 	Route::get('/reports/export/source/pos', ['as'=>'reports.getsourcepos','uses'=>'ReportController@getPOSSource']);
