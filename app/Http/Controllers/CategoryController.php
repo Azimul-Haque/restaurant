@@ -14,7 +14,7 @@ use App\Source;
 
 use Illuminate\Support\Facades\DB;
 
-class getCategoryUnitAPI extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -47,7 +47,7 @@ class getCategoryUnitAPI extends Controller
         //
     }
 
-    public function getCategoryUnitAPI($id)
+    public function CategoryController($id)
     {
         try {
           $categoryunit = Category::find($id);
