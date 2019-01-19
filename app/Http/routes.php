@@ -64,8 +64,10 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::put('qikstocks/{id}', ['as' => 'qikstocks.update', 'uses' => 'QikstockController@update']);
 	Route::post('qikstocks/usage', ['as' => 'qikstocks.storeusage', 'uses' => 'QikstockController@storeUsage']);
 	Route::get('qikusage', ['as' => 'qikstocks.qikusage', 'uses' => 'QikstockController@getQIKUsage']);
-	Route::get('qikstocks/getqikstockunit/{id}','QikstockController@getQIKStockUnitAPI');
-	Route::get('qikstocks/getqikstockmax/{id}','QikstockController@getQIKStockMaxAPI');
+
+	Route::delete('qikstocks/usage/delete/{id}', ['as' => 'qikstocks.deleteqikusage', 'uses' => 'QikstockController@deleteQIKUsage']);
+	Route::get('qikstocks/getqikstockunit/{id}', 'QikstockController@getQIKStockUnitAPI');
+	Route::get('qikstocks/getqikstockmax/{id}', 'QikstockController@getQIKStockMaxAPI');
 	// QIK Stocks and Usages
 
 	// POS Print from Report

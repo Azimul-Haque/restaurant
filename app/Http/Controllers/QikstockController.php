@@ -135,4 +135,13 @@ class QikstockController extends Controller
           return 'N/A';
         }
     }
+
+    public function deleteQIKUsage($id)
+    {
+        $usage = Qikusage::find($id);
+        $usage->delete();
+
+        Session::flash('success', 'Deleted successfully!');
+        return redirect()->route('qikstocks.qikusage');
+    }
 }

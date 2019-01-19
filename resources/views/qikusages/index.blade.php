@@ -43,10 +43,10 @@
                           <h4 class="modal-title">Delete Confirmation</h4>
                         </div>
                         <div class="modal-body">
-                          Delete this Usage?
+                          Delete this QIK Usage?
                         </div>
                         <div class="modal-footer">
-                          {!! Form::model($usage, ['route' => ['usages.destroy', $usage->id], 'method' => 'DELETE']) !!}
+                          {!! Form::model($usage, ['route' => ['qikstocks.deleteqikusage', $usage->id], 'method' => 'DELETE']) !!}
                               <button type="submit" class="btn btn-danger">Delete</button>
                               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                           {!! Form::close() !!}
