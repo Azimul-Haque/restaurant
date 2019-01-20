@@ -258,6 +258,34 @@ class ReportController extends Controller
         return $pdf->download($fileName);
     }
 
+    public function getPDFExpense(Request $request)
+    {
+        //validation
+        $this->validate($request, array(
+          'from' => 'required',
+          'to' => 'required',
+        ));
+        $from = date("Y-m-d H:i:s", strtotime($request->from));
+        $to = date("Y-m-d H:i:s", strtotime($request->to.' 23:59:59'));
+
+        DB::statement('SET SESSION group_concat_max_len = 1000000');
+        $expenses = DB::table('usages')
+                        ->select('created_at', DB::raw('SUM(total) as totalprice'))
+                        // ->where('isdeleted', '=', 0)
+                        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+                        ->whereBetween('created_at', [$from, $to])
+                        ->orderBy('created_at', 'asc')
+                        ->get();
+        $expenses_total = DB::table('usages')
+                        ->select(DB::raw('SUM(total) as totalgross'))
+                        // ->where('isdeleted', '=', 0)
+                        ->whereBetween('created_at', [$from, $to])
+                        ->first();
+        $pdf = PDF::loadView('reports.pdf.expense', ['expenses' => $expenses], ['data' => [$request->from, $request->to, $expenses_total->totalgross]]);
+        $fileName = 'Expense_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
+        return $pdf->download($fileName);
+    }
+
     public function getPDFMember(Request $request)
     {
         //validation
@@ -325,7 +353,8 @@ class ReportController extends Controller
             }
         }
   
-        //dd($mergedReceiptData);
+        array_multisort(array_keys($mergedReceiptData), SORT_NATURAL, $mergedReceiptData);
+        // dd($mergedReceiptData);
         $grossitems =$mergedReceiptData;
         
         $pdf = PDF::loadView('reports.pdf.itemsdatewise', ['grossitems' => $grossitems], ['data' => [$request->from, $request->to, $sales->totalsale]]);

@@ -50,7 +50,7 @@ class CategoryController extends Controller
         //
     }
 
-    public function CategoryController($id)
+    public function getCategoryUnitAPI($id)
     {
         try {
           $categoryunit = Category::find($id);

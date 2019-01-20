@@ -82,11 +82,14 @@ class UsageController extends Controller
     {
         //validation
         $this->validate($request, array(
-          'quantity'=>'required|numeric'
+          'quantity'=>'required|numeric',
+          'rate'=>'required|numeric'
         ));
         //store to DB
         $usage = Usage::find($id);
         $usage->quantity = $request->quantity;
+        $usage->rate = $request->rate;
+        $usage->total = $request->quantity * $request->rate;
         $usage->save();
 
         Session::flash('success', 'Updated successfully!');

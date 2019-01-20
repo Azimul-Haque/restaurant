@@ -18,7 +18,7 @@
 @section('content')
   <div class="row">
     <div class="col-md-3">
-      <div class="box box-primary">
+      <div class="box box-primary" id="beforedivheightcommodity">
         <div class="box-header with-border text-blue">
           <i class="fa fa-fw fa-bar-chart"></i>
           <h3 class="box-title">Commodity Reports</h3>
@@ -37,7 +37,7 @@
         </div>
         <!-- /.box-body -->
       </div>
-      <div class="box box-primary">
+      <div class="box box-primary" id="afterdiv1">
         <div class="box-header with-border text-blue">
           <i class="fa fa-fw fa-exchange"></i>
           <h3 class="box-title">Stock Reports</h3>
@@ -57,7 +57,7 @@
         </div>
         <!-- /.box-body -->
       </div>
-      <div class="box box-primary">
+      <div class="box box-primary" id="afterdiv2">
         <div class="box-header with-border text-blue">
           <i class="fa fa-fw fa-pagelines"></i>
           <h3 class="box-title">QIK Stock Reports</h3>
@@ -118,7 +118,7 @@
         </div>
         <!-- /.box-body -->
       </div>
-      <div class="box box-success">
+      <div class="box box-success" id="afterdiv3">
         <div class="box-header with-border text-green">
           <i class="fa fa-fw fa-trophy"></i>
           <h3 class="box-title">Membership</h3>
@@ -192,6 +192,25 @@
             </div>
             <div class="form-group">
               {!! Form::text('to', null, array('class' => 'form-control text-yellow', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'toitemsdatewiseDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
+            </div>
+          <button class="btn btn-warning" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
+          {!! Form::close() !!}
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <div class="box box-warning">
+        <div class="box-header with-border text-yellow">
+          <i class="fa fa-area-chart"></i>
+          <h3 class="box-title">Expenditure</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          {!! Form::open(['route' => 'reports.getexpensepdf', 'method' => 'GET']) !!}
+            <div class="form-group">
+              {!! Form::text('from', null, array('class' => 'form-control text-yellow', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromexpDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
+            </div>
+            <div class="form-group">
+              {!! Form::text('to', null, array('class' => 'form-control text-yellow', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'toexpDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
             </div>
           <button class="btn btn-warning" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
           {!! Form::close() !!}
@@ -317,6 +336,24 @@
           todayHighlight: true,
           autoclose: true,
         });
+        $("#fromexpDate").datepicker({
+          format: 'MM dd, yyyy',
+          todayHighlight: true,
+          autoclose: true,
+        });
+        $("#toexpDate").datepicker({
+          format: 'MM dd, yyyy',
+          todayHighlight: true,
+          autoclose: true,
+        });
+      });
+
+      
+      $(document).ready(function() {
+          var divHeight = $('#beforedivheightcommodity').outerHeight();
+          $('#afterdiv1').css('min-height', divHeight+'px');
+          $('#afterdiv2').css('min-height', divHeight+'px');
+          $('#afterdiv3').css('min-height', divHeight+'px');
       });
   </script>
 @stop

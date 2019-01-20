@@ -17,6 +17,8 @@ class CreateUsagesTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->float('quantity');
+            $table->string('rate');
+            $table->string('total');
             $table->timestamps();
         });
     }

@@ -309,7 +309,7 @@
                         @endpermission
                       </ul>
                     </li>
-                    <li class="{{ Request::is('stocks') ? 'active menu-open' : '' }} {{ Request::is('usages') ? 'active menu-open' : '' }} {{ Request::is('qikstocks') ? 'active menu-open' : '' }} {{ Request::is('qikusage') ? 'active menu-open' : '' }} treeview">
+                    <li class="{{ Request::is('stocks') ? 'active menu-open' : '' }} {{ Request::is('usages') ? 'active menu-open' : '' }} treeview">
                       <a href="#">
                           <i class="fa fa-fw fa-truck"></i>
                           <span>Stock</span>
@@ -320,6 +320,17 @@
                       <ul class="treeview-menu">
                         <li class="{{ Request::is('stocks') ? 'active' : '' }}"><a href="{{ route('stocks.index') }}"><i class="fa fa-exchange"></i> Stocks</a></li>
                         <li class="{{ Request::is('usages') ? 'active' : '' }}"><a href="{{ route('usages.index') }}"><i class="fa fa-battery-half"></i> Usage</a></li>
+                      </ul>
+                    </li>
+                    <li class="{{ Request::is('qikstocks') ? 'active menu-open' : '' }} {{ Request::is('qikusage') ? 'active menu-open' : '' }} treeview">
+                      <a href="#">
+                          <i class="fa fa-fw fa-leaf"></i>
+                          <span>QIK Stock</span>
+                          <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                          </span>
+                      </a>
+                      <ul class="treeview-menu">
                         <li class="{{ Request::is('qikstocks') ? 'active' : '' }}"><a href="{{ route('qikstocks.index') }}"><i class="fa fa-pagelines"></i> QIK Stocks</a></li>
                         <li class="{{ Request::is('qikusage') ? 'active' : '' }}"><a href="{{ route('qikstocks.qikusage') }}"><i class="fa fa-hourglass-start"></i> QIK Usage</a></li>
                       </ul>
@@ -382,7 +393,7 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
           <div class="pull-right hidden-xs">
-            <b>Version</b> 2.5.0
+            <b>Version</b> 2.6.0
           </div>
           <strong>Copyright © {{ date('Y') }}</strong> 
           All rights reserved.

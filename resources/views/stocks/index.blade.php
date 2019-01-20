@@ -113,6 +113,10 @@
                 <span class="input-group-addon" id="unittostore">Unit</span>
               </div>
             </div>
+            <div class="form-group">
+              {!! Form::label('rate', 'Rate:') !!}
+              {!! Form::number('rate', null, array('class' => 'form-control', 'placeholder' => 'Write Rate', 'step' => 'any', 'min' => 0, 'required' => '')) !!}
+            </div>
           </div>
           <!-- /.box-body -->
           <div class="box-footer">

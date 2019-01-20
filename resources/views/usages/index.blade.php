@@ -18,6 +18,8 @@
         <tr>
           <th>Category</th>
           <th>Quantity</th>
+          <th>Rate</th>
+          <th>Total</th>
           <th>Submitted By</th>
           <th>Updated At</th>
           <th class="noPrint">Action</th>
@@ -28,6 +30,10 @@
         <tr>
           <td>{{ $usage->category->name }}</td>
           <td>{{ $usage->quantity }} {{ $usage->category->unit }}</td>
+          <td><span class="label label-default" style="font-size: 13px;">৳ {{ $usage->rate }}</span></td>
+          <td>
+            <span class="badge bg-light-blue" style="font-size: 14.5px;">৳ {{ $usage->total }}</span>
+          </td>
           <td>{{ $usage->user->name }}</td>
           <td>{{ date('F d, Y h:i A', strtotime($usage->updated_at)) }}</td>
           <td class="noPrint">
@@ -63,6 +69,10 @@
                                 {{ $usage->category->unit }}
                               </span>
                             </div>
+                          </div>
+                          <div class="form-group">
+                            {!! Form::label('rate', 'Rate:') !!}
+                            {!! Form::number('rate', null, array('class' => 'form-control', 'placeholder' => 'Write Rate', 'step' => 'any')) !!}
                           </div>
                         </div>
                         <div class="modal-footer">

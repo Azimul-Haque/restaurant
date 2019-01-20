@@ -2,12 +2,16 @@
 
 @section('title', 'Queen Island Kitchen | Categories')
 
+@section('css')
+  <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
+@stop
+
 @section('content_header')
-    <h1>
-      Categories &amp; Sources
-      <div class="pull-right">
-        
-      </div>
+  <h1>
+    Categories &amp; Sources
+    <div class="pull-right">
+      
+    </div>
   </h1>
 @stop
 
@@ -204,17 +208,17 @@
                                 </div>
                                 <div class="form-group">
                                   {!! Form::label('total', 'Total:') !!}
-                                  <input type="text" name="total" placeholder='Total' class="form-control" value="{{ $source->total }}"
+                                  <input type="text" name="total" id="sourcetotal{{ $source->id }}" placeholder='Total' class="form-control" value="{{ $source->total }}"
                                   @role('manager') disabled="" @endrole
                                   >
                                 </div>
                                 <div class="form-group">
                                   {!! Form::label('paid', 'Paid') !!}
-                                  {!! Form::text('paid', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Paid')) !!}
+                                  {!! Form::text('paid', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Paid', 'id' => 'sourcepaid'.$source->id)) !!}
                                 </div>
                                 <div class="form-group">
                                   {!! Form::label('due', 'Due:') !!}
-                                  {!! Form::text('due', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Due')) !!}
+                                  {!! Form::text('due', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Due', 'id' => 'sourcedue'.$source->id)) !!}
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -228,6 +232,20 @@
                     {{-- edit source modal--}}
                   </td>
                 </tr>
+                <script type="text/javascript">
+                  $('#sourcetotal{{ $source->id }}').keyup(function() {
+                    var sourcetotal = $('#sourcetotal{{ $source->id }}').val();
+                    var sourcepaid = $('#sourcepaid{{ $source->id }}').val();
+                    var sourcedue = sourcetotal - sourcepaid;
+                    $('#sourcedue{{ $source->id }}').val(sourcedue);
+                  })
+                  $('#sourcepaid{{ $source->id }}').keyup(function() {
+                    var sourcetotal = $('#sourcetotal{{ $source->id }}').val();
+                    var sourcepaid = $('#sourcepaid{{ $source->id }}').val();
+                    var sourcedue = sourcetotal - sourcepaid;
+                    $('#sourcedue{{ $source->id }}').val(sourcedue);
+                  })
+                </script>
               @endforeach
               </tbody>
             </table>

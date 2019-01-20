@@ -68,19 +68,23 @@
           </div><br/>
           <div class="panel panel-success">
             <div class="panel-heading">
-              <big class="blink">নতুন ফিচার! (Version 2.5.0)</big>
+              <big class="blink">নতুন ফিচার! (Version 2.6.0)</big>
             </div>
             <div class="panel-body">
-              <big>
-                <ul>
-                  <li>ওয়েবসাইট ফ্রন্ট পেজে তথ্য শুদ্ধি</li>
-                  <li>VIP মেম্বার</li>
-                  <li><a href="{{ route('qikstocks.index') }}">QIK Stock</a> ও <a href="{{ route('qikstocks.qikusage') }}">QIK Usage</a></li>
-                  <li>প্রতি পাতায় এক টেবিলে ২০ এর অধিক তথ্য</li>
-                  <li>মেম্বারদের সিঙ্গেল SMS পাঠানো <b>(কাজ শেষ, মেসেজ পাঠানো যাবে)</b></li>
-                  <li><a href="{{ route('sms.index') }}">SMS Module</a> থেকে সকল মেম্বারকে SMS পাঠানো <b>(কাজ শেষ, মেসেজ পাঠানো যাবে)</b></li>
-                </ul>
-              </big>
+              <ul>
+                <li>Expenditure from Usage (not from commodities)</li>
+                <li>Sources due will be calculated from total and paid</li>
+                <li>QIK Stock and QIK Usage in separate menu</li>
+                <li>Expenditure Report</li>
+                <li>Items Sale order correction</li>
+                <li><a href="{{ route('categories.index') }}">Category List</a> order correction</li>
+                <li>ওয়েবসাইট ফ্রন্ট পেজে তথ্য শুদ্ধি</li>
+                <li>VIP মেম্বার</li>
+                <li><a href="{{ route('qikstocks.index') }}">QIK Stock</a> ও <a href="{{ route('qikstocks.qikusage') }}">QIK Usage</a></li>
+                <li>প্রতি পাতায় এক টেবিলে ২০ এর অধিক তথ্য</li>
+                <li>মেম্বারদের সিঙ্গেল SMS পাঠানো <b>(কাজ শেষ, মেসেজ পাঠানো যাবে)</b></li>
+                <li><a href="{{ route('sms.index') }}">SMS Module</a> থেকে সকল মেম্বারকে SMS পাঠানো <b>(কাজ শেষ, মেসেজ পাঠানো যাবে)</b></li>
+              </ul>
             </div>
           </div>
 

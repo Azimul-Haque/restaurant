@@ -88,13 +88,16 @@ class StockController extends Controller
           //validation
           $this->validate($request, array(
             'category_id' => 'required|integer',
-            'quantity'=>'required|numeric'
+            'quantity' => 'required|numeric',
+            'rate' => 'required|numeric'
           ));
           //store to DB
           $usage = new Usage;
           $usage->category_id = $request->category_id;
           $usage->user_id = Auth::user()->id;
           $usage->quantity = $request->quantity;
+          $usage->rate = $request->rate;
+          $usage->total = $request->quantity * $request->rate;
           $usage->save();
           // USAGE PART
 

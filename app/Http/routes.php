@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::resource('waiters','WaiterController');
 
 	Route::get('income',['as'=>'receipts.income','uses'=>'ReceiptController@getIncome']);
-	Route::get('expenditure',['as'=>'commodities.expenditure','uses'=>'CommodityController@getExpenditure']);
+	Route::get('expenditure',['as'=>'commodities.expenditure','uses'=>'DashboardController@getExpenditure']);
 	Route::get('sales', ['as'=>'receipts.sales','uses'=>'ReceiptController@getSales']);
 	Route::get('deleted/receipts', ['as'=>'receipts.deleted','uses'=>'ReceiptController@getDeleted']);
 	Route::get('deleted/commodities', ['as'=>'commodities.deleted','uses'=>'CommodityController@getDeleted']);
@@ -53,7 +53,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/reports/export/source/pdf', ['as'=>'reports.getsourcepdf','uses'=>'ReportController@getPDFSource']);
 	Route::get('/reports/export/usage/pdf', ['as'=>'reports.getusagepdf','uses'=>'ReportController@getPDFUsage']);
 	Route::get('/reports/export/qikusage/pdf', ['as'=>'reports.getqikusagepdf','uses'=>'ReportController@getPDFQIKUsage']);
-	Route::get('/reports/export/itemwise/pdf', ['as'=>'reports.getincomepdf','uses'=>'ReportController@getPDFIncome']);
+	Route::get('/reports/export/datewise/income/pdf', ['as'=>'reports.getincomepdf','uses'=>'ReportController@getPDFIncome']);
+	Route::get('/reports/export/datewise/expense/pdf', ['as'=>'reports.getexpensepdf','uses'=>'ReportController@getPDFExpense']);
 	Route::get('/reports/export/members/pdf', ['as'=>'reports.getmembers','uses'=>'ReportController@getPDFMember']);
 	Route::get('/reports/export/items/date/wise/pdf', ['as'=>'reports.getitemsdatewise','uses'=>'ReportController@getPDFItemsDateWise']);
 	Route::get('/reports/export/sms/history/pdf', ['as'=>'reports.getsmshistory','uses'=>'ReportController@getPDFSMSHistory']);
