@@ -282,7 +282,7 @@ class ReportController extends Controller
                         ->whereBetween('created_at', [$from, $to])
                         ->first();
         $pdf = PDF::loadView('reports.pdf.expense', ['expenses' => $expenses], ['data' => [$request->from, $request->to, $expenses_total->totalgross]]);
-        $fileName = 'Expense_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
+        $fileName = 'Expenditure_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
         return $pdf->download($fileName);
     }
 
