@@ -23,7 +23,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('name', 'asc')->get();
+        // $categories = DB::table('categories')->orderByRaw('LENGTH(name) asc')
+        //                                      ->orderBy('name', 'asc')->get();
+        $categories = Category::all()->sortBy('name', SORT_NATURAL, false); //true for descending
+
         $sources = Source::all();
         $commodities = DB::table('commodities')
                         ->select('source_id', DB::raw('SUM(total) as totalsource'), DB::raw('SUM(paid) as paidsource'), DB::raw('SUM(due) as duesource'))
