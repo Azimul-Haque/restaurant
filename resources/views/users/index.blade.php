@@ -19,7 +19,7 @@
 		</div>
 	@endif --}}
 	<div class="table-responsive">
-		<table class="table">
+		<table class="table table-condensed">
 			<thead>
 				<tr>
 					<th>No</th>
