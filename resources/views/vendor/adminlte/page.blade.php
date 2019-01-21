@@ -255,7 +255,6 @@
                         </a>
                     </li>
                     @endpermission
-                    @permission('receipt-crud')
                     <li class="header">Restaurant</li>
                     <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
                         <a href="{{ route('dashboard') }}">
@@ -263,6 +262,7 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
+                    @permission('receipt-crud')
                     <li class="{{ Request::is('income') ? 'active' : '' }}">
                         <a href="{{ route('receipts.income') }}">
                             <i class="fa fa-fw fa-line-chart"></i>
@@ -335,12 +335,6 @@
                         <li class="{{ Request::is('qikusage') ? 'active' : '' }}"><a href="{{ route('qikstocks.qikusage') }}"><i class="fa fa-hourglass-start"></i> QIK Usage</a></li>
                       </ul>
                     </li>
-                    <li class="{{ Request::is('membership') ? 'active' : '' }}">
-                        <a href="{{ route('membership.index') }}">
-                            <i class="fa fa-fw fa-address-card-o"></i>
-                            <span>Membership</span>
-                        </a>
-                    </li>
                     <li class="{{ Request::is('waiters/*') ? 'active' : '' }}">
                         <a href="{{ route('waiters.index') }}">
                             <i class="fa fa-fw fa-male"></i>
@@ -353,7 +347,17 @@
                             <span>Reports</span>
                         </a>
                     </li>
-                    <li class="{{ Request::is('sms/*') ? 'active' : '' }}">
+                    @endpermission
+                    @permission('membership')
+                    <li class="{{ Request::is('membership') ? 'active' : '' }}">
+                        <a href="{{ route('membership.index') }}">
+                            <i class="fa fa-fw fa-address-card-o"></i>
+                            <span>Membership</span>
+                        </a>
+                    </li>
+                    @endpermission
+                    @permission('sms')
+                    <li class="{{ Request::is('sms') ? 'active' : '' }} {{ Request::is('sms/*') ? 'active' : '' }}">
                         <a href="{{ route('sms.index') }}">
                             <i class="fa fa-fw fa-envelope-o"></i>
                             <span>SMS Module</span>
@@ -393,7 +397,7 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
           <div class="pull-right hidden-xs">
-            <b>Version</b> 2.6.0
+            <b>Version</b> 2.7.0
           </div>
           <strong>Copyright © {{ date('Y') }}</strong> 
           All rights reserved.

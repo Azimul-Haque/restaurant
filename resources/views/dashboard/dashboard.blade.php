@@ -68,10 +68,12 @@
           </div><br/>
           <div class="panel panel-success">
             <div class="panel-heading">
-              <big class="blink">নতুন ফিচার! (Version 2.6.0)</big>
+              <big class="blink">নতুন ফিচার! (Version 2.7.0)</big>
             </div>
             <div class="panel-body">
               <ul>
+                <li>New Marketing Manager User Role</li>
+                <li>Add New Number to SMS Module</li>
                 <li>Expenditure from Usage (not from commodities)</li>
                 <li>Sources due will be calculated from total and paid</li>
                 <li>QIK Stock and QIK Usage in separate menu</li>

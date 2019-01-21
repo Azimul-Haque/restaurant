@@ -20,6 +20,7 @@ class MembershipController extends Controller
     public function getIndex() {
 
       $memberships = Membership::where('isdeleted', '=', 0)
+                               ->where('name', '!=','Direct_Contact')
                                ->orderBy('id', 'desc')->get();
       
       return view('membership.index')
@@ -102,6 +103,29 @@ class MembershipController extends Controller
 
         Session::flash('success', 'A new Member has been created successfully!');
         return redirect()->route('membership.index');
+    }
+
+    public function storeDirectContact(Request $request) {
+        //validation
+        $this->validate($request, array(
+          'name' => 'required|max:255',
+          'phone' => 'required|max:11|unique:memberships,phone',
+          'point'=>'required|numeric',
+          'type'=>'required'
+        ));
+       
+        //store to DB
+        $member = new Membership;
+        $member->name = $request->name;
+        $member->phone = $request->phone;
+        $member->point = $request->point;
+        $member->type = $request->type;
+        $member->awarded = 0;
+        $member->isdeleted = 0;
+        $member->save();
+
+        Session::flash('success', 'A new Number has been added successfully!');
+        return redirect()->route('sms.index');
     }
 
     public function update(Request $request, $id) {

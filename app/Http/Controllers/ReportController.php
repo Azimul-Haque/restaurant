@@ -295,13 +295,18 @@ class ReportController extends Controller
         $members = null;
         $message = '';
         if($request->members_report_type == 'onlyawarded') {
-            $members = Membership::where('awarded', '>', 0)->orderBy('awarded', 'desc')->get();
+            $members = Membership::where('awarded', '>', 0)
+                                 ->where('name', '!=','Direct_Contact')
+                                 ->orderBy('awarded', 'desc')->get();
             $message = 'ন্যূনতম একবার পুরষ্কারপ্রাপ্ত';
         } elseif ($request->members_report_type == 'neverawarded') {
-            $members = Membership::where('awarded', 0)->orderBy('id', 'desc')->get();
+            $members = Membership::where('awarded', 0)
+                                 ->where('name', '!=','Direct_Contact')
+                                 ->orderBy('id', 'desc')->get();
             $message = 'একবারও পুরষ্কারপ্রাপ্ত নন';
         } elseif ($request->members_report_type == 'all') {
-            $members = Membership::orderBy('awarded', 'desc')->get();
+            $members = Membership::where('name', '!=','Direct_Contact')
+                                 ->orderBy('awarded', 'desc')->get();
             $message = 'পুরষ্কারপ্রাপ্ত এবং পুরষ্কারপ্রাপ্ত নন সবাই';
         }
         // /dd($members);

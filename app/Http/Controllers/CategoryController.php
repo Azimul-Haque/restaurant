@@ -25,7 +25,7 @@ class CategoryController extends Controller
     {
         // $categories = DB::table('categories')->orderByRaw('LENGTH(name) asc')
         //                                      ->orderBy('name', 'asc')->get();
-        $categories = Category::all()->sortBy('name', SORT_NATURAL, false); //true for descending
+        $categories = Category::all()->sortBy('name', SORT_NATURAL, false); // false for ascending
 
         $sources = Source::all();
         $commodities = DB::table('commodities')

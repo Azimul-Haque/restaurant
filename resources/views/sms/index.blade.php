@@ -4,7 +4,7 @@
 
 @section('content_header')
   <h1>
-    SMS Module
+    <i class="fa fa-envelope-o"></i> এসএমএস মডিউল (SMS Module)
     <div class="pull-right">
       <small>Current SMS Rate: ৳ 0.40/SMS</small>
     </div>
@@ -30,7 +30,7 @@
         <div class="box-header ui-sortable-handle" style="">
           <i class="fa fa-battery-full"></i>
 
-          <h3 class="box-title">Recharge SMS</h3>
+          <h3 class="box-title">এসএমএস রিচার্জ (Recharge SMS)</h3>
           <div class="box-tools pull-right">
             
           </div>
@@ -54,7 +54,7 @@
         <div class="box-header ui-sortable-handle" style="">
           <i class="fa fa-paper-plane"></i>
 
-          <h3 class="box-title">Send Bulk SMS</h3>
+          <h3 class="box-title">এসএমএস পাঠান (Send Bulk SMS)</h3>
           <div class="box-tools pull-right">
             
           </div>
@@ -95,6 +95,30 @@
                 </div>
               </div>
           {!! Form::close() !!}
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <div class="box box-warning" style="position: relative; left: 0px; top: 0px;">
+        <div class="box-header ui-sortable-handle" style="">
+          <i class="fa fa-user-plus"></i>
+
+          <h3 class="box-title">নতুন নম্বর যোগ করুন (Add New Number)</h3>
+          <div class="box-tools pull-right">
+            
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+         {!! Form::open(['route' => 'membership.store_direct_contact', 'method' => 'POST']) !!}
+         <div class="form-group">
+           {!! Form::label('phone', 'Mobile Number (11 Digits)') !!}
+           {!! Form::text('phone', null, array('class' => 'form-control', 'placeholder' => 'Write 11 Digit Mobile Number (Like 01700000000)', 'required' => '', 'pattern' =>'\d*', 'maxlength' => '11')) !!}
+           {!! Form::hidden('name', 'Direct_Contact') !!}
+           {!! Form::hidden('point', 0) !!}
+           {!! Form::hidden('type', 0) !!}
+         </div>
+         <button class="btn btn-warning">Add Number</button>
+         {!! Form::close() !!}
         </div>
         <!-- /.box-body -->
       </div>

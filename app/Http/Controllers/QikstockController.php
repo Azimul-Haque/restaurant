@@ -17,7 +17,8 @@ class QikstockController extends Controller
 {
     public function index()
     {
-        $stocks = Qikstock::orderBy('name', 'asc')->get();
+        $stocks = Qikstock::orderBy('name', 'asc')
+                          ->get()->sortBy('name', SORT_NATURAL, false); // false for ascending
 
         return view('qikstocks.index')
                     ->withStocks($stocks);

@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth']], function() {
 	// Membership Controller
 	Route::get('/membership', ['as'=>'membership.index','uses'=>'MembershipController@getIndex']);
 	Route::post('/membership', ['as'=>'membership.store','uses'=>'MembershipController@store']);
+	Route::post('/direct_contact/membership', ['as'=>'membership.store_direct_contact','uses'=>'MembershipController@storeDirectContact']);
 	Route::put('/membership/{id}', ['as'=>'membership.update','uses'=>'MembershipController@update']);
 	Route::patch('/membership/award/{id}', ['as'=>'membership.award','uses'=>'MembershipController@award']);
 	Route::post('/membership/send/sms/{id}', ['as'=>'membership.singlesms','uses'=>'MembershipController@sendSingleSMS']);

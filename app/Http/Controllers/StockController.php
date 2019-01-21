@@ -25,7 +25,8 @@ class StockController extends Controller
     {
         $categories = Category::where('unit', '!=', 'N/A')
                               ->orderBy('name', 'asc')
-                              ->get();
+                              ->get()->sortBy('name', SORT_NATURAL, false); // false for ascending
+
         $category_id = array();
         foreach ($categories as $category) {
           $category_id[] = $category->id;

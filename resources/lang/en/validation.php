@@ -77,7 +77,7 @@ return [
     ],
     'string'               => 'The :attribute must be a string.',
     'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => ':attribute ঘরে লেখা নামটি ব্যবহার হয়ে গেছে। অন্য একটি দিন',
+    'unique'               => ':attribute ঘরে লেখা ভুক্তিটি ব্যবহার হয়ে গেছে। অন্য একটি দিন',
     'url'                  => 'The :attribute format is invalid.',
 
     /*
