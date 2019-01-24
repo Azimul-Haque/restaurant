@@ -74,19 +74,19 @@ class QikstockController extends Controller
           $this->validate($request, array(
             'name'=>'required|max:255',
             'unit'=>'required|max:255',
-            'quantity'=>'required|numeric|min:0'
+            'addquantity'=>'required|numeric|min:0'
           ));
         } else {
           $this->validate($request, array(
             'name'=>'required|max:255|unique:qikstocks,name',
             'unit'=>'required|max:255',
-            'quantity'=>'required|numeric|min:0'
+            'addquantity'=>'required|numeric|min:0'
           ));
         }
       
         $stock->name = $request->name;
         $stock->unit = $request->unit;
-        $stock->quantity = $request->quantity;
+        $stock->quantity = $stock->quantity + $request->addquantity;
         $stock->save();
         
         Session::flash('success', 'QIK Stock updated successfully!');

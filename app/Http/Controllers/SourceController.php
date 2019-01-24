@@ -52,15 +52,15 @@ class SourceController extends Controller
             $this->validate($request, array(
                 'name'=>'required|max:255',
                 'total'=>'required|max:255',
-                'paid'=>'required|max:255',
-                'due'=>'required|max:255'
+                'newpaid'=>'required|max:255',
+                // 'due'=>'required|max:255'
             ));
         } else {
             $this->validate($request, array(
                 'name'=>'required|max:255|unique:sources,name',
                 'total'=>'required|max:255',
-                'paid'=>'required|max:255',
-                'due'=>'required|max:255'
+                'newpaid'=>'required|max:255',
+                // 'due'=>'required|max:255'
             ));
         }
 
@@ -70,8 +70,16 @@ class SourceController extends Controller
         if(Auth::user()->roles->first()->name == 'superadmin') {
             $source->total = $request->total;
         }
-        $source->paid = $request->paid;
-        $source->due = $request->due;
+        $source->paid = $source->paid + $request->newpaid;
+        $source->due = $source->due - $request->newpaid;
+        if($source->due < 0) {
+            $source->due = 0;
+        }
+        // if total is 0 then all 0
+        if($source->total == 0) {
+            $source->paid = 0;
+            $source->due = 0;
+        }
         $source->save();
 
         Session::flash('success', 'Updated successfully!');

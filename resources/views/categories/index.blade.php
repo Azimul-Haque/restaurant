@@ -209,16 +209,17 @@
                                 <div class="form-group">
                                   {!! Form::label('total', 'Total:') !!}
                                   <input type="text" name="total" id="sourcetotal{{ $source->id }}" placeholder='Total' class="form-control" value="{{ $source->total }}"
-                                  @role('manager') disabled="" @endrole
+                                  @role('manager') readonly="" @endrole
                                   >
                                 </div>
                                 <div class="form-group">
-                                  {!! Form::label('paid', 'Paid') !!}
-                                  {!! Form::text('paid', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Paid', 'id' => 'sourcepaid'.$source->id)) !!}
+                                  {!! Form::label('newpaid', 'Paid') !!}
+                                  {!! Form::text('newpaid', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Paid', 'id' => 'sourcepaid'.$source->id)) !!}
                                 </div>
                                 <div class="form-group">
                                   {!! Form::label('due', 'Due:') !!}
                                   {!! Form::text('due', null, array('class' => 'form-control', 'required' => '', 'placeholder' => 'Due', 'id' => 'sourcedue'.$source->id)) !!}
+                                  {!! Form::hidden('due', null, ['id' => 'sourceduehidden'.$source->id]) !!}
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -233,16 +234,16 @@
                   </td>
                 </tr>
                 <script type="text/javascript">
-                  $('#sourcetotal{{ $source->id }}').keyup(function() {
-                    var sourcetotal = $('#sourcetotal{{ $source->id }}').val();
-                    var sourcepaid = $('#sourcepaid{{ $source->id }}').val();
-                    var sourcedue = sourcetotal - sourcepaid;
-                    $('#sourcedue{{ $source->id }}').val(sourcedue);
-                  })
+                  // $('#sourcetotal{{ $source->id }}').keyup(function() {
+                  //   var sourcetotal = $('#sourcetotal{{ $source->id }}').val();
+                  //   var sourcepaid = $('#sourcepaid{{ $source->id }}').val();
+                  //   var sourcedue = sourcetotal - sourcepaid;
+                  //   $('#sourcedue{{ $source->id }}').val(sourcedue);
+                  // })
                   $('#sourcepaid{{ $source->id }}').keyup(function() {
-                    var sourcetotal = $('#sourcetotal{{ $source->id }}').val();
+                    var sourcedue = $('#sourceduehidden{{ $source->id }}').val();
                     var sourcepaid = $('#sourcepaid{{ $source->id }}').val();
-                    var sourcedue = sourcetotal - sourcepaid;
+                    var sourcedue = sourcedue - sourcepaid;
                     $('#sourcedue{{ $source->id }}').val(sourcedue);
                   })
                 </script>

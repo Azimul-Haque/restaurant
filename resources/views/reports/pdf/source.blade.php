@@ -36,7 +36,7 @@
       @foreach($sources as $commodity)
         <tr>
           <td>{{ $commodity->category->name }}</td>
-          <td>{{ $commodity->quantity }}</td>
+          <td>{{ $commodity->quantity }} {{ $commodity->category->unit }}</td>
           <td align="right">৳ {{ $commodity->total }}</td>
           <td>{{ date('F d, Y', strtotime($commodity->created_at)) }}</td>
         </tr>

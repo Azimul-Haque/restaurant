@@ -33,7 +33,6 @@
               <td>{{ $stock->quantity }} {{ $stock->unit }}</td>
               <td>{{ date('F d, Y h:i A', strtotime($stock->created_at)) }}</td>
               <td>{{ date('F d, Y h:i A', strtotime($stock->updated_at)) }}</td>
-              @permission('stock-edit')
               <td class="noPrint">
                 <div class="tools">
                   {{-- edit modal--}}
@@ -69,8 +68,8 @@
                                 </select>
                               </div>
                               <div class="form-group">
-                                {!! Form::label('quantity', 'Quantity:') !!}
-                                {!! Form::number('quantity', null, array('class' => 'form-control', 'placeholder' => 'Write Quantity', 'step' => 'any', 'required' => '')) !!}
+                                {!! Form::label('addquantity', 'Add Quantity:') !!}
+                                {!! Form::number('addquantity', null, array('class' => 'form-control', 'placeholder' => 'Add Quantity', 'step' => 'any', 'required' => '')) !!}
                               </div>
                             </div>
                             <div class="modal-footer">
@@ -85,7 +84,6 @@
 
                 </div>
               </td>
-              @endpermission
             </tr>
           @endforeach
           </tbody>
