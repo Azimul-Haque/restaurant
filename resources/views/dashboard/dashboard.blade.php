@@ -68,10 +68,21 @@
           </div><br/>
           <div class="panel panel-success">
             <div class="panel-heading">
-              <big class="blink">নতুন ফিচার! (Version 2.7.0)</big>
+              <big class="blink">নতুন ফিচার! (Version 2.8.0)</big>
             </div>
             <div class="panel-body">
               <ul>
+                <li>Stuff Payment Module + Report <b>(কাজ চলছে)</b> </li>
+                <li>Item Wise From-To Date Report <b>(কাজ চলছে)</b> </li>
+                <li>QI Unique (pos) <b>(কাজ চলছে)</b> </li>
+                <li>Sources Calculation Manager permission granted</li>
+                <li>QIK Stock Manager Edit permission granted</li>
+                <li>QIK Stock Add Item, Not Edit Item corrected</li>
+                <li>Usage Rate Removed and Average Rate added</li>
+                <li>Usage Rate Removed and Average Rate added</li>
+                <li>Sources Report Unit Added</li>
+                <li>Commodity Report Unit Added</li>
+                <li>Source Paid Calculation Problem Solved</li>
                 <li>New Marketing Manager User Role</li>
                 <li>Add New Number to SMS Module</li>
                 <li>Expenditure from Usage (not from commodities)</li>

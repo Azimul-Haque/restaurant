@@ -20,6 +20,7 @@
             <tr>
               <th>Category</th>
               <th>Quantity</th>
+              <th>Total Cost</th>
               <th>Submitted By</th>
               <th>Created At</th>
               @permission('stock-edit')
@@ -32,6 +33,7 @@
             <tr>
               <td>{{ $stock->category->name }}</td>
               <td>{{ $stock->quantity }} {{ $stock->category->unit }}</td>
+              <td>৳ {{ $stock->total }}/-</td>
               <td>{{ $stock->user->name }}</td>
               <td>{{ date('F d, Y h:i A', strtotime($stock->created_at)) }}</td>
               @permission('stock-edit')
@@ -67,6 +69,10 @@
                                     {{ $stock->category->unit }}
                                   </span>
                                 </div>
+                              </div>
+                              <div class="form-group">
+                                {!! Form::label('total', 'Total Cost:') !!}
+                                {!! Form::number('total', null, array('class' => 'form-control', 'placeholder' => 'Write Total Cost', 'step' => 'any')) !!}
                               </div>
                             </div>
                             <div class="modal-footer">
@@ -112,10 +118,6 @@
                 {!! Form::number('quantity', null, array('class' => 'form-control', 'placeholder' => 'Write Quantity', 'step' => 'any', 'min' => 0, 'required' => '', 'id' => 'stockusagequantity')) !!}
                 <span class="input-group-addon" id="unittostore">Unit</span>
               </div>
-            </div>
-            <div class="form-group">
-              {!! Form::label('rate', 'Rate:') !!}
-              {!! Form::number('rate', null, array('class' => 'form-control', 'placeholder' => 'Write Rate', 'step' => 'any', 'min' => 0, 'required' => '')) !!}
             </div>
           </div>
           <!-- /.box-body -->

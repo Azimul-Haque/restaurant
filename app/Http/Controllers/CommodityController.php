@@ -113,6 +113,7 @@ class CommodityController extends Controller
             //update to DB
             $stock->user_id = Auth::user()->id;
             $stock->quantity = $stock->quantity + $request->quantity;
+            $stock->total = $stock->total + $request->total;
           } elseif($stock == null) {
             $this->validate($request, array(
                 'category_id' => 'required|integer|unique:stocks,category_id',
@@ -123,6 +124,7 @@ class CommodityController extends Controller
             $stock->category_id = $request->category_id;
             $stock->user_id = Auth::user()->id;
             $stock->quantity = $request->quantity;
+            $stock->total = $stock->total + $request->total;
           }
           
           $stock->save();

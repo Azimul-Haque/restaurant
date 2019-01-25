@@ -79,26 +79,26 @@ class StockController extends Controller
           $stock = Stock::where('category_id', $request->category_id)->first();
 
           $this->validate($request, array(
+            'category_id' => 'required|integer',
             'quantity'=>'required|numeric|min:0'
           ));
           //update to DB
+
+          // get the average Rate
+          $average_rate = number_format((float)($stock->total / $stock->quantity), 2, '.', '');
           $stock->quantity = $stock->quantity - $request->quantity;
+          
+          $stock->total = $stock->total - ($request->quantity * $average_rate);
           $stock->save();
 
           // USAGE PART
-          //validation
-          $this->validate($request, array(
-            'category_id' => 'required|integer',
-            'quantity' => 'required|numeric',
-            'rate' => 'required|numeric'
-          ));
           //store to DB
           $usage = new Usage;
           $usage->category_id = $request->category_id;
           $usage->user_id = Auth::user()->id;
           $usage->quantity = $request->quantity;
-          $usage->rate = $request->rate;
-          $usage->total = $request->quantity * $request->rate;
+          $usage->rate = $average_rate;
+          $usage->total = $request->quantity * $average_rate;
           $usage->save();
           // USAGE PART
 
@@ -148,11 +148,13 @@ class StockController extends Controller
         $stock = Stock::find($id);
         
         $this->validate($request, array(
-          'quantity'=>'required|numeric'
+          'quantity'=>'required|numeric',
+          'total'=>'required|numeric'
         ));
         //update to DB
         $stock->user_id = Auth::user()->id;
         $stock->quantity = $request->quantity;
+        $stock->total = $request->total;
         $stock->save();
 
         Session::flash('success', 'Updated successfully!');

@@ -17,6 +17,7 @@ class CreateStocksTable extends Migration
             $table->integer('category_id')->unsigned()->unique();
             $table->integer('user_id')->unsigned();
             $table->float('quantity');
+            $table->float('total');
             $table->timestamps();
         });
     }
