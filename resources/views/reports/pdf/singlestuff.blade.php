@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Usage | PDF</title>
+  <title>Staffs Payment | PDF</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="icon" sizes="192x192" href="{{ asset('images/pdf-icon.png') }}">
   <style>
@@ -25,22 +25,24 @@
 <body>
   <h2 align="center">কুইন আইল্যান্ড কিচেন</h2>
   <p align="center">
-    রান্নাঘরে মালামাল ব্যবহারের হিসাব<br/>
+    <big><b>{{ $date[3] }}</b>-এর পেমেন্টের হিসাব<br/></big>
     <b><u>{{ $date[0] }} - {{ $date[1] }}</u></b></p>
   <div class="">
     <table class="">
       <tr style="background: #D3D3D3;">
-        <th>পণ্য/ সামগ্রী/ খাত</th>
-        <th>পরিমাণ</th>
         <th>তারিখ</th>
+        <th>টাকার পরিমাণ</th>
       </tr>
-      @foreach($usages as $usage)
+      @foreach($stuffpayments as $stuffpayment)
         <tr>
-          <td>{{ $usage->category->name }}</td>
-          <td>{{ $usage->quantity }} {{ $usage->category->unit }}</td>
-          <td>{{ date('F d, Y h:i A', strtotime($usage->created_at)) }}</td>
+          <td>{{ date('F d, Y h:i A', strtotime($stuffpayment->created_at)) }}</td>
+          <td align="right">৳ {{ $stuffpayment->amount }}</td>
         </tr>
       @endforeach
+      <tr style="background: #D3D3D3;">
+        <th>মোট</th>
+        <th align="right">৳ {{ $date[2] }}</th>
+      </tr>
     </table>
   </div>
 </body>

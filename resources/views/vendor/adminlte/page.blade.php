@@ -335,6 +335,12 @@
                         <li class="{{ Request::is('qikusage') ? 'active' : '' }}"><a href="{{ route('qikstocks.qikusage') }}"><i class="fa fa-hourglass-start"></i> QIK Usage</a></li>
                       </ul>
                     </li>
+                    <li class="{{ Request::is('stuffs/*') ? 'active' : '' }}">
+                        <a href="{{ route('stuffs.index') }}">
+                            <i class="fa fa-fw fa-users"></i>
+                            <span>Stuff Management</span>
+                        </a>
+                    </li>
                     <li class="{{ Request::is('waiters/*') ? 'active' : '' }}">
                         <a href="{{ route('waiters.index') }}">
                             <i class="fa fa-fw fa-male"></i>
@@ -397,7 +403,7 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
           <div class="pull-right hidden-xs">
-            <b>Version</b> 2.8.0
+            <b>Version</b> 2.9.0
           </div>
           <strong>Copyright © {{ date('Y') }}</strong> 
           All rights reserved.

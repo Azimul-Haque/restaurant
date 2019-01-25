@@ -68,13 +68,13 @@
           </div><br/>
           <div class="panel panel-success">
             <div class="panel-heading">
-              <big class="blink">নতুন ফিচার! (Version 2.8.0)</big>
+              <big class="blink">নতুন ফিচার! (Version 2.9.0)</big>
             </div>
             <div class="panel-body">
               <ul>
-                <li>Stuff Payment Module + Report <b>(কাজ চলছে)</b> </li>
                 <li>Item Wise From-To Date Report <b>(কাজ চলছে)</b> </li>
-                <li>QI Unique (pos) <b>(কাজ চলছে)</b> </li>
+                <li>QT Unique (pos) <b>(কাজ চলছে)</b> </li>
+                <li>Stuff Payment Module + Report</li>
                 <li>Sources Calculation Manager permission granted</li>
                 <li>QIK Stock Manager Edit permission granted</li>
                 <li>QIK Stock Add Item, Not Edit Item corrected</li>

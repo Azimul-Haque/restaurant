@@ -77,6 +77,25 @@
         </div>
         <!-- /.box-body -->
       </div>
+      <div class="box box-primary">
+        <div class="box-header with-border text-blue">
+          <i class="fa fa-fw fa-users"></i>
+          <h3 class="box-title">Stuffs Payment Report</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          {!! Form::open(['route' => 'reports.getstuffspaymentpdf', 'method' => 'GET']) !!}
+            <div class="form-group">
+              {!! Form::text('from', null, array('class' => 'form-control text-green', 'required' => '', 'placeholder' => 'Enter From Date', 'id' => 'fromstaffspaymentDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
+            </div>
+            <div class="form-group">
+              {!! Form::text('to', null, array('class' => 'form-control text-green', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'tostaffspaymentDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
+            </div>
+          <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
+          {!! Form::close() !!}
+        </div>
+        <!-- /.box-body -->
+      </div>
     </div>
     <div class="col-md-3">
       <div class="box box-success">
@@ -154,6 +173,37 @@
               {!! Form::text('to', null, array('class' => 'form-control text-green', 'required' => '', 'placeholder' => 'Enter To Date', 'id' => 'toqikusageDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
             </div>
           <button class="btn btn-success" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
+          {!! Form::close() !!}
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <div class="box box-success">
+        <div class="box-header with-border text-green">
+          <i class="fa fa-fw fa-user"></i>
+          <h3 class="box-title">Single Stuff Payment</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          {!! Form::open(['route' => 'reports.getsinglestuffpdf', 'method' => 'GET']) !!}
+            <div class="form-group">
+              <select class="form-control text-green" name="stuff_id" required="">
+                  <option value="" selected="" disabled="">Select Stuff</option>
+                @foreach($stuffs as $stuff)
+                  <option value="{{ $stuff->id }}">{{ $stuff->name }}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                {!! Form::text('from', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'From Date', 'id' => 'fromsinglestuffDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
+              </div>
+              <div class="form-group col-md-6">
+                {!! Form::text('to', null, array('class' => 'form-control text-blue', 'required' => '', 'placeholder' => 'To Date', 'id' => 'tosinglestuffDate', 'autocomplete' => 'off', 'readonly' => '')) !!}
+              </div>
+            </div>
+            <div class="">
+              <button class="btn btn-success" type="submit"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Get Report</button>
+            </div>
           {!! Form::close() !!}
         </div>
         <!-- /.box-body -->
@@ -342,6 +392,26 @@
           autoclose: true,
         });
         $("#toexpDate").datepicker({
+          format: 'MM dd, yyyy',
+          todayHighlight: true,
+          autoclose: true,
+        });
+        $("#fromstaffspaymentDate").datepicker({
+          format: 'MM dd, yyyy',
+          todayHighlight: true,
+          autoclose: true,
+        });
+        $("#tostaffspaymentDate").datepicker({
+          format: 'MM dd, yyyy',
+          todayHighlight: true,
+          autoclose: true,
+        });
+        $("#fromsinglestuffDate").datepicker({
+          format: 'MM dd, yyyy',
+          todayHighlight: true,
+          autoclose: true,
+        });
+        $("#tosinglestuffDate").datepicker({
           format: 'MM dd, yyyy',
           todayHighlight: true,
           autoclose: true,

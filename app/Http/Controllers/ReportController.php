@@ -16,6 +16,8 @@ use App\Qikusage;
 use App\Receipt;
 use App\Membership;
 use App\Smshistory;
+use App\Stuff;
+use App\Stuffpayment;
 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -26,8 +28,10 @@ class ReportController extends Controller
     public function getIndex()
     {
         $sources = Source::all();
+        $stuffs = Stuff::all();
         return view('reports.index')
-                   ->withSources($sources);
+                   ->withSources($sources)
+                   ->withStuffs($stuffs);
     }
 
     public function getPDFCommodity(Request $request)
@@ -386,6 +390,63 @@ class ReportController extends Controller
 
         $pdf = PDF::loadView('reports.pdf.smshistory', ['smshistory' => $smshistory], ['date' => [$request->from, $request->to, (int)$totalsms->totalsms]]);
         $fileName = 'SMS_History_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
+        return $pdf->download($fileName);
+    }
+
+    public function getPDFStuffsPayment(Request $request)
+    {
+        //validation
+        $this->validate($request, array(
+          'from' => 'required',
+          'to' => 'required'
+        ));
+        $from = date("Y-m-d H:i:s", strtotime($request->from));
+        $to = date("Y-m-d H:i:s", strtotime($request->to.' 23:59:59'));
+        $stuffpayments = Stuffpayment::whereBetween('created_at', [$from, $to])->get();
+        
+        $totalpayment = DB::table('stuffpayments')
+                        ->select(DB::raw('SUM(amount) as totalpayment'))
+                        ->whereBetween('created_at', [$from, $to])
+                        ->first();
+
+        $stuffs = Stuff::orderBy('name', 'asc')->get();
+        $newstuffpayments = [];
+        foreach($stuffs as $stuff) {
+            foreach($stuffpayments as $stuffpayment) {
+                if($stuff->name == $stuffpayment->stuff->name) {
+                    array_push($newstuffpayments, $stuffpayment);
+                }
+            }
+        }
+        $pdf = PDF::loadView('reports.pdf.staffspayment', ['stuffpayments' => $newstuffpayments], ['date' => [$request->from, $request->to, $totalpayment->totalpayment]]);
+        $fileName = 'Stuffs_Payments_'. date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
+        return $pdf->download($fileName);
+    }
+
+    public function getPDFSingleStuffPayment(Request $request)
+    {
+        //validation
+        $this->validate($request, array(
+          'stuff_id' => 'required',
+          'from'     => 'required',
+          'to'       => 'required'
+        ));
+        $from = date("Y-m-d H:i:s", strtotime($request->from));
+        $to = date("Y-m-d H:i:s", strtotime($request->to.' 23:59:59'));
+
+        $stuffpayments = Stuffpayment::where('stuff_id', $request->stuff_id)
+                                     ->whereBetween('created_at', [$from, $to])->get();
+        
+        $totalpayment = DB::table('stuffpayments')
+                        ->where('stuff_id', $request->stuff_id)
+                        ->select(DB::raw('SUM(amount) as totalpayment'))
+                        ->whereBetween('created_at', [$from, $to])
+                        ->first();
+
+        $stuff = Stuff::find($request->stuff_id);
+
+        $pdf = PDF::loadView('reports.pdf.singlestuff', ['stuffpayments' => $stuffpayments], ['date' => [$request->from, $request->to, $totalpayment->totalpayment, $stuff->name]]);
+        $fileName = 'Payment_Report_of_'. $stuff->name . '_' . date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
         return $pdf->download($fileName);
     }
 }

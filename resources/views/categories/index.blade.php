@@ -56,7 +56,7 @@
                     </div>
                     <div class="modal-footer">
                       {!! Form::submit('Add Category', array('class' => 'btn btn-info')) !!}
-                                            {!! Form::close() !!}
+                    {!! Form::close() !!}
                       <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     </div>
                   </div>
@@ -179,10 +179,12 @@
                   <th>Due</th>
                   <th class="noPrint">Action</th>
                 </tr>
-              @php $flagnull = 0; @endphp
+              @php 
+                $i = 1; 
+              @endphp
               @foreach ($sources as $source)
                 <tr>
-                  <td>{{ $source->id }}</td>
+                  <td>{{ $i }}</td>
                   <td>{{ $source->name }}</td>
                   <td>{{ $source->total }}</td>
                   <td>{{ $source->paid }}</td>
@@ -247,6 +249,9 @@
                     $('#sourcedue{{ $source->id }}').val(sourcedue);
                   })
                 </script>
+                @php 
+                  $i++; 
+                @endphp
               @endforeach
               </tbody>
             </table>

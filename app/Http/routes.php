@@ -58,6 +58,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/reports/export/members/pdf', ['as'=>'reports.getmembers','uses'=>'ReportController@getPDFMember']);
 	Route::get('/reports/export/items/date/wise/pdf', ['as'=>'reports.getitemsdatewise','uses'=>'ReportController@getPDFItemsDateWise']);
 	Route::get('/reports/export/sms/history/pdf', ['as'=>'reports.getsmshistory','uses'=>'ReportController@getPDFSMSHistory']);
+	Route::get('/reports/export/stuffs/payment/pdf', ['as'=>'reports.getstuffspaymentpdf','uses'=>'ReportController@getPDFStuffsPayment']);
+	Route::get('/reports/export/single/stuff/payment/pdf', ['as'=>'reports.getsinglestuffpdf','uses'=>'ReportController@getPDFSingleStuffPayment']);
 
 	// QIK Stocks and Usages
 	Route::get('qikstocks', ['as' => 'qikstocks.index', 'uses' => 'QikstockController@index']);
@@ -82,6 +84,15 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::patch('/membership/award/{id}', ['as'=>'membership.award','uses'=>'MembershipController@award']);
 	Route::post('/membership/send/sms/{id}', ['as'=>'membership.singlesms','uses'=>'MembershipController@sendSingleSMS']);
 	Route::delete('/membership/{id}', ['as'=>'membership.destroy','uses'=>'MembershipController@destroy']);
+
+	// Stuffs Management
+	Route::get('/stuffs', ['as'=>'stuffs.index','uses'=>'StuffController@index']);
+	Route::post('/stuffs/store', ['as'=>'stuffs.store','uses'=>'StuffController@store']);
+	Route::put('/stuffs/{id}', ['as'=>'stuffs.update','uses'=>'StuffController@update']);
+	Route::post('/stuffs/payment', ['as'=>'stuffs.payment','uses'=>'StuffController@staffPayment']);
+	Route::put('/stuffs/payment/{id}', ['as'=>'stuffs.payment.update','uses'=>'StuffController@updatePayment']);
+	Route::delete('/stuffs/payment/{id}', ['as'=>'stuffs.payment.destroy','uses'=>'StuffController@destroyPayment']);
+	// Stuffs Management
 
 	// SMS Admin Panel
 	Route::get('/sms/admin', ['as'=>'sms.admin','uses'=>'SmsController@getAdmin']);

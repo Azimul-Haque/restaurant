@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQikusagesTable extends Migration
+class CreateStuffsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,9 @@ class CreateQikusagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('qikusages', function (Blueprint $table) {
+        Schema::create('stuffs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('qikstock_id')->unsigned();
-            $table->float('quantity');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ class CreateQikusagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('qikusages');
+        Schema::drop('stuffs');
     }
 }
