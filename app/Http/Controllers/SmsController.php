@@ -119,7 +119,7 @@ class SmsController extends Controller
         try {
             $actualbalance = file_get_contents('http://66.45.237.70/balancechk.php?username=01751398392&password=Bulk.Sms.Bd.123');
         } catch (\Exception $e) {
-
+            $actualbalance = 5;
         }
         $qikbalance = Smsbalance::find(1);
 
