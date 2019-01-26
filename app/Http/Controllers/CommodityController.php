@@ -89,7 +89,6 @@ class CommodityController extends Controller
         $commodity->quantity = $request->quantity;
         $commodity->rate = $request->rate;
         $commodity->total = $request->total;
-        $commodity->due = $request->total;
         // $commodity->paid = $request->paid;
         // $commodity->due = $request->total - $request->paid;
         $commodity->save();
@@ -97,6 +96,7 @@ class CommodityController extends Controller
         // update source TOTAL
         $source = Source::find($request->source_id);
         $source->total = $source->total + $request->total;
+        $source->due = $request->total;
         $source->save();
         // update source TOTAL
 
