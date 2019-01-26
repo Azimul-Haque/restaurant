@@ -62,7 +62,7 @@ class MembershipController extends Controller
         $number = $mobile_number;
         $text = 'Dear ' . $request->name . ', thanks for feeling the food at Queen Island Kitchen! Please come again! Visit: http://queenislandkitchen.com';
         $data= array(
-            'username'=>"01878036200",
+            'username'=>"01751398392",
             'password'=>"Bulk.Sms.Bd.123",
             'number'=>"$number",
             'message'=>"$text"
@@ -171,7 +171,7 @@ class MembershipController extends Controller
         $number = $mobile_number;
         $text = 'Dear ' . $request->name . ', ' . $request->newpoint . ' points have been added to your account. Total points: ' . $member->point .  '. Please come again! Visit: http://queenislandkitchen.com';
         $data= array(
-            'username'=>"01878036200",
+            'username'=>"01751398392",
             'password'=>"Bulk.Sms.Bd.123",
             'number'=>"$number",
             'message'=>"$text"
@@ -261,7 +261,7 @@ class MembershipController extends Controller
         $number = $mobile_number;
         $text = $request->message;
         $data= array(
-        'username'=>"01878036200",
+        'username'=>"01751398392",
         'password'=>"Bulk.Sms.Bd.123",
         'number'=>"$number",
         'message'=>"$text"
