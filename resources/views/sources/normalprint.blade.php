@@ -76,7 +76,7 @@
       </tr>
       @foreach($sources as $source)
         <tr>
-          <td>{{ $source->name }}</td>
+          <td><big><b>{{ $source->name }}</b></big></td>
           <td>{{ $source->total }}/-</td>
           <td>{{ $source->paid }}/-</td>
           <td>{{ $source->due }}/-</td>
