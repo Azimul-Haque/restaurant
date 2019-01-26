@@ -96,7 +96,7 @@ class CommodityController extends Controller
         // update source TOTAL
         $source = Source::find($request->source_id);
         $source->total = $source->total + $request->total;
-        $source->due = $request->total;
+        $source->due = $source->due + $request->total;
         $source->save();
         // update source TOTAL
 
