@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/reports/export/sms/history/pdf', ['as'=>'reports.getsmshistory','uses'=>'ReportController@getPDFSMSHistory']);
 	Route::get('/reports/export/stuffs/payment/pdf', ['as'=>'reports.getstuffspaymentpdf','uses'=>'ReportController@getPDFStuffsPayment']);
 	Route::get('/reports/export/single/stuff/payment/pdf', ['as'=>'reports.getsinglestuffpdf','uses'=>'ReportController@getPDFSingleStuffPayment']);
+	Route::get('/reports/export/all/source/report/pdf', ['as'=>'reports.getallsourcepdf','uses'=>'ReportController@getPDFAllSource']);
 
 	// QIK Stocks and Usages
 	Route::get('qikstocks', ['as' => 'qikstocks.index', 'uses' => 'QikstockController@index']);

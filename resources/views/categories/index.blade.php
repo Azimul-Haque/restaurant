@@ -67,13 +67,15 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body no-padding">
-          <table class="table">
-            <tbody>
+          <table class="table" id="datatable-categories-list">
+            <thead>
               <tr>
                 <th>Name</th>
                 <th>Unit</th>
                 <th style="width: 40px">Action</th>
               </tr>
+            </thead>
+            <tbody>
             @foreach ($categories as $category)
               <tr>
                 <td>{{ $category->name }}</td>
@@ -137,6 +139,7 @@
           <div class="box-header">
             <h3 class="box-title">Source List</h3>
             <div class="box-tools pull-right noPrint">
+              <a class="btn btn-warning btn-sm" href="{{ route('reports.getallsourcepdf') }}"><i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i> Report Download</a>
               <a class="btn btn-primary btn-sm" href="{{ route('sources.print.normal') }}" target="_blank"><i class="fa fa-fw fa-print" aria-hidden="true"></i> POS Print</a>
               <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addSourceModal" data-backdrop="static"><i class="fa fa-fw fa-cart-plus" aria-hidden="true"></i> Add Source</button>
               {{-- add source modal--}}
@@ -264,23 +267,42 @@
 
 
 @section('js')
+
+<script type="text/javascript">
+  $(function () {
+    //$.fn.dataTable.moment('DD MMMM, YYYY hh:mm:ss tt');
+    $('#datatable-categories-list').DataTable({
+      'paging'      : true,
+      'pageLength'  : 25,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true,
+      'order': [[ 0, "asc" ]]
+    });
+    $('#datatable-categories-list_wrapper').removeClass( 'form-inline' );
+  })
+</script>
+
 {{-- print code --}}
 <script type="text/javascript">
   // document.getElementById("printBtn").onclick = function () {
   //     printElement(document.getElementById("printTable"));
   // }
-  function printElement(elem) {
-      var domClone = elem.cloneNode(true);
-      var $printSection = document.getElementById("printSection");
-      if (!$printSection) {
-          var $printSection = document.createElement("div");
-          $printSection.id = "printSection";
-          document.body.appendChild($printSection);
-      }
-      $printSection.innerHTML = "";
-      $printSection.appendChild(domClone);
-      window.print();
-  }
+  // function printElement(elem) {
+  //     var domClone = elem.cloneNode(true);
+  //     var $printSection = document.getElementById("printSection");
+  //     if (!$printSection) {
+  //         var $printSection = document.createElement("div");
+  //         $printSection.id = "printSection";
+  //         document.body.appendChild($printSection);
+  //     }
+  //     $printSection.innerHTML = "";
+  //     $printSection.appendChild(domClone);
+  //     window.print();
+  // }
 </script>
 {{-- print code --}}
+
 @stop

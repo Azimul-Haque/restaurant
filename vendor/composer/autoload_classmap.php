@@ -17,6 +17,8 @@ return array(
     'CreateSmshistoriesTable' => $baseDir . '/database/migrations/2019_01_13_145248_create_smshistories_table.php',
     'CreateSourcesTable' => $baseDir . '/database/migrations/2018_09_26_172958_create_sources_table.php',
     'CreateStocksTable' => $baseDir . '/database/migrations/2018_09_23_034123_create_stocks_table.php',
+    'CreateStuffpaymentsTable' => $baseDir . '/database/migrations/2019_01_25_124729_create_stuffpayments_table.php',
+    'CreateStuffsTable' => $baseDir . '/database/migrations/2019_01_25_110217_create_stuffs_table.php',
     'CreateUsagesTable' => $baseDir . '/database/migrations/2018_09_24_003117_create_usages_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'CreateWaitersTable' => $baseDir . '/database/migrations/2019_01_10_043232_create_waiters_table.php',

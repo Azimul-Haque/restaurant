@@ -14,7 +14,7 @@ class CreateCommoditiesTable extends Migration
     {
         Schema::create('commodities', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('isdeleted', 1);
+            $table->integer('isdeleted');
             $table->integer('category_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('source_id')->unsigned();

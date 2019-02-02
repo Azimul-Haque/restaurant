@@ -449,4 +449,13 @@ class ReportController extends Controller
         $fileName = 'Payment_Report_of_'. $stuff->name . '_' . date("d_M_Y", strtotime($request->from)) .'-'. date("d_M_Y", strtotime($request->to)) .'.pdf';
         return $pdf->download($fileName);
     }
+
+    public function getPDFAllSource()
+    {
+        $sources = Source::all();
+
+        $pdf = PDF::loadView('reports.pdf.allsources', ['sources' => $sources]);
+        $fileName = 'Sources_Report.pdf';
+        return $pdf->download($fileName);
+    }
 }

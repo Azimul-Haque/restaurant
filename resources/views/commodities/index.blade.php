@@ -147,7 +147,7 @@
                         })
                       </script>
                   {{-- edit modal--}}
-                  @endpermission
+                  
                   {{-- delete modal--}}
                   <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $commodity->id }}" data-backdrop="static"><i class="fa fa-trash" aria-hidden="true"></i></button>
                       <!-- Trigger the modal with a button -->
@@ -172,6 +172,7 @@
                         </div>
                       </div>
                   {{-- delete modal--}}
+                  @endpermission
                 </div>
               </td>
             </tr>

@@ -403,7 +403,7 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
           <div class="pull-right hidden-xs">
-            <b>Version</b> 2.9.0
+            <b>Version</b> 3.0.0
           </div>
           <strong>Copyright © {{ date('Y') }}</strong> 
           All rights reserved.

@@ -26,7 +26,7 @@
   <h2 align="center">কুইন আইল্যান্ড কিচেন</h2>
   <p align="center">
     এসএমএস (SMS) রিপোর্ট<br/>
-    <b><u>{{ $date[0] }} - {{ $date[1] }}</u></b></p>
+    <b><u>{{ $date[0] }} - {{ $date[1] }}</u></b>
   </p>
   <div class="">
     <table class="">

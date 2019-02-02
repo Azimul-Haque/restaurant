@@ -68,10 +68,13 @@
           </div><br/>
           <div class="panel panel-success">
             <div class="panel-heading">
-              <big class="blink">নতুন ফিচার! (Version 2.9.0)</big>
+              <big class="blink">নতুন ফিচার! (Version 3.0.0)</big>
             </div>
             <div class="panel-body">
               <ul>
+                <li>Source Report Download (Normal print version)</li>
+                <li>Search on Category List</li>
+                <li>Commodity manager delete option off</li>
                 <li>Item Wise From-To Date Report <b>(কাজ চলছে)</b> </li>
                 <li>QT Unique (pos) <b>(কাজ চলছে)</b> </li>
                 <li>Stuff Payment Module + Report</li>

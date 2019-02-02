@@ -313,6 +313,8 @@ class ComposerStaticInit8e02009284f2782593670f742b824b20
         'CreateSmshistoriesTable' => __DIR__ . '/../..' . '/database/migrations/2019_01_13_145248_create_smshistories_table.php',
         'CreateSourcesTable' => __DIR__ . '/../..' . '/database/migrations/2018_09_26_172958_create_sources_table.php',
         'CreateStocksTable' => __DIR__ . '/../..' . '/database/migrations/2018_09_23_034123_create_stocks_table.php',
+        'CreateStuffpaymentsTable' => __DIR__ . '/../..' . '/database/migrations/2019_01_25_124729_create_stuffpayments_table.php',
+        'CreateStuffsTable' => __DIR__ . '/../..' . '/database/migrations/2019_01_25_110217_create_stuffs_table.php',
         'CreateUsagesTable' => __DIR__ . '/../..' . '/database/migrations/2018_09_24_003117_create_usages_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'CreateWaitersTable' => __DIR__ . '/../..' . '/database/migrations/2019_01_10_043232_create_waiters_table.php',
