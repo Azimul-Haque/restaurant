@@ -248,7 +248,6 @@ class SmsController extends Controller
 
 
 
-
     // public function sendsms()
     // {
     //     try{
