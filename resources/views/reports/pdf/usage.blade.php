@@ -32,12 +32,14 @@
       <tr style="background: #D3D3D3;">
         <th>পণ্য/ সামগ্রী/ খাত</th>
         <th>পরিমাণ</th>
+        <th>রেট</th>
         <th>তারিখ</th>
       </tr>
       @foreach($usages as $usage)
         <tr>
           <td>{{ $usage->category->name }}</td>
           <td>{{ $usage->quantity }} {{ $usage->category->unit }}</td>
+          <td align="right">{{ $usage->rate }} ৳</td>
           <td>{{ date('F d, Y h:i A', strtotime($usage->created_at)) }}</td>
         </tr>
       @endforeach

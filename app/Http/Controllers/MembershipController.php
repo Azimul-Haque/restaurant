@@ -33,9 +33,9 @@ class MembershipController extends Controller
           'name' => 'required|max:255',
           'phone' => 'required|max:11|unique:memberships,phone',
           'point'=>'required|numeric',
-          'type'=>'required'
+          'type'=>'required',
+          'welcome_sms'=>'required'
         ));
-       
         //store to DB
         $member = new Membership;
         $member->name = $request->name;
@@ -46,59 +46,61 @@ class MembershipController extends Controller
         $member->isdeleted = 0;
         $member->save();
 
-        $balance = Smsbalance::find(1);
+        if($request->welcome_sms == 1) {
+            $balance = Smsbalance::find(1);
 
-        // send sms
-        $mobile_number = 0;
-        if(strlen($request->phone) == 11) {
-            $mobile_number = '88'.$request->phone;
-        } elseif(strlen($request->phone) > 11) {
-            if (strpos($request->phone, '+') !== false) {
-                $mobile_number = substr($request->phone,0,1);
+            // send sms
+            $mobile_number = 0;
+            if(strlen($request->phone) == 11) {
+                $mobile_number = '88'.$request->phone;
+            } elseif(strlen($request->phone) > 11) {
+                if (strpos($request->phone, '+') !== false) {
+                    $mobile_number = substr($request->phone,0,1);
+                }
             }
-        }
 
-        $url = "http://66.45.237.70/api.php";
-        $number = $mobile_number;
-        $text = 'Dear ' . $request->name . ', thanks for feeling the food at Queen Island Kitchen! Please come again! Visit: http://queenislandkitchen.com';
-        $data= array(
-            'username'=>"01751398392",
-            'password'=>"Bulk.Sms.Bd.123",
-            'number'=>"$number",
-            'message'=>"$text"
-        );
+            $url = "http://66.45.237.70/api.php";
+            $number = $mobile_number;
+            $text = 'Dear ' . $request->name . ', thanks for feeling the food at Queen Island Kitchen! Please come again! Visit: http://queenislandkitchen.com';
+            $data= array(
+                'username'=>"01751398392",
+                'password'=>"Bulk.Sms.Bd.123",
+                'number'=>"$number",
+                'message'=>"$text"
+            );
 
-        // initialize send status
-        $sendstatus = 0;
-        if($balance->balance > 1) {
-            $ch = curl_init(); // Initialize cURL
-            curl_setopt($ch, CURLOPT_URL,$url);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $smsresult = curl_exec($ch);
-            $p = explode("|",$smsresult);
-            $sendstatus = $p[0];
-        } else {
-            Session::flash('warning', 'Insufficient balance! Could not send Welcome SMS!');
-        }
-        // send sms
-
-        if($sendstatus == 1101) {
-            $newbalance = $balance->balance - 1;
-            if($newbalance < 0) {
-                $newbalance = 0;
+            // initialize send status
+            $sendstatus = 0;
+            if($balance->balance > 1) {
+                $ch = curl_init(); // Initialize cURL
+                curl_setopt($ch, CURLOPT_URL,$url);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                $smsresult = curl_exec($ch);
+                $p = explode("|",$smsresult);
+                $sendstatus = $p[0];
+            } else {
+                Session::flash('warning', 'Insufficient balance! Could not send Welcome SMS!');
             }
-            $balance->balance = $newbalance;
-            $balance->save();
+            // send sms
 
-            $history = new Smshistory;
-            $history->membership_id = $member->id;
-            $history->smscount = 1;
-            $history->save();
-            
-            Session::flash('success', 'Welcome SMS sent successfully!');
-        } else {
-            Session::flash('warning', 'Welcome SMS sending failed');
+            if($sendstatus == 1101) {
+                $newbalance = $balance->balance - 1;
+                if($newbalance < 0) {
+                    $newbalance = 0;
+                }
+                $balance->balance = $newbalance;
+                $balance->save();
+
+                $history = new Smshistory;
+                $history->membership_id = $member->id;
+                $history->smscount = 1;
+                $history->save();
+                
+                Session::flash('success', 'Welcome SMS sent successfully!');
+            } else {
+                Session::flash('warning', 'Welcome SMS sending failed');
+            }
         }
 
         Session::flash('success', 'A new Member has been created successfully!');

@@ -68,10 +68,12 @@
           </div><br/>
           <div class="panel panel-success">
             <div class="panel-heading">
-              <big class="blink">নতুন ফিচার! (Version 3.0.0)</big>
+              <big class="blink">নতুন ফিচার! (Version 3.1.0)</big>
             </div>
             <div class="panel-body">
               <ul>
+                <li>Usage report appends by Rate</li>
+                <li>Welcome SMS when adding a member optional</li>
                 <li>Source Report Download (Normal print version)</li>
                 <li>Search on Category List</li>
                 <li>Commodity manager delete option off</li>

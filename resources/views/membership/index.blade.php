@@ -234,6 +234,13 @@
                   </select>
                 </div>
                 <div class="form-group">
+                  {!! Form::label('welcome_sms', 'Welcome SMS:') !!}
+                  <div class="radio">
+                    <label style="width: 70px;"><input type="radio" name="welcome_sms" value="1" checked="">Yes</label>
+                    <label><input type="radio" name="welcome_sms" value="0">No</label>
+                  </div>
+                </div>
+                <div class="form-group">
                   {!! Form::label('point', 'Add Points:') !!}
                   {!! Form::number('point', null, array('class' => 'form-control', 'placeholder' => 'Write Points', 'step' => 'any', 'required' => '', 'min' => 0)) !!}
                 </div>

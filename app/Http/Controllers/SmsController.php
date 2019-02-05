@@ -31,16 +31,9 @@ class SmsController extends Controller
 
         $members = Membership::all();
         $balance = Smsbalance::find(1);
-
         $smssuccesscount = 0;
-        $url = "http://66.45.237.70/api.php";
-        $multiCurl = array();
-        // data to be returned
-        $result = array();
-        // multi handle
-        $mh = curl_multi_init();
-        // sms data
-        $smsdata = [];
+
+        $mobile_numbers = [];
         foreach ($members as $i => $member) {
             $mobile_number = 0;
             if(strlen($member->phone) == 11) {
@@ -51,60 +44,49 @@ class SmsController extends Controller
                 }
             }
             if($mobile_number != 0) {
-                $smsdata[$i] = array(
-                    'username' => "01751398392",
-                    'password' => "Bulk.Sms.Bd.123",
-                    'number' => $mobile_number,
-                    'message' => $request->message,
-                    'membership_id' => $member->id,
-                    'smscount' => $request->smscount
-                );
-
-                $multiCurl[$i] = curl_init(); // Initialize cURL
-                curl_setopt($multiCurl[$i], CURLOPT_URL, $url);
-                curl_setopt($multiCurl[$i], CURLOPT_HEADER, 0);
-                curl_setopt($multiCurl[$i], CURLOPT_POSTFIELDS, http_build_query($smsdata[$i]));
-                curl_setopt($multiCurl[$i], CURLOPT_RETURNTRANSFER, 1);
-                curl_multi_add_handle($mh, $multiCurl[$i]);
+                // $mobile_numbers = $mobile_numbers.$mobile_number.","; //number separated by comma
+              array_push($mobile_numbers, $mobile_number);
             }
         }
+        $numbers = implode(",", $mobile_numbers);
+
+        $url = "http://66.45.237.70/api.php";
+        $data= array(
+          'username'=>"01751398392",
+          'password'=>"Bulk.Sms.Bd.123",
+          'number'=>"$numbers",
+          'message'=>"$request->message"
+        );
+        
 
         if($balance->balance > 1) {
-            $index=null;
-            do {
-              curl_multi_exec($mh, $index);
-            } while($index > 0);
-            // get content and remove handles
-            foreach($multiCurl as $k => $ch) {
-              $result[$k] = curl_multi_getcontent($ch);
-              curl_multi_remove_handle($mh, $ch);
-              $p = explode("|",$result[$k]);
-              $sendstatus = $p[0];
-              // dd($sendstatus);
-              if($sendstatus == 1101) {
-                  $smssuccesscount++;
-              }
-            }
-            foreach ($smsdata as $smshistory) {
-                $history = new Smshistory;
-                $history->membership_id = $smshistory['membership_id'];
-                $history->smscount = $smshistory['smscount'];
-                $history->save();
+            $ch = curl_init(); // Initialize cURL
+            curl_setopt($ch, CURLOPT_URL,$url);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $smsresult = curl_exec($ch);
+            $p = explode("|",$smsresult);
+            $sendstatus = $p[0];
+            $smssuccesscount = $p[1];
+
+            if($sendstatus == 1101) {
+                foreach ($members as $member) {
+                    $history = new Smshistory;
+                    $history->membership_id = $member->id;
+                    $history->smscount = $request->smscount;
+                    $history->save();
+                }
+                $newbalance = $balance->balance - ($smssuccesscount * (int)$request->smscount);
+                if($newbalance < 0) {
+                    $newbalance = 0;
+                }
+                $balance->balance = $newbalance;
+                $balance->save();
             }
         } else {
             Session::flash('warning', 'Insufficient balance! Please recharge!');
             return redirect()->route('sms.index');
         }
-        
-        // close
-        curl_multi_close($mh);
-
-        $newbalance = $balance->balance - ($smssuccesscount * (int)$request->smscount);
-        if($newbalance < 0) {
-            $newbalance = 0;
-        }
-        $balance->balance = $newbalance;
-        $balance->save();
 
         if($smssuccesscount == 0) {
             Session::flash('warning', 'কোন সমস্যা হয়েছে। ডেভেলপারের সাথে যোগাযোগ করুন!');
@@ -148,8 +130,124 @@ class SmsController extends Controller
         $balance->balance = $balance->balance + $request->smsamount;
         $balance->save();
 
+        Session::flash('success', $request->smsamount.' টি মেসেজ যোগ করা হয়েছে!');
         return redirect()->route('sms.admin');
     }
+
+
+    // BULKSMSBD.COM
+    // BULKSMSBD.COM
+
+    // public function sendBulkToMany(Request $request)
+    // {
+    //     $this->validate($request, array(
+    //       'message' => 'required',
+    //       'smscount'=>'required'
+    //     ));
+
+    //     $members = Membership::all();
+    //     $balance = Smsbalance::find(1);
+
+    //     $smssuccesscount = 0;
+    //     $url = "http://66.45.237.70/api.php";
+    //     $multiCurl = array();
+    //     // data to be returned
+    //     $result = array();
+    //     // multi handle
+    //     $mh = curl_multi_init();
+    //     // sms data
+    //     $smsdata = [];
+    //     foreach ($members as $i => $member) {
+    //         $mobile_number = 0;
+    //         if(strlen($member->phone) == 11) {
+    //             $mobile_number = '88'.$member->phone;
+    //         } elseif(strlen($member->phone) > 11) {
+    //             if (strpos($member->phone, '+') !== false) {
+    //                 $mobile_number = substr($member->phone,0,1);
+    //             }
+    //         }
+    //         if($mobile_number != 0) {
+    //             $smsdata[$i] = array(
+    //                 'username' => "01751398392",
+    //                 'password' => "Bulk.Sms.Bd.123",
+    //                 'number' => $mobile_number,
+    //                 'message' => $request->message,
+    //                 'membership_id' => $member->id,
+    //                 'smscount' => $request->smscount
+    //             );
+
+    //             $multiCurl[$i] = curl_init(); // Initialize cURL
+    //             curl_setopt($multiCurl[$i], CURLOPT_URL, $url);
+    //             curl_setopt($multiCurl[$i], CURLOPT_HEADER, 0);
+    //             curl_setopt($multiCurl[$i], CURLOPT_POSTFIELDS, http_build_query($smsdata[$i]));
+    //             curl_setopt($multiCurl[$i], CURLOPT_RETURNTRANSFER, 1);
+    //             curl_multi_add_handle($mh, $multiCurl[$i]);
+    //         }
+    //     }
+
+    //     if($balance->balance > 1) {
+    //         $index=null;
+    //         do {
+    //           curl_multi_exec($mh, $index);
+    //         } while($index > 0);
+    //         // get content and remove handles
+    //         foreach($multiCurl as $k => $ch) {
+    //           $result[$k] = curl_multi_getcontent($ch);
+    //           curl_multi_remove_handle($mh, $ch);
+    //           $p = explode("|",$result[$k]);
+    //           $sendstatus = $p[0];
+    //           // dd($sendstatus);
+    //           if($sendstatus == 1101) {
+    //               $smssuccesscount++;
+    //           }
+    //         }
+    //         foreach ($smsdata as $smshistory) {
+    //             $history = new Smshistory;
+    //             $history->membership_id = $smshistory['membership_id'];
+    //             $history->smscount = $smshistory['smscount'];
+    //             $history->save();
+    //         }
+    //     } else {
+    //         Session::flash('warning', 'Insufficient balance! Please recharge!');
+    //         return redirect()->route('sms.index');
+    //     }
+        
+    //     // close
+    //     curl_multi_close($mh);
+
+    //     $newbalance = $balance->balance - ($smssuccesscount * (int)$request->smscount);
+    //     if($newbalance < 0) {
+    //         $newbalance = 0;
+    //     }
+    //     $balance->balance = $newbalance;
+    //     $balance->save();
+
+    //     if($smssuccesscount == 0) {
+    //         Session::flash('warning', 'কোন সমস্যা হয়েছে। ডেভেলপারের সাথে যোগাযোগ করুন!');
+    //     } else {
+    //         Session::flash('success', $smssuccesscount.' টি SMS সফলভাবে প্রেরণ করা হয়েছে!');
+    //     }
+    //     return redirect()->route('sms.index');
+    // }
+
+    // BULKSMSBD.COM
+    // BULKSMSBD.COM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // public function sendsms()
     // {
@@ -183,4 +281,8 @@ class SmsController extends Controller
     //         echo $e->getMessage();
     //     }
     // }
+
+    public function seapTest() {
+        
+    }
 }
