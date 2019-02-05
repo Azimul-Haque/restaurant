@@ -282,7 +282,7 @@ class SmsController extends Controller
     //     }
     // }
 
-    public function seapTest() {
+    public function soapTest() {
         
     }
 }

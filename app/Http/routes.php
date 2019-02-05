@@ -102,7 +102,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::get('/sms', ['as'=>'sms.index','uses'=>'SmsController@index']);
 	Route::post('/sms/send/bulk', ['as'=>'sms.sendbulk','uses'=>'SmsController@sendBulk']);
-	Route::get('/sms/soap/test', ['as'=>'sms.soaptest','uses'=>'SmsController@seapTest']);
+	Route::get('/sms/soap/test', ['as'=>'sms.soaptest','uses'=>'SmsController@soapTest']);
 });
 
 	// Public APIs
