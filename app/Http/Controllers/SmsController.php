@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Smshistory;
 use App\Smsbalance;
 use App\Membership;
-use SoapClient, Session;
+use SoapClient, Session, Config;
 
 
 class SmsController extends Controller
@@ -31,6 +31,12 @@ class SmsController extends Controller
 
         $members = Membership::all();
         $balance = Smsbalance::find(1);
+        // check message balance
+        if($balance->balance < $members->count()) {
+            Session::flash('warning', $members->count().'-টি SMS এর সমপরিমাণ মেসেজ ব্যালেন্স নেই! দয়া করে রিচার্জ করুন!');
+            return redirect()->route('sms.index');
+        }
+        // check message balance
         $smssuccesscount = 0;
 
         $mobile_numbers = [];
@@ -50,10 +56,10 @@ class SmsController extends Controller
         }
         $numbers = implode(",", $mobile_numbers);
 
-        $url = "http://66.45.237.70/api.php";
+        $url = config('sms.url');
         $data= array(
-          'username'=>"01751398392",
-          'password'=>"Bulk.Sms.Bd.123",
+          'username'=>config('sms.username'),
+          'password'=>config('sms.password'),
           'number'=>"$numbers",
           'message'=>"$request->message"
         );
@@ -149,7 +155,7 @@ class SmsController extends Controller
     //     $balance = Smsbalance::find(1);
 
     //     $smssuccesscount = 0;
-    //     $url = "http://66.45.237.70/api.php";
+    //     $url = config('sms.url');
     //     $multiCurl = array();
     //     // data to be returned
     //     $result = array();
@@ -168,8 +174,8 @@ class SmsController extends Controller
     //         }
     //         if($mobile_number != 0) {
     //             $smsdata[$i] = array(
-    //                 'username' => "01751398392",
-    //                 'password' => "Bulk.Sms.Bd.123",
+    //                 'username' => config('sms.username'),
+    //                 'password' => config('sms.password'),
     //                 'number' => $mobile_number,
     //                 'message' => $request->message,
     //                 'membership_id' => $member->id,

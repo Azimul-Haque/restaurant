@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Membership;
 use App\Smshistory;
 use App\Smsbalance;
-use Session;
+use Session, Config;
 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -59,12 +59,12 @@ class MembershipController extends Controller
                 }
             }
 
-            $url = "http://66.45.237.70/api.php";
+            $url = config('sms.url');
             $number = $mobile_number;
             $text = 'Dear ' . $request->name . ', thanks for feeling the food at Queen Island Kitchen! Please come again! Visit: http://queenislandkitchen.com';
             $data= array(
-                'username'=>"01751398392",
-                'password'=>"Bulk.Sms.Bd.123",
+                'username'=>config('sms.username'),
+                'password'=>config('sms.password'),
                 'number'=>"$number",
                 'message'=>"$text"
             );
@@ -169,12 +169,12 @@ class MembershipController extends Controller
             }
         }
 
-        $url = "http://66.45.237.70/api.php";
+        $url = config('sms.url');
         $number = $mobile_number;
         $text = 'Dear ' . $request->name . ', ' . $request->newpoint . ' points have been added to your account. Total points: ' . $member->point .  '. Please come again! Visit: http://queenislandkitchen.com';
         $data= array(
-            'username'=>"01751398392",
-            'password'=>"Bulk.Sms.Bd.123",
+            'username'=>config('sms.username'),
+            'password'=>config('sms.password'),
             'number'=>"$number",
             'message'=>"$text"
         );
@@ -259,12 +259,12 @@ class MembershipController extends Controller
             }
         }
 
-        $url = "http://66.45.237.70/api.php";
+        $url = config('sms.url');
         $number = $mobile_number;
         $text = $request->message;
         $data= array(
-        'username'=>"01751398392",
-        'password'=>"Bulk.Sms.Bd.123",
+        'username'=>config('sms.username'),
+        'password'=>config('sms.password'),
         'number'=>"$number",
         'message'=>"$text"
         );
