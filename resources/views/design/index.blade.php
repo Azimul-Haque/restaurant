@@ -72,7 +72,7 @@
                               <input type="text" name="description" class="form-control" placeholder="আইটেমের বিবরণ লিখুন" required="">
                             </div>
                             <div class="form-group">
-                                <label><strong>Photo (300 X 300 &amp; 200Kb Max):</strong></label>
+                                <label><strong>Photo (Recommended: 300px X 250px &amp; 200Kb Max):</strong></label>
                                 <div class="input-group">
                                     <span class="input-group-btn">
                                         <span class="btn btn-default btn-file">
