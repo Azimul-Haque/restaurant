@@ -262,6 +262,12 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
+                    <li class="{{ Request::is('design') ? 'active' : '' }}">
+                        <a href="{{ route('design.index') }}">
+                            <i class="fa fa-fw fa-wrench"></i>
+                            <span>Homepage Design</span>
+                        </a>
+                    </li>
                     @permission('receipt-crud')
                     <li class="{{ Request::is('income') ? 'active' : '' }}">
                         <a href="{{ route('receipts.income') }}">
@@ -403,7 +409,7 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
           <div class="pull-right hidden-xs">
-            <b>Version</b> 3.1.0
+            <b>Version</b> 4.0.0
           </div>
           <strong>Copyright © {{ date('Y') }}</strong> 
           All rights reserved.

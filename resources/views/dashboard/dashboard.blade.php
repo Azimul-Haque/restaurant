@@ -68,10 +68,14 @@
           </div><br/>
           <div class="panel panel-success">
             <div class="panel-heading">
-              <big class="blink">নতুন ফিচার! (Version 3.1.0)</big>
+              <big class="blink">নতুন ফিচার! (Version 4.0.0)</big>
             </div>
             <div class="panel-body">
               <ul>
+                <li><b>ভিজিটঃ <a href="{{ route('design.index') }}">হোমপেইজ ডিজাইন</a></b></li>
+                <li><b>আইটেম, বিবরণ, মূল্য ইত্যাদি তৈরি করা যাবে!</b></li>
+                <li><b>ছবি আপলোড করা যাবে!</b></li>
+                <li><b>ওয়েবসাইটের হোমপেজের সব কিছু ডায়নামিকালি এডিট করা যাবে!</b></li>
                 <li>Usage report appends by Rate</li>
                 <li>Welcome SMS when adding a member optional</li>
                 <li>Source Report Download (Normal print version)</li>

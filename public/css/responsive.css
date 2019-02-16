@@ -198,7 +198,7 @@ px      68    160    252    */
   }
   #slider .block .owl-carousel div img {
     width: 100%;
-    height: 220px;
+    height: auto;
     border-radius: 5px;
     padding-right: 0px;
   }

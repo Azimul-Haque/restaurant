@@ -3,22 +3,26 @@
   font-family: myfont;
   src: url(../fonts/ufonts.com_tw-cen-mt.ttf);
 }
+@font-face {
+      font-family: AdorshoLipi;
+      src: url(/fonts/AdorshoLipi.ttf);
+}
 /*--
     Common Css
 --*/
 body {
-  font-family: myfont;
+  font-family: AdorshoLipi;
   font-size: 14px;
   font-weight: 400;
 }
-h1,
+h1
 h2,
 h3,
 h4,
 h5,
 h6 {
   margin: 0px;
-  font-family: myfont;
+  font-family: AdorshoLipi;
 }
 h1 {
   font-size: 36px;
@@ -36,7 +40,7 @@ p {
   font-weight: 400;
   line-height: 20px;
   margin: 0px;
-  font-family: myfont;
+  font-family: AdorshoLipi;
 }
 ul {
   padding: 0;
@@ -519,7 +523,7 @@ nav .block .navbar-default .navbar-nav > .active > a:hover:before {
   font-size: 18px;
 }
 #subscribe .block form .form-control {
-  width: 450px;
+  width: 300px;
   background: #fff;
   opacity: 0.9;
   border: none;
@@ -707,13 +711,25 @@ nav .block .navbar-default .navbar-nav > .active > a:hover:before {
   color: #FF4F02;
 }
 
+.img-content-header {
+  color: #000;
+  padding: 5px;
+  border-bottom: 1px solid #000;
+}
+
+.QIKBanner-brand {
+  padding: 0px 0px !important;
+}
+
 .QIKBanner {
-    font-size: 50px;
+    font-family: myfont;
+    font-size: 50;
 }
 
 /* On screens that are 992px wide or less, the background color is blue */
 @media screen and (max-width: 992px) {
     .QIKBanner {
+        font-family: myfont;
         font-size: 50px;
     }
 }
@@ -721,6 +737,7 @@ nav .block .navbar-default .navbar-nav > .active > a:hover:before {
 /* On screens that are 768px wide or less, the background color is olive */
 @media screen and (max-width: 800px) {
     .QIKBanner {
+        font-family: myfont;
         font-size: 30px;
     }
 }
@@ -728,6 +745,7 @@ nav .block .navbar-default .navbar-nav > .active > a:hover:before {
 /* On screens that are 350px wide or less, the background color is olive */
 @media screen and (max-width: 350px) {
     .QIKBanner {
+        font-family: myfont;
         font-size: 25px;
     }
 }

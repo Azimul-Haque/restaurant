@@ -95,6 +95,16 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::delete('/stuffs/payment/{id}', ['as'=>'stuffs.payment.destroy','uses'=>'StuffController@destroyPayment']);
 	// Stuffs Management
 
+	// website homepage design
+	Route::get('/design', ['as'=>'design.index','uses'=>'DesignController@index']);
+	Route::post('/design/store/about/us', ['as'=>'design.store.aboutus','uses'=>'DesignController@storeAboutUs']);
+	Route::post('/design/store/menu/item', ['as'=>'design.store.menuitem','uses'=>'DesignController@storeMenuItem']);
+	Route::put('/design/update/menu/item/{id}', ['as'=>'design.update.menuitem','uses'=>'DesignController@updateMenuItem']);
+	Route::delete('/design/delete/menu/item/{id}', ['as'=>'design.destroy.menuitem','uses'=>'DesignController@destroyMenuItem']);
+	Route::post('/design/store/slider/image', ['as'=>'design.store.sliderimg','uses'=>'DesignController@storeSliderImg']); 
+	Route::delete('/design/delete/slider/image/{id}', ['as'=>'design.destroy.slideritem','uses'=>'DesignController@destroySliderImage']);
+
+	
 	// SMS Admin Panel
 	Route::get('/sms/admin', ['as'=>'sms.admin','uses'=>'SmsController@getAdmin']);
 	Route::post('/sms/add/sms', ['as'=>'sms.addsms','uses'=>'SmsController@addSms']);
@@ -107,6 +117,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 	// Public APIs
 	Route::get('member/points/{phone}','IndexController@getMemberAPI');
+	Route::post('subsribe/new/member', ['as' => 'index.subscribe', 'uses' => 'IndexController@subscribe']);
 	
 	Route::any('{query}', 
 	  function() { return redirect('/'); })
