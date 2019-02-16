@@ -23,7 +23,7 @@ class IndexController extends Controller
       $menus = Menu::orderBy('updated_at', 'desc')->get()->take(7);
       $allmenus = Menu::orderBy('id', 'desc')->get();
       $lasttwomenus = Menu::orderBy('updated_at', 'desc')->get()->take(2);
-      $sliders = Slider::all();
+      $sliders = Slider::orderBy('id', 'desc')->get();
       $sixsliders = Slider::orderBy('updated_at', 'desc')->get()->take(6);
 
       return view('index.welcome')
