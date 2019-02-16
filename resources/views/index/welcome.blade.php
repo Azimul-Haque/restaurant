@@ -413,7 +413,7 @@
                                   <p>ভোলা প্রেস ক্লাব, ভোলা-৮৩০০</p>
                                 </li>
                                 <li>
-                                  <h4><i class="fa fa-envelope"></i>ইমেলঃ</h4>
+                                  <h4><i class="fa fa-envelope"></i>ইমেইলঃ</h4>
                                   <p style="font-family: myfont;">queenislandkitchen@gmail.com</p>
                                 </li>
                             </ul>
