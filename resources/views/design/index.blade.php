@@ -72,11 +72,11 @@
                               <input type="text" name="description" class="form-control" placeholder="আইটেমের বিবরণ লিখুন" required="">
                             </div>
                             <div class="form-group">
-                                <label><strong>Photo (Recommended: 300px X 250px &amp; 200Kb Max):</strong></label>
+                                <label><strong>ছবিঃ (300 X 250 এবং 200Kb সর্বোচ্চ)</strong></label>
                                 <div class="input-group">
                                     <span class="input-group-btn">
                                         <span class="btn btn-default btn-file">
-                                            Browse <input type="file" id="image" name="image" required="">
+                                            ছবি জুড়ুন<input type="file" id="image" name="image" required="">
                                         </span>
                                     </span>
                                     <input type="text" class="form-control" readonly>
