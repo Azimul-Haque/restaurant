@@ -15,11 +15,11 @@ use Carbon\Carbon;
 
 class ReceiptController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct() 
+    {
+      parent::__construct();
+    }
+    
     public function index(Request $request)
     {
         $data = Receipt::where('isdeleted', '=', 0)

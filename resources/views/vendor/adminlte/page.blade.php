@@ -71,9 +71,79 @@
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <li class="tasks-menu">
-                            <a href="{{ url('/') }}" target="_blank">
-                                <i class="fa fa-fw fa-eye" aria-hidden="true"></i> View Website
+                            <a href="{{ url('/') }}" target="_blank" title="View Website" data-placement="bottom">
+                                <i class="fa fa-fw fa-eye" aria-hidden="true"></i>
                             </a>
+                        </li>
+                        <li class="dropdown tasks-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <i class="fa fa-bell-o" aria-hidden="true"></i>
+                                @php
+                                  $notificationcounter = 0;
+                                @endphp
+                                
+                                  @if($publicbalance->balance < 100)
+                                    @php
+                                      $notificationcounter++;
+                                    @endphp
+                                  @endif
+                                  @if($notificationcounter > 0)
+                                    <span class="label label-warning">
+                                      {{ $notificationcounter }}
+                                    </span>
+                                  @endif
+                            </a>
+                                <ul class="dropdown-menu">
+                                  <li class="header">QIK Notification</li>
+                                  <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                      @if($notificationcounter > 0)
+                                        @if($publicbalance->balance < 100)
+                                          <li>
+                                            <a href="#">
+                                              <i class="fa fa-warning text-yellow"></i>
+                                              <span class="text-red">SMS Balance is too low, please recharge!</span>
+                                            </a>
+                                          </li>
+                                        @endif
+                                      @else
+                                      <li>
+                                        <a href="#">
+                                          <i class="fa fa-check text-aqua"></i> No notifications!
+                                        </a>
+                                      </li>
+                                      @endif
+                                      {{--<li>
+                                        < a href="#">
+                                          <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="#">
+                                          <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
+                                          page and may cause design problems
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="#">
+                                          <i class="fa fa-users text-red"></i> 5 new members joined
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="#">
+                                          <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="#">
+                                          <i class="fa fa-user text-red"></i> You changed your username
+                                        </a>
+                                      </li> --}}
+                                    </ul>
+                                  </li>
+                                  <li class="footer"><a href="#!">See All</a></li>
+                                </ul>
                         </li>
                         <!-- <li class="dropdown tasks-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -421,6 +491,11 @@
 
 @section('adminlte_js')
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+    <script>
+      $(document).ready(function() {
+        $('a[title]').tooltip();
+      });
+    </script>
     @stack('js')
     @yield('js')
 @stop

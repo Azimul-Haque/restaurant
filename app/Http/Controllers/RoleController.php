@@ -12,6 +12,7 @@ class RoleController extends Controller
 {
     public function __construct(){
         $this->middleware('role:superadmin');
+        parent::__construct();
     }
 
     

@@ -13,6 +13,11 @@ use App\Stuffpayment;
 
 class StuffController extends Controller
 {
+    public function __construct() 
+    {
+      parent::__construct();
+    }
+
     public function index()
     {
         $stuffs = Stuff::all();

@@ -15,8 +15,8 @@ class UserController extends Controller
     public function __construct(){
         $this->middleware('role:superadmin');
         //$this->middleware('permission:theSpecificPermission', ['only' => ['create', 'store', 'edit', 'delete']]);
+        parent::__construct();
     }
-    
 
     public function index(Request $request)
     {

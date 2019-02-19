@@ -17,6 +17,11 @@ use Carbon\Carbon;
 
 class MembershipController extends Controller
 {
+    public function __construct() 
+    {
+      parent::__construct();
+    }
+    
     public function getIndex() {
 
       $memberships = Membership::where('isdeleted', '=', 0)

@@ -15,6 +15,11 @@ use Auth;
 
 class QikstockController extends Controller
 {
+    public function __construct() 
+    {
+      parent::__construct();
+    }
+
     public function index()
     {
         $stocks = Qikstock::orderBy('name', 'asc')

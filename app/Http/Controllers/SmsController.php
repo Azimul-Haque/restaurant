@@ -12,6 +12,11 @@ use SoapClient, Session, Config;
 
 class SmsController extends Controller
 {
+    public function __construct() 
+    {
+      parent::__construct();
+    }
+    
     public function index()
     {
         $balance = Smsbalance::find(1);

@@ -21,6 +21,11 @@ use File;
 
 class DesignController extends Controller
 {
+    public function __construct() 
+    {
+      parent::__construct();
+    }
+    
     public function index()
     {
         $aboutus = Aboutus::find(1);

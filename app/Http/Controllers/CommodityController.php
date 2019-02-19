@@ -19,11 +19,10 @@ use Carbon\Carbon;
 
 class CommodityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct() 
+    {
+      parent::__construct();
+    }
     public function index()
     {
         $commodities = Commodity::where('isdeleted', '=', 0)

@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct() 
+    {
+      parent::__construct();
+    }
+    
     public function index()
     {
         // $categories = DB::table('categories')->orderByRaw('LENGTH(name) asc')

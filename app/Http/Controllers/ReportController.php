@@ -25,6 +25,11 @@ use PDF;
 
 class ReportController extends Controller
 {
+    public function __construct() 
+    {
+      parent::__construct();
+    }
+    
     public function getIndex()
     {
         $sources = Source::all();

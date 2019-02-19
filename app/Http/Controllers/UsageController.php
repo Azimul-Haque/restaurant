@@ -13,11 +13,11 @@ use App\Usage;
 
 class UsageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct() 
+    {
+      parent::__construct();
+    }
+    
     public function index()
     {
         $usages = Usage::orderBy('created_at', 'desc')->get();
