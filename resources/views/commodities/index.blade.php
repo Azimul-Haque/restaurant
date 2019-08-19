@@ -7,7 +7,8 @@
       Commodities
       <div class="pull-right">
         <button class="btn btn-warning" data-toggle="modal" data-target="#addCommodityModal" data-backdrop="static"id=""><i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Commodity</button>
-        <button class="btn btn-primary" id="printBtn"><i class="fa fa-fw fa-print" aria-hidden="true"></i> Print</button>
+        {{-- <button class="btn btn-primary" id="printBtn"><i class="fa fa-fw fa-print" aria-hidden="true"></i> Print</button> --}}
+        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteAllCommodityModal" data-backdrop="static"id=""><i class="fa fa-fw fa-trash" aria-hidden="true"></i> Delete All Commodities</button>
       </div>
   </h1>
   <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
@@ -252,6 +253,33 @@
       </div>
       <!-- Add Commodity Modal -->
       <!-- Add Commodity Modal -->
+
+      <!-- Delete All Commodity Modal -->
+      <!-- Delete All Commodity Modal -->
+      <div class="modal fade" id="deleteAllCommodityModal" role="dialog">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-header modal-header-danger">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Delete All Commodities</h4>
+            </div>
+            <div class="modal-body">
+              <big>
+                Confirm Delete All commodities? <br/><br/>              
+                <span style="color: red;"><i class="fa fa-exclamation-triangle"></i> ডিলেট করলে ডাটা ফিরে পাওয়া যাবে না!</span>
+              </big>
+            </div>
+            <div class="modal-footer">
+              {!! Form::open(['route' => 'commodities.delete.all', 'method' => 'POST']) !!}
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              {!! Form::close() !!}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Delete All Commodity Modal -->
+      <!-- Delete All Commodity Modal -->
     </div>
   </div>
 @stop
@@ -309,7 +337,7 @@
 </script>
 
 {{-- print code --}}
-<script type="text/javascript">
+{{-- <script type="text/javascript">
   document.getElementById("printBtn").onclick = function () {
       printElement(document.getElementById("printTable"));
   }
@@ -325,7 +353,7 @@
       $printSection.appendChild(domClone);
       window.print();
   }
-</script>
+</script> --}}
 {{-- print code --}}
 
 <script type="text/javascript">

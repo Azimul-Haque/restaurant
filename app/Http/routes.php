@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('sales', ['as'=>'receipts.sales','uses'=>'ReceiptController@getSales']);
 	Route::get('deleted/receipts', ['as'=>'receipts.deleted','uses'=>'ReceiptController@getDeleted']);
 	Route::get('deleted/commodities', ['as'=>'commodities.deleted','uses'=>'CommodityController@getDeleted']);
+	Route::post('delete/all/commodities', ['as'=>'commodities.delete.all','uses'=>'CommodityController@deleteAllCommodities']);
 
 	// APIs
 	Route::get('categories/getcategoryunit/{id}','CategoryController@getCategoryUnitAPI');

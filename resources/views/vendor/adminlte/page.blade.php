@@ -479,7 +479,7 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
           <div class="pull-right hidden-xs">
-            <b>Version</b> 4.0.0
+            <b>Version</b> 4.1.0
           </div>
           <strong>Copyright © {{ date('Y') }}</strong> 
           All rights reserved.

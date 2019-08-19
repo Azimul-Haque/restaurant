@@ -250,4 +250,13 @@ class CommodityController extends Controller
         //redirect
         return redirect()->route('commodities.index');
     }
+
+    public function deleteAllCommodities(Request $request)
+    {
+        Commodity::truncate();
+
+        Session::flash('success', 'Deleted successfully!');
+        //redirect
+        return redirect()->route('commodities.index');
+    }
 }

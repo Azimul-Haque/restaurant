@@ -68,10 +68,11 @@
           </div><br/>
           <div class="panel panel-success">
             <div class="panel-heading">
-              <big class="blink">নতুন ফিচার! (Version 4.0.0)</big>
+              <big class="blink">নতুন ফিচার! (Version 4.1.0)</big>
             </div>
             <div class="panel-body">
               <ul>
+                <li><b>অল কমোডিটি এক বাটনে ডিলিটঃ <a href="{{ route('commodities.index') }}">দেখুন</a></b></li>
                 <li><b>ভিজিটঃ <a href="{{ route('design.index') }}">হোমপেইজ ডিজাইন</a></b></li>
                 <li><b>আইটেম, বিবরণ, মূল্য ইত্যাদি তৈরি করা যাবে!</b></li>
                 <li><b>ছবি আপলোড করা যাবে!</b></li>
