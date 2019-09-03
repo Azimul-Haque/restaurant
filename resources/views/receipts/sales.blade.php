@@ -19,7 +19,7 @@
     </div>
   @endif --}}
     <div class="table-responsive">
-      <table class="table table-condensed" id="datatable-itemwise">
+      <table class="table table-condensed" id="">
         <thead>
           <tr>
             <th>Date</th>
@@ -141,6 +141,7 @@
         </tbody>
       </table>
     </div>
+    <div>{{ $sales->links() }}</div>
     @endpermission
 @stop
 
@@ -148,7 +149,7 @@
   <script type="text/javascript">
   $(function () {
     //$.fn.dataTable.moment('DD MMMM, YYYY hh:mm:ss tt');
-    $('#datatable-itemwise').DataTable({
+    $('#').DataTable({
       'paging'      : true,
       'pageLength'  : 20,
       'lengthChange': true,

@@ -34,7 +34,7 @@ class ReceiptController extends Controller
                         ->where('isdeleted', '=', 0)
                         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                         ->orderBy('created_at', 'DESC')
-                        ->get();
+                        ->paginate(20);
                         //dd($sales);
         DB::statement('SET SESSION group_concat_max_len = 1000000');
         $details = DB::table('receipts')
