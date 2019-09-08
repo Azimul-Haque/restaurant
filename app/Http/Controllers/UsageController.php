@@ -20,7 +20,7 @@ class UsageController extends Controller
     
     public function index()
     {
-        $usages = Usage::orderBy('created_at', 'desc')->paginate(20);
+        $usages = Usage::orderBy('created_at', 'desc')->paginate(15);
         $categories = Category::all();
 
         return view('usages.index')
