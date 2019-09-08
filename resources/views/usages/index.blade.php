@@ -116,29 +116,33 @@
       </tbody>
     </table>
   </div>
+
+  <div>
+    {{ $usages->links() }}
+  </div>
 @stop
 
 
 @section('js')
   <script type="text/javascript">
-    $(function () {
-      $('#datatable-dailyusage').DataTable({
-        'paging'      : true,
-        'pageLength'  : 20,
-        'lengthChange': true,
-        'searching'   : true,
-        'ordering'    : true,
-        'info'        : true,
-        'autoWidth'   : true,
-        'order': [[ 3, "desc" ]],
-        columnDefs: [
-              { targets: [4], visible: true, searchable: false},
-              { targets: '_all', visible: true, searchable: true },
-              { targets: [3], type: 'date'}
-        ]
-      });
-      $('#datatable-dailyusage_wrapper').removeClass( 'form-inline' );
-    })
+    // $(function () {
+    //   $('#datatable-dailyusage').DataTable({
+    //     'paging'      : true,
+    //     'pageLength'  : 20,
+    //     'lengthChange': true,
+    //     'searching'   : true,
+    //     'ordering'    : true,
+    //     'info'        : true,
+    //     'autoWidth'   : true,
+    //     'order': [[ 3, "desc" ]],
+    //     columnDefs: [
+    //           { targets: [4], visible: true, searchable: false},
+    //           { targets: '_all', visible: true, searchable: true },
+    //           { targets: [3], type: 'date'}
+    //     ]
+    //   });
+    //   $('#datatable-dailyusage_wrapper').removeClass( 'form-inline' );
+    // })
   </script>
   {{-- print code --}}
   <script type="text/javascript">
