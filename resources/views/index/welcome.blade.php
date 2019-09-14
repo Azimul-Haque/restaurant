@@ -41,7 +41,7 @@
   header-img start 
   ============================== -->
     <section id="hero-area">
-      <img class="img-responsive" src="images/header.jpg" alt="">
+      <img class="img-responsive" src="images/header.jpg" alt="" style="width: 100%;">
     </section>
   <!--
     Header start 
