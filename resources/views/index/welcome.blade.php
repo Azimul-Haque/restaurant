@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Queen Island Kitchen | Feel The Food</title>
-    <meta name="description" content="">
+    <meta name="description" content="Official website of Queen Island Kitchen, Press Club Bulding, Bhola-8300, Bangladesh. &copy; {{ date('Y') }} Copyright Reserved. Developed By A. H. M. Azimul Haque. Slogan: *** FEEL THE FOOD ***"/>
+    <meta name="author" content="Queen Island Kitchen, Queen Island, Bhola, Restaurant">
+    <meta name="keywords" content="A. H. M. Azimul Haque">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" sizes="192x192" href="{{ asset('images/icon.png') }}">
     <meta name="theme-color" content="#AD7E61">
     <meta name="msapplication-navbutton-color" content="#AD7E61">
     <meta name="apple-mobile-web-app-status-bar-style" content="#AD7E61">
-    <meta name="description" content="Official website of Queen Island Kitchen, Press Club Bulding, Bhola-8300, Bangladesh. &copy; {{ date('Y') }} Copyright Reserved. Developed By A. H. M. Azimul Haque. Slogan: *** FEEL THE FOOD ***"/>
     <!-- CSS
         ================================================ -->
         <!-- Owl Carousel -->
