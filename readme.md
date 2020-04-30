@@ -9,3 +9,7 @@ If you discover a security vulnerability within this Application, please send an
 ## License
 
 The application under Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+## Version
+
+Version 1.0.5 | Updated: May 01, 2020;

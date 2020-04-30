@@ -284,7 +284,7 @@
     });
     $('#datatable-members_wrapper').removeClass( 'form-inline' );
   })
-</script>
+  </script>
 
 {{-- print code --}}
 <script type="text/javascript">
