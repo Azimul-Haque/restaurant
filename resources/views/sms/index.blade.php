@@ -141,7 +141,7 @@
           $('#smsamounttext').html('<span style="color:red;">কমপক্ষে <b>500</b> মেসেজ লিখুন!</span>');
         } else {
           var rechargeamount = Math.ceil(($('#smsamount').val() * .40) + (($('#smsamount').val() * .40) * (2/100)));
-          $('#smsamounttext').html('<big><b>01837409842</b></big> (বিকাশ পার্সোনাল) নম্বরে মোটঃ <big><b>' + rechargeamount + '/-</b></big> টাকা বিকাশ করুন এবং ফোন দিয়ে জানিয়ে দিন। ১ ঘন্টার মধ্যে ব্যালেন্স রিচার্জ করে দেওয়া হবে।');
+          $('#smsamounttext').html('<big><b>01751398392</b></big> (বিকাশ পার্সোনাল) নম্বরে মোটঃ <big><b>' + rechargeamount + '/-</b></big> টাকা বিকাশ করুন এবং ফোন দিয়ে জানিয়ে দিন। ১ ঘন্টার মধ্যে ব্যালেন্স রিচার্জ করে দেওয়া হবে।');
         }
     });
   </script>
